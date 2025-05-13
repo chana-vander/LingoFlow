@@ -1,0 +1,43 @@
+.recorder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .recording-indicator {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .pulse-circle {
+    width: 16px;
+    height: 16px;
+    background-color: red;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+  }
+  
+  .timer {
+    font-size: 18px;
+    font-family: monospace;
+    color: #333;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+  }
+  

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "7EI/lvSPjm43Th/OoAaSvGCdFx+1SGEsp9r1rmsJSlM=",
+  "Source": "LingoFlow.Api",
+  "BasePath": "_content/LingoFlow.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

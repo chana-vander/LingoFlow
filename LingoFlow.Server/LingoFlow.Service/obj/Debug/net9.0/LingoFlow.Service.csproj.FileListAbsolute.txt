@@ -1,0 +1,35 @@
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Service.deps.json
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Service.dll
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Service.pdb
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Core.dll
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Data.dll
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Core.pdb
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Data.pdb
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.csproj.AssemblyReference.cache
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.AssemblyInfoInputs.cache
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.AssemblyInfo.cs
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.csproj.CoreCompileInputs.cache
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlo.AF2EF87F.Up2Date
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.dll
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\refint\LingoFlow.Service.dll
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.pdb
+C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\ref\LingoFlow.Service.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Service.deps.json
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Service.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Service.pdb
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Core.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Data.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Core.pdb
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\bin\Debug\net9.0\LingoFlow.Data.pdb
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.csproj.AssemblyReference.cache
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.AssemblyInfoInputs.cache
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.AssemblyInfo.cs
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.csproj.CoreCompileInputs.cache
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.sourcelink.json
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlo.AF2EF87F.Up2Date
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\refint\LingoFlow.Service.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\LingoFlow.Service.pdb
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Service\obj\Debug\net9.0\ref\LingoFlow.Service.dll
