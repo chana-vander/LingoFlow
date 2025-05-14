@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LingoFlow.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+850b6f58975f4eef4d965b4c9ce2807977ad091f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7086a192b85b99751f024f7bbb491093fc056fec")]
 [assembly: System.Reflection.AssemblyProductAttribute("LingoFlow.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LingoFlow.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

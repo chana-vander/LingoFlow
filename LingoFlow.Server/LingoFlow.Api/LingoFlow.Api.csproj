@@ -29,10 +29,4 @@
     <ProjectReference Include="..\LingoFlow.Service\LingoFlow.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update=".env">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
