@@ -177,6 +177,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
+    "Method": "GetRecordingsByUserId",
+    "RelativePath": "api/Conversation/user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "LingoFlow.Api.Controllers.FeedbackController",
     "Method": "Get",
     "RelativePath": "api/Feedback",
@@ -416,6 +432,22 @@
         "Name": "level",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MagicalMusic.Api.Controllers.UploadController",
+    "Method": "GetDownloadPresignedUrl",
+    "RelativePath": "api/upload/download-url",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fileName",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

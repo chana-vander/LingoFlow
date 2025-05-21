@@ -183,7 +183,6 @@ C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\appsettings.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\libman.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\LingoFlow.Api.staticwebassets.endpoints.json
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\.env
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\LingoFlow.Api.exe
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\LingoFlow.Api.deps.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\LingoFlow.Api.runtimeconfig.json

@@ -4,9 +4,11 @@ using LingoFlow.Core.Dto;
 using LingoFlow.Core.Models;
 using LingoFlow.Core.Services;
 using LingoFlow.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Numerics;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -91,6 +93,20 @@ namespace LingoFlow.Api.Controllers
                 return StatusCode(500, $"Error uploading file: {ex.Message}");
             }
         }
+        //שליפת הקלטות לפי מזהה
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetRecordingsByUserId(int userId)
+        {
+            var recordings = await _conversationService.GetRecordingsByUserIdAsync(userId);
+
+            if (recordings == null || !recordings.Any())
+            {
+                return NotFound($"No recordings found for user ID {userId}");
+            }
+
+            return Ok(recordings);
+        }
+
 
 
         //פונקציה להתחלת הקלטה

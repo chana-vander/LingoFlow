@@ -52,15 +52,16 @@ const Header = () => {
                                 </Typography>
                             </>
                         ) :
-                         (
-                            <Typography variant="body2" sx={{ color: 'white' }}>
-                                ❓ לא מחובר
-                            </Typography>
-                        )
+                            (
+                                <Typography variant="body2" sx={{ color: 'white' }}>
+                                    ❓ לא מחובר
+                                </Typography>
+                            )
                         }
                     </Box>
                     {/* צד ימין - כפתורי תפריט */}
                     <Box sx={{ display: "flex", gap: 3, padding: "20px", marginRight: "20px" }}>
+                        <Button color="inherit" onClick={() => handleProtectedClick("/user-recording")}>ההקלטות שלי</Button>
                         <Button color="inherit" onClick={() => handleProtectedClick("/feedback")}>צפייה במשוב</Button>
                         <Button color="inherit" onClick={() => handleProtectedClick("/record")}>התחלת הקלטה</Button>
                         <Button color="inherit" onClick={() => handleProtectedClick("/choose-level")}>נושאי שיחה</Button>

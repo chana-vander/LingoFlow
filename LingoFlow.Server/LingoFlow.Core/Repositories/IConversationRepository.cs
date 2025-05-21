@@ -14,6 +14,7 @@ namespace LingoFlow.Core.Repositories
         Task<Conversation> AddConversationAsync(Conversation conversation); // הוספת שיחה
         Task<bool> DeleteAsync(int id);
         Task<Conversation> UpdateAsync(Conversation conversation);
+        Task<List<Conversation>> GetByUserIdAsync(int userId);
         //Task<Conversation> StartConversationAsync(int userId, int TopicId);//התחלת הקלטה
     }
 }

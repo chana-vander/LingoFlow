@@ -55,5 +55,12 @@ namespace LingoFlow.Data.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<Conversation>> GetByUserIdAsync(int userId)
+        {
+            return await _context.Conversations
+                .Where(r => r.UserId == userId)
+                .ToListAsync();
+        }
+
     }
 }

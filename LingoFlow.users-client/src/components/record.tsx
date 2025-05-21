@@ -407,6 +407,7 @@ const AudioRecorder: React.FC = observer(() => {
     setUploadProgress(0)
     showNotification("מוכן להקלטה חדשה", "info")
   }
+  const uniqueFileName = `${userId}/${recordingName}-${new Date().toISOString()}.mp3`
 
   // Get presigned URL for S3 upload
   const getPresignedUrl = async () => {
@@ -415,7 +416,7 @@ const AudioRecorder: React.FC = observer(() => {
       return
     }
 
-    const uniqueFileName = `${userId}/${recordingName}-${new Date().toISOString()}.mp3`
+    // const uniqueFileName = `${userId}/${recordingName}-${new Date().toISOString()}.mp3`
 
     try {
       const response = await fetch(`http://localhost:5092/api/upload/presigned-url?fileName=${uniqueFileName}`)
@@ -496,16 +497,17 @@ const AudioRecorder: React.FC = observer(() => {
   // Save record to database
   const saveRecordToDatabase = async (url: string) => {
     if (!userId || !selectedTopic || !recordingName) {
-      showNotification("חסרים פרטים לשמירה במסד הנתונים", "error")
+      // showNotification("חסרים פרטים לשמירה במסד הנתונים", "error")
       return
     }
 
     const record: Record = {
       userId: userId,
       topicId: selectedTopic,
-      name: recordingName,
+      name: uniqueFileName,
       length: formatTime(duration),
       url: url,
+      // url: uniqueFileName,
       date: new Date(),
     }
 
@@ -528,7 +530,6 @@ const AudioRecorder: React.FC = observer(() => {
       showNotification("שגיאה בשמירת פרטי ההקלטה", "error")
     }
   }
-
   // Download recording
   const downloadRecording = () => {
     if (!audioURL) return

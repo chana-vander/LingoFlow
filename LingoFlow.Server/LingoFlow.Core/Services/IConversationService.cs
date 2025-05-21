@@ -18,5 +18,8 @@ namespace LingoFlow.Core.Services
         Task<ConversationDto> UpdateConversationAsync(int id, ConversationDto conversationDto);
         Task<bool> DeleteConversationAsync(int id);
         Task<string> UploadToS3Async(Stream fileStream, string topicName, int userId);
+        Task<List<Conversation>> GetRecordingsByUserIdAsync(int userId);
+
+
     }
 }

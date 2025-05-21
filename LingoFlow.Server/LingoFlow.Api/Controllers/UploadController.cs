@@ -63,5 +63,24 @@ namespace MagicalMusic.Api.Controllers
             string url = _s3Client.GetPreSignedURL(request);
             return Ok(new { url });
         }
+
+        // מחזיר URL חתום מראש להורדת קובץ (להשמעה)
+        [HttpGet("download-url")]
+        public IActionResult GetDownloadPresignedUrl([FromQuery] string fileName)
+        {
+            var bucketName = Env.GetString("AWS__BucketName");
+
+            var request = new GetPreSignedUrlRequest
+            {
+                BucketName = bucketName,
+                Key = fileName,
+                Verb = HttpVerb.GET,
+                Expires = DateTime.UtcNow.AddMinutes(5)
+            };
+
+            string url = _s3Client.GetPreSignedURL(request);
+            return Ok(new { url });
+        }
+
     }
 }

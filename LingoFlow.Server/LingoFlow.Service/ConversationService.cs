@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LingoFlow.Service.ConversationService;
 
 namespace LingoFlow.Service
 {
@@ -28,7 +29,7 @@ namespace LingoFlow.Service
         private readonly IAmazonS3 _s3Client;
         private readonly IConfiguration _configuration;
 
-        public ConversationService(IConversationRepository conversationRepository, IUserRepository userRepository, ITopicRepository topicRepository, IMapper mapper, IManagerRepository managerRepository,IAmazonS3 s3Client, IConfiguration configuration)
+        public ConversationService(IConversationRepository conversationRepository, IUserRepository userRepository, ITopicRepository topicRepository, IMapper mapper, IManagerRepository managerRepository, IAmazonS3 s3Client, IConfiguration configuration)
         {
             _conversationRepository = conversationRepository;
             _userRepository = userRepository;
@@ -66,6 +67,11 @@ namespace LingoFlow.Service
             await _managerRepository.SaveChangesAsync();
 
             return addedConversation;
+        }
+
+        public async Task<List<Conversation>> GetRecordingsByUserIdAsync(int userId)
+        {
+            return await _conversationRepository.GetByUserIdAsync(userId);
         }
 
         //public async Task<Conversation?> StartRecordingAsync(int userId, int TopicId)
