@@ -109,6 +109,9 @@ const Login = () => {
             //changed
             // localStorage.setItem("user", JSON.stringify(result));
             // localStorage.setItem("userId",JSON.stringify(result.user.id));
+            console.log(result.user);
+            console.log(result.data);
+            
             userStore.setUser(result.user);
             navigate("/");
         } catch (error: unknown) {

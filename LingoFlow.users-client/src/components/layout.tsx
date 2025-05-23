@@ -14,7 +14,7 @@ const Layout = () => {
       }}
     >
       <Header />
-      <Box component="main" sx={{ flex: 1, p: 2 ,paddingTop:'80px'}}>
+      <Box component="main" sx={{ flex: 1, p: 2 ,paddingTop:'37px'}}>
         <Outlet />
       </Box>
       <Footer />

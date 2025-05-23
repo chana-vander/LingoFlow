@@ -11,7 +11,8 @@ const Footer = () => {
         px: 4,
         mt: "auto",
         textAlign: "center",
-        borderTop: "4px solid #1565c0"
+        borderTop: "4px solid #1565c0",
+        width:"100vw"
       }}
     >
       <Stack direction="row" spacing={2} justifyContent="center" sx={{ mb: 1 }}>

@@ -1,0 +1,53 @@
+.record-item {
+    position: relative;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.3s ease;
+    border-radius: 12px;
+  }
+  
+  .record-item:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .record-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .record-actions {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .record-item:hover .record-actions {
+    opacity: 1;
+  }
+  
+  .wave-animation {
+    position: absolute;
+    right: 20px;
+    bottom: 16px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #1976d2;
+    animation: wavePulse 1.2s infinite ease-in-out;
+  }
+  
+  @keyframes wavePulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.8);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+  }
+  
