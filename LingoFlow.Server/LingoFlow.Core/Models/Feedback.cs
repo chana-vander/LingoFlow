@@ -8,11 +8,27 @@ namespace LingoFlow.Core.Models
 {
     public class Feedback
     {
+
         public int Id { get; set; }
         public int ConversationId { get; set; }
-        public Conversation Conversation { get; set; }
-        public string Comments { get; set; }
-        public int Score { get; set; } // למשל, ציון מ-1 עד 10
+
+        public int UsedWordsCount { get; set; }
+        public int TotalWordsRequired { get; set; }
+
+        public int GrammarScore { get; set; }
+        public string GrammarComment { get; set; }
+
+        public int FluencyScore { get; set; }
+        public string FluencyComment { get; set; }
+
+        public int VocabularyScore { get; set; }
+        public string VocabularyComment { get; set; }
+
+        public string GeneralFeedback { get; set; }
+
+        public int Score { get; set; }
         public DateTime GivenAt { get; set; }
+
+
     }
 }

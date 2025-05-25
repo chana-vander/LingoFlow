@@ -33,8 +33,28 @@ namespace LingoFlow.Core
 
         public static FeedbackDto MapFeedbackDto(Feedback feedback)
         {
-            return new FeedbackDto { Id = feedback.Id, ConversationId = feedback.ConversationId, Comments = feedback.Comments, Score = feedback.Score };
+            return new FeedbackDto
+            {
+                Id = feedback.Id,
+                ConversationId = feedback.ConversationId,
+
+                UsedWordsCount = feedback.UsedWordsCount,
+                TotalWordsRequired = feedback.TotalWordsRequired,
+
+                GrammarScore = feedback.GrammarScore,
+                GrammarComment = feedback.GrammarComment,
+
+                FluencyScore = feedback.FluencyScore,
+                FluencyComment = feedback.FluencyComment,
+
+                VocabularyScore = feedback.VocabularyScore,
+                VocabularyComment = feedback.VocabularyComment,
+
+                GeneralFeedback = feedback.GeneralFeedback,
+                Score = feedback.Score
+            };
         }
+
         public static TopicDto MapToTopicDto(Topic Topic)
         {
             return new TopicDto { Id = Topic.Id, Name = Topic.Name };

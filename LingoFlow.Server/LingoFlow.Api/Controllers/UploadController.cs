@@ -56,7 +56,7 @@ namespace MagicalMusic.Api.Controllers
                 BucketName = bucketName,
                 Key = fileName,
                 Verb = HttpVerb.PUT,
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddMinutes(60),
                 ContentType = "audio/mp3" // סוג הקובץ המתאים
             };
 
@@ -75,12 +75,11 @@ namespace MagicalMusic.Api.Controllers
                 BucketName = bucketName,
                 Key = fileName,
                 Verb = HttpVerb.GET,
-                Expires = DateTime.UtcNow.AddMinutes(5)
+                Expires=DateTime.UtcNow.AddDays(300)
             };
 
             string url = _s3Client.GetPreSignedURL(request);
             return Ok(new { url });
         }
-
     }
 }

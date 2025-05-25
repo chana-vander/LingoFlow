@@ -196,6 +196,7 @@
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { observer } from "mobx-react-lite"
+import AudioTranscriber from "./audioTranscriber"
 import userStore from "../stores/userStore"
 import topicStore from "../stores/topicStore"
 import recordStore from "../stores/recordStore"
@@ -623,28 +624,30 @@ const AudioRecorder: React.FC = observer(() => {
   }
 
   return (
-    <div className="audio-recorder-container" dir="rtl">
-      <div className="recorder-header">
-        <h1>מערכת הקלטות</h1>
-        <p className="subtitle">הקלט, שמור ושתף הקלטות בקלות</p>
-      </div>
+    <>
 
-      <div className="recorder-card">
-        <div className="recorder-form">
-          <div className="form-group">
-            <label htmlFor="recording-name">שם ההקלטה:</label>
-            <input
-              id="recording-name"
-              type="text"
-              value={recordingName}
-              onChange={(e) => setRecordingName(e.target.value)}
-              placeholder="הזן שם עבור ההקלטה שלך"
-              disabled={isRecording}
-              className="input-field"
-            />
-          </div>
+      <div className="audio-recorder-container" dir="rtl">
+        <div className="recorder-header">
+          <h1>מערכת הקלטות</h1>
+          <p className="subtitle">הקלט, שמור ושתף הקלטות בקלות</p>
+        </div>
 
-          {/* <div className="form-group">
+        <div className="recorder-card">
+          <div className="recorder-form">
+            <div className="form-group">
+              <label htmlFor="recording-name">שם ההקלטה:</label>
+              <input
+                id="recording-name"
+                type="text"
+                value={recordingName}
+                onChange={(e) => setRecordingName(e.target.value)}
+                placeholder="הזן שם עבור ההקלטה שלך"
+                disabled={isRecording}
+                className="input-field"
+              />
+            </div>
+
+            {/* <div className="form-group">
             <label htmlFor="topic-select">נושא ההקלטה:</label>
             <select
               id="topic-select"
@@ -664,142 +667,150 @@ const AudioRecorder: React.FC = observer(() => {
               ))}
             </select>
           </div> */}
-          <div className="form-group">
-            <label htmlFor="topic-select">נושא ההקלטה:</label>
-            <select
-              id="topic-select"
-              value={selectedTopic ?? ""}
-              onChange={(e) => topicStore.setSelectedTopic(Number(e.target.value))}
-              disabled={isRecording}
-              className="select-field"
-            >
-              <option value="" disabled>
-                בחר נושא
-              </option>
-              {topicStore.topics.map((topic: any) => (
-                <option key={topic.id} value={topic.id}>
-                  {topic.name}
+            <div className="form-group">
+              <label htmlFor="topic-select">נושא ההקלטה:</label>
+              <select
+                id="topic-select"
+                value={selectedTopic ?? ""}
+                onChange={(e) => topicStore.setSelectedTopic(Number(e.target.value))}
+                disabled={isRecording}
+                className="select-field"
+              >
+                <option value="" disabled>
+                  בחר נושא
                 </option>
-              ))}
-            </select>
+                {topicStore.topics.map((topic: any) => (
+                  <option key={topic.id} value={topic.id}>
+                    {topic.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-        </div>
 
-        <div className="recorder-controls">
-          {!isRecording && !audioURL && (
-            <button className="control-button primary" onClick={startRecording} disabled={!userId} title="התחל הקלטה">
-              <Mic size={24} />
-              <span>התחל הקלטה</span>
-            </button>
-          )}
-
-          {isRecording && !isPaused && (
-            <>
-              <button className="control-button warning" onClick={pauseRecording} title="השהה הקלטה">
-                <Pause size={24} />
-                <span>השהה</span>
-              </button>
-
-              <button className="control-button danger" onClick={stopRecording} title="סיים הקלטה">
-                <Square size={24} />
-                <span>סיים</span>
-              </button>
-
-              <button className="control-button secondary" onClick={cancelRecording} title="בטל הקלטה">
-                <X size={24} />
-                <span>בטל</span>
-              </button>
-            </>
-          )}
-
-          {isRecording && isPaused && (
-            <>
-              <button className="control-button primary" onClick={resumeRecording} title="המשך הקלטה">
+          <div className="recorder-controls">
+            {!isRecording && !audioURL && (
+              <button className="control-button primary" onClick={startRecording} disabled={!userId} title="התחל הקלטה">
                 <Mic size={24} />
-                <span>המשך</span>
+                <span>התחל הקלטה</span>
               </button>
+            )}
 
-              <button className="control-button danger" onClick={stopRecording} title="סיים הקלטה">
-                <Square size={24} />
-                <span>סיים</span>
-              </button>
-
-              <button className="control-button secondary" onClick={cancelRecording} title="בטל הקלטה">
-                <X size={24} />
-                <span>בטל</span>
-              </button>
-            </>
-          )}
-        </div>
-
-        {isRecording && (
-          <div className="recording-indicator">
-            <div className={`pulse ${isPaused ? "paused" : ""}`}></div>
-            <span className="recording-time">{formatTime(duration)}</span>
-            <span className="recording-status">{isPaused ? "מושהה" : "מקליט..."}</span>
-          </div>
-        )}
-
-        {audioURL && (
-          <div className="playback-section">
-            <h3>הקלטה מוכנה!</h3>
-
-            <div className="audio-player">
-              <audio ref={audioRef} src={audioURL} controls></audio>
-
-              <div className="playback-controls">
-                <button
-                  className="control-button secondary"
-                  onClick={togglePlayback}
-                  title={isPlaying ? "השהה" : "נגן"}
-                >
-                  {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+            {isRecording && !isPaused && (
+              <>
+                <button className="control-button warning" onClick={pauseRecording} title="השהה הקלטה">
+                  <Pause size={24} />
+                  <span>השהה</span>
                 </button>
 
-                <button className="control-button secondary" onClick={downloadRecording} title="הורד">
-                  <Download size={20} />
+                <button className="control-button danger" onClick={stopRecording} title="סיים הקלטה">
+                  <Square size={24} />
+                  <span>סיים</span>
                 </button>
 
-                <button className="control-button secondary" onClick={shareRecording} title="שתף">
-                  <Share2 size={20} />
+                <button className="control-button secondary" onClick={cancelRecording} title="בטל הקלטה">
+                  <X size={24} />
+                  <span>בטל</span>
                 </button>
-              </div>
-            </div>
+              </>
+            )}
 
-            <div className="action-buttons">
-              <button
-                className="control-button primary"
-                onClick={uploadFileToS3}
-                disabled={isUploading || !recordingName || !selectedTopic}
-                title="העלה את ההקלטה"
-              >
-                <Upload size={20} />
-                <span>העלה הקלטה</span>
-              </button>
+            {isRecording && isPaused && (
+              <>
+                <button className="control-button primary" onClick={resumeRecording} title="המשך הקלטה">
+                  <Mic size={24} />
+                  <span>המשך</span>
+                </button>
 
-              <button
-                className="control-button secondary"
-                onClick={resetRecording}
-                disabled={isUploading}
-                title="הקלטה חדשה"
-              >
-                <RefreshCw size={20} />
-                <span>הקלטה חדשה</span>
-              </button>
-            </div>
+                <button className="control-button danger" onClick={stopRecording} title="סיים הקלטה">
+                  <Square size={24} />
+                  <span>סיים</span>
+                </button>
 
-            {isUploading && (
-              <div className="upload-progress">
-                <div className="progress-bar">
-                  <div className="progress-fill" style={{ width: `${uploadProgress}%` }}></div>
-                </div>
-                <span className="progress-text">{uploadProgress}%</span>
-              </div>
+                <button className="control-button secondary" onClick={cancelRecording} title="בטל הקלטה">
+                  <X size={24} />
+                  <span>בטל</span>
+                </button>
+              </>
             )}
           </div>
-        )}
+
+          {isRecording && (
+            <div className="recording-indicator">
+              <div className={`pulse ${isPaused ? "paused" : ""}`}></div>
+              <span className="recording-time">{formatTime(duration)}</span>
+              <span className="recording-status">{isPaused ? "מושהה" : "מקליט..."}</span>
+            </div>
+          )}
+
+          {audioURL && (
+            <div className="playback-section">
+              <h3>הקלטה מוכנה!</h3>
+
+              <div className="audio-player">
+                <audio ref={audioRef} src={audioURL} controls></audio>
+
+                <div className="playback-controls">
+                  <button
+                    className="control-button secondary"
+                    onClick={togglePlayback}
+                    title={isPlaying ? "השהה" : "נגן"}
+                  >
+                    {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+                  </button>
+
+                  <button className="control-button secondary" onClick={downloadRecording} title="הורד">
+                    <Download size={20} />
+                  </button>
+
+                  <button className="control-button secondary" onClick={shareRecording} title="שתף">
+                    <Share2 size={20} />
+                  </button>
+                </div>
+              </div>
+
+              <div className="action-buttons">
+                <button
+                  className="control-button primary"
+                  onClick={uploadFileToS3}
+                  disabled={isUploading || !recordingName || !selectedTopic}
+                  title="העלה את ההקלטה"
+                >
+                  <Upload size={20} />
+                  <span>העלה הקלטה</span>
+                </button>
+
+                <button
+                  className="control-button secondary"
+                  onClick={resetRecording}
+                  disabled={isUploading}
+                  title="הקלטה חדשה"
+                >
+                  <RefreshCw size={20} />
+                  <span>הקלטה חדשה</span>
+                </button>
+              </div>
+
+              {isUploading && (
+                <div className="upload-progress">
+                  <div className="progress-bar">
+                    <div className="progress-fill" style={{ width: `${uploadProgress}%` }}></div>
+                  </div>
+                  <span className="progress-text">{uploadProgress}%</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      <div>
+        {audioBlob && audioURL && (
+          <AudioTranscriber fileUrl={audioURL} />
+        )}
+
+
+      </div>
+    </>
   )
 })
 

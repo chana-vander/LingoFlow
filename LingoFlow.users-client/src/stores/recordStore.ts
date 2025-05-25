@@ -27,7 +27,7 @@ class RecordStore {
             const response = await fetch(`http://localhost:5092/api/Conversation/user/${userId}`, {
                 method: 'GET'
             });
-console.log(response);
+            console.log(response);
 
             if (!response.ok) {
                 throw new Error(`Failed to get record with ID ${userId}`);

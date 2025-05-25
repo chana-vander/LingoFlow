@@ -342,6 +342,54 @@
         }
       }
     },
+    "/api/Feedback/analyze": {
+      "post": {
+        "tags": [
+          "Feedback"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalyzeRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalyzeRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnalyzeRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Feedback": {
       "get": {
         "tags": [
@@ -752,6 +800,37 @@
         }
       }
     },
+    "/api/transcription": {
+      "post": {
+        "tags": [
+          "Transcription"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranscriptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/upload/presigned-url": {
       "get": {
         "tags": [
@@ -1127,6 +1206,23 @@
   },
   "components": {
     "schemas": {
+      "AnalyzeRequestDto": {
+        "type": "object",
+        "properties": {
+          "transcription": {
+            "type": "string"
+          },
+          "topicId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "conversationId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "Conversation": {
         "type": "object",
         "properties": {
@@ -1208,10 +1304,36 @@
             "type": "integer",
             "format": "int32"
           },
-          "conversation": {
-            "$ref": "#/components/schemas/Conversation"
+          "usedWordsCount": {
+            "type": "integer",
+            "format": "int32"
           },
-          "comments": {
+          "totalWordsRequired": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "grammarScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "grammarComment": {
+            "type": "string"
+          },
+          "fluencyScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fluencyComment": {
+            "type": "string"
+          },
+          "vocabularyScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vocabularyComment": {
+            "type": "string"
+          },
+          "generalFeedback": {
             "type": "string"
           },
           "score": {
@@ -1236,12 +1358,45 @@
             "type": "integer",
             "format": "int32"
           },
-          "comments": {
+          "usedWordsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalWordsRequired": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "grammarScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "grammarComment": {
+            "type": "string"
+          },
+          "fluencyScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fluencyComment": {
+            "type": "string"
+          },
+          "vocabularyScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vocabularyComment": {
+            "type": "string"
+          },
+          "generalFeedback": {
             "type": "string"
           },
           "score": {
             "type": "integer",
             "format": "int32"
+          },
+          "givenAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
@@ -1296,6 +1451,15 @@
             "format": "int32"
           },
           "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TranscriptionRequest": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
             "type": "string"
           }
         },

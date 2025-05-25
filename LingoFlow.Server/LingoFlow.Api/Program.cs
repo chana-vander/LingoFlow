@@ -118,20 +118,22 @@ using Microsoft.Extensions.DependencyInjection;
 using DotEnv;
 
 
-var builder = WebApplication.CreateBuilder(args);
+
 
 // טוען את משתני הסביבה מקובץ .env
 Env.Load();
 Console.WriteLine("Loaded .env file...");
 Console.WriteLine("Bucket: " + Env.GetString("AWS__BucketName"));
 //Env.Load("C:\\שנה ב תכנות\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\env.env");
-
+var builder = WebApplication.CreateBuilder(args);
 //שליפת נתונים מקובץ סביבה
 builder.Configuration["AWS:BucketName"]= Env.GetString("AWS__BucketName");
 builder.Configuration["AWS:Region"] = Env.GetString("AWS__Region");
 builder.Configuration["AWS:AccessKey"] = Env.GetString("AWS__AccessKey");
 builder.Configuration["AWS:SecretKey"] = Env.GetString("AWS__SecretKey");
-
+builder.Configuration["OpenAI:ApiKey"] = Env.GetString("OpenAI__ApiKey");
+builder.Configuration["OpenAI:GptKey"] = Env.GetString("OpenAi__GptKey");
+Console.WriteLine("AI GPT:  "+ Env.GetString("OpenAI__GptKey"));
 Console.WriteLine("bucket name: "+Env.GetString("AWS__BucketName"));
 // הוספת CORS עם הרשאה לכל המקורות
 builder.Services.AddCors(options =>
@@ -154,6 +156,8 @@ builder.Services.AddScoped<ITopicService, TopicService>();
 builder.Services.AddScoped<IWordService, WordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IFeedbackAnalysisService,FeedbackAnalysisService>();
+
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
@@ -185,6 +189,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddAWSService<IAmazonS3>();
+//תמיכה בHTTP
+builder.Services.AddHttpClient();
+
 // הוספת קונפיגורציה של RegionEndpoint
 builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
 {

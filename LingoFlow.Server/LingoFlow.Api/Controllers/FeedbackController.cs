@@ -15,11 +15,27 @@ namespace LingoFlow.Api.Controllers
     {
         private readonly IFeedbackService _feedbackService;
         private readonly IMapper _mapper;
-        public FeedbackController(IFeedbackService feedbackService, IMapper mapper)
+        private readonly IFeedbackAnalysisService _feedbackAnalysis;
+        public FeedbackController(IFeedbackService feedbackService, IMapper mapper, IFeedbackAnalysisService feedbackAnalysis)
         {
             _feedbackService = feedbackService;
             _mapper = mapper;
+            _feedbackAnalysis = feedbackAnalysis;
+
         }
+        //analysis feedback
+        [HttpPost("analyze")]
+        public async Task<ActionResult<FeedbackDto>> Analyze([FromBody] AnalyzeRequestDto request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Transcription))
+                return BadRequest("Transcription is required.");
+
+            var feedback = await _feedbackAnalysis.AnalyzeAsync(request.Transcription, request.TopicId, request.ConversationId);
+            var addedFeedback = await _feedbackService.AddFeedbackAsync(_mapper.Map<FeedbackDto>(feedback));
+
+            return Ok(addedFeedback);
+        }
+
         // GET: api/<UserController>
         [HttpGet]
         public async Task<IEnumerable<FeedbackDto>> Get()
@@ -77,7 +93,7 @@ namespace LingoFlow.Api.Controllers
             var updatedTopic = await _feedbackService.UpdateFeedbackAsync(id, feedback);
             if (updatedTopic == null)
             {
-                return NotFound($"Topic with ID {id} not found.");
+                return NotFound($"Feedback with ID {id} not found.");
             }
 
             return Ok(updatedTopic);
@@ -91,10 +107,11 @@ namespace LingoFlow.Api.Controllers
             var result = await _feedbackService.DeleteFeedbackAsync(id);
             if (!result)
             {
-                return NotFound($"Topic with ID {id} not found.");
+                return NotFound($"Feedback with ID {id} not found.");
             }
 
             return Ok(true);
         }
+
     }
 }

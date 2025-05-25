@@ -322,6 +322,32 @@
     ]
   },
   {
+    "ContainingType": "LingoFlow.Api.Controllers.FeedbackController",
+    "Method": "Analyze",
+    "RelativePath": "api/Feedback/analyze",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "LingoFlow.Core.Dto.AnalyzeRequestDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LingoFlow.Core.Dto.FeedbackDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "LingoFlow.Api.Controllers.TopicController",
     "Method": "Get",
     "RelativePath": "api/Topic",
@@ -431,6 +457,22 @@
       {
         "Name": "level",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MagicalMusic.Api.Controllers.TranscriptionController",
+    "Method": "TranscribeFromUrl",
+    "RelativePath": "api/transcription",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MagicalMusic.Api.Controllers.TranscriptionRequest",
         "IsRequired": true
       }
     ],
