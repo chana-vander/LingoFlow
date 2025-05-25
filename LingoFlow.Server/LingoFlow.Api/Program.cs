@@ -117,9 +117,6 @@ using Amazon.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using DotEnv;
 
-
-
-
 // טוען את משתני הסביבה מקובץ .env
 Env.Load();
 Console.WriteLine("Loaded .env file...");
