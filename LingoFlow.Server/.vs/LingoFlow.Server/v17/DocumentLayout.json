@@ -322,7 +322,7 @@
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs",
               "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs*",
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs*",
-              "ViewState": "AgIAACkAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAADcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-25T03:01:14.103Z",
               "EditorCaption": ""
@@ -337,8 +337,7 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\FeedbackController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T00:46:49.802Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T00:46:49.802Z"
             },
             {
               "$type": "Document",
@@ -350,8 +349,7 @@
               "RelativeToolTip": "LingoFlow.Core\\Models\\Feedback.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAIwBwAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T00:38:54.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-28T00:38:54.466Z"
             },
             {
               "$type": "Document",
@@ -363,8 +361,7 @@
               "RelativeToolTip": "LingoFlow.Service\\FeedbackAnalysisService.cs",
               "ViewState": "AgIAAPEAAAAAAAAAAAAwwAYBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T00:14:54.96Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-25T00:14:54.96Z"
             },
             {
               "$type": "Document",
@@ -376,8 +373,7 @@
               "RelativeToolTip": "LingoFlow.Core\\Dto\\FeedbackDto.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAYwBUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T00:37:29.848Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-28T00:37:29.848Z"
             },
             {
               "$type": "Document",
@@ -389,8 +385,7 @@
               "RelativeToolTip": "LingoFlow.Core\\Dto\\AnalyzeRequestDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T02:15:10.001Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-25T02:15:10.001Z"
             },
             {
               "$type": "Document",
@@ -402,8 +397,7 @@
               "RelativeToolTip": "LingoFlow.Core\\Services\\IFeedbackAnalysisService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T01:42:40.47Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-25T01:42:40.47Z"
             },
             {
               "$type": "Document",
@@ -415,8 +409,7 @@
               "RelativeToolTip": "LingoFlow.Api\\Program.cs",
               "ViewState": "AgIAAJQAAAAAAAAAAAAgwJ4AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T00:36:38.69Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-28T00:36:38.69Z"
             },
             {
               "$type": "Document",
@@ -428,8 +421,7 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\TranscriptionController.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAzwCEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-23T08:01:19.532Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-23T08:01:19.532Z"
             },
             {
               "$type": "Document",
@@ -441,8 +433,7 @@
               "RelativeToolTip": "LingoFlow.Api\\LingoFlow.Api.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-05-25T00:31:17.798Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-25T00:31:17.798Z"
             },
             {
               "$type": "Document",
@@ -454,8 +445,7 @@
               "RelativeToolTip": "LingoFlow.Data\\DataContext.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAASwC0AAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-24T22:54:24.263Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-24T22:54:24.263Z"
             },
             {
               "$type": "Document",
@@ -467,8 +457,7 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\WordController.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAUwGQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T00:33:40.326Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-28T00:33:40.326Z"
             },
             {
               "$type": "Document",
@@ -492,8 +481,7 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\AuthController.cs",
               "ViewState": "AgIAAHYAAAAAAAAAAAAwwIsAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-22T18:25:57.429Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-22T18:25:57.429Z"
             },
             {
               "$type": "Document",
@@ -1192,6 +1180,10 @@
           "SelectedChildIndex": 2,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "20250525093427_upDB-feedback.cs",
@@ -1201,12 +1193,7 @@
               "RelativeToolTip": "LingoFlow.Data\\Migrations\\20250525093427_upDB-feedback.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T09:34:28.118Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+              "WhenOpened": "2025-05-25T09:34:28.118Z"
             },
             {
               "$type": "Document",
@@ -1231,8 +1218,7 @@
               "RelativeToolTip": "LingoFlow.Data\\Migrations\\20250508193612_updbCon.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T19:36:12.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T19:36:12.408Z"
             }
           ]
         }
