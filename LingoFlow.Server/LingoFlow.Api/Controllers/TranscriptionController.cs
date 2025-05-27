@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LingoFlow.Core.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -10,13 +11,14 @@ namespace MagicalMusic.Api.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
+        private readonly IConversationRepository _conversationRepository;
 
-        public TranscriptionController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public TranscriptionController(IHttpClientFactory httpClientFactory, IConfiguration configuration, IConversationRepository conversationRepository)
         {
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _conversationRepository = conversationRepository;
         }
-
         [HttpPost]
         public async Task<IActionResult> TranscribeFromUrl([FromBody] TranscriptionRequest request)
         {
@@ -71,18 +73,91 @@ namespace MagicalMusic.Api.Controllers
             var resultJson = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<JsonElement>(resultJson);
 
-            return Ok(result);
+            // --- שלב שמירת התמלול במסד נתונים ---
+            var transcriptionText = result.GetProperty("text").GetString();
+
+            var conversation = await _conversationRepository.GetConversationByIdAsync(request.ConversationId);
+            if (conversation == null)
+                return NotFound($"Conversation with ID {request.ConversationId} not found.");
+
+            conversation.Transcription = transcriptionText;
+
+            await _conversationRepository.UpdateAsync(conversation); // או SaveChangesAsync() לפי המימוש
+
+            return Ok(new { transcription = transcriptionText });
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> TranscribeFromUrl([FromBody] TranscriptionRequest request)
+        //{
+        //    if (string.IsNullOrWhiteSpace(request.FileUrl))
+        //        return BadRequest("Missing file URL");
+
+        //    var httpClient = _httpClientFactory.CreateClient();
+
+        //    Stream audioStream;
+        //    try
+        //    {
+        //        audioStream = await httpClient.GetStreamAsync(request.FileUrl);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Failed to download audio: {ex.Message}");
+        //    }
+
+        //    var whisperClient = _httpClientFactory.CreateClient();
+        //    var openAiApiKey = _configuration["OpenAI:ApiKey"];
+        //    if (string.IsNullOrEmpty(openAiApiKey))
+        //        return StatusCode(500, "OpenAI API key is not configured.");
+
+        //    whisperClient.DefaultRequestHeaders.Authorization =
+        //        new AuthenticationHeaderValue("Bearer", openAiApiKey);
+
+        //    using var content = new MultipartFormDataContent();
+
+        //    var audioContent = new StreamContent(audioStream);
+        //    audioContent.Headers.ContentType = new MediaTypeHeaderValue("audio/mpeg");
+
+        //    content.Add(audioContent, "file", "audio.mp3");
+        //    content.Add(new StringContent("whisper-1"), "model");
+        //    content.Add(new StringContent("en"), "language");
+
+        //    HttpResponseMessage response;
+        //    try
+        //    {
+        //        response = await whisperClient.PostAsync("https://api.openai.com/v1/audio/transcriptions", content);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Failed to call OpenAI: {ex.Message}");
+        //    }
+
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        var error = await response.Content.ReadAsStringAsync();
+        //        return StatusCode((int)response.StatusCode, $"OpenAI error: {error}");
+        //    }
+
+        //    var resultJson = await response.Content.ReadAsStringAsync();
+        //    var result = JsonSerializer.Deserialize<JsonElement>(resultJson);
+        //    _conversationRepository.
+        //    return Ok(result);
+        //}
+
+
     }
 
     public class TranscriptionRequest
     {
         public string FileUrl { get; set; }
+        public int ConversationId { get; set; }
     }
 }
 
 
-//נסיון עם העבברית
+
+
+//נסיון עם העברית
 //using Microsoft.AspNetCore.Mvc;
 //using System.Net.Http.Headers;
 //using System.Text.Json;

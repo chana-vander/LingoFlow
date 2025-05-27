@@ -4,6 +4,7 @@ using LingoFlow.Core.Models;
 using LingoFlow.Core.Services;
 using LingoFlow.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,8 +31,9 @@ namespace LingoFlow.Api.Controllers
             if (string.IsNullOrWhiteSpace(request.Transcription))
                 return BadRequest("Transcription is required.");
 
-            var feedback = await _feedbackAnalysis.AnalyzeAsync(request.Transcription, request.TopicId, request.ConversationId);
-            var addedFeedback = await _feedbackService.AddFeedbackAsync(_mapper.Map<FeedbackDto>(feedback));
+            Feedback feedback = await _feedbackAnalysis.AnalyzeAsync(request.Transcription, request.TopicId, request.ConversationId);
+            FeedbackDto feedbackDto = _mapper.Map<FeedbackDto>(feedback);
+            var addedFeedback = await _feedbackService.AddFeedbackAsync(feedbackDto);
 
             return Ok(addedFeedback);
         }
@@ -97,7 +99,7 @@ namespace LingoFlow.Api.Controllers
             }
 
             return Ok(updatedTopic);
-        }
+        }       
 
         // DELETE api/<FeedbackController>/5
         [HttpDelete("{id}")]

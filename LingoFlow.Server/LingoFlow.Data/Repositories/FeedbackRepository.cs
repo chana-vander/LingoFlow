@@ -1,6 +1,7 @@
 ﻿using LingoFlow.Core.Models;
 using LingoFlow.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,26 @@ namespace LingoFlow.Data.Repositories
         {
             _context = context;
         }
+        //public async Task<Feedback> AddAsync(Feedback feedback)
+        //{
+
+        //    await _context.Feedbacks.AddAsync(feedback);
+        //    await _context.SaveChangesAsync();
+        //    return feedback;
+        //}
         public async Task<Feedback> AddAsync(Feedback feedback)
         {
-            await _context.Feedbacks.AddAsync(feedback);
-            await _context.SaveChangesAsync();
+            if (feedback == null)
+            {
+                throw new ArgumentNullException(nameof(feedback));
+            }
+
+            _context.Feedbacks.Add(feedback); // מוסיף את המשוב למסד הנתונים
+            Console.WriteLine("hi");
+            await _context.SaveChangesAsync(); // שומר את השינויים
+            Console.WriteLine("hi2");
             return feedback;
         }
-
         public async Task<IEnumerable<Feedback>> GetAllFeedbacksAsync()
         {
             return await _context.Feedbacks.ToListAsync();
@@ -35,7 +49,7 @@ namespace LingoFlow.Data.Repositories
         public async Task<Feedback> UpdateAsync(Feedback feedback)
         {
             _context.Feedbacks.Update(feedback);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
             return feedback;
         }
 

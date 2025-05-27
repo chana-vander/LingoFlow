@@ -12,7 +12,6 @@ export class UserStore {
 
   setUser(user: User|null) {
     console.log(user);
-    
     this.user = user;
     localStorage.setItem("user", JSON.stringify(user));
   }

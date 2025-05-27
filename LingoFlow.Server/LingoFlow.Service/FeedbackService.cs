@@ -33,26 +33,57 @@ namespace LingoFlow.Service
         {
             return await _feedbackRepository.GetFeedbackByIdAsync(id);
         }
-        public async Task<Feedback> AddFeedbackAsync(FeedbackDto feedback)
+        //public async Task<Feedback> AddFeedbackAsync(FeedbackDto feedback)
+        //{
+        //    if (feedback == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(feedback)); // בדיקה אם לא null
+        //    }
+
+        //    // בדיקות אם השדות החשובים קיימים (כמו UserId, ConversationId, וכו')
+        //    if (feedback.ConversationId == null)//feedback.UserId == null || 
+        //    {
+        //        throw new ArgumentException("UserId and ConversationId must not be null.");
+        //    }
+
+        //    // מיפוי ה-DTO לישות Feedback
+        //    var mappedFeedback = _mapper.Map<Feedback>(feedback);
+        //    //Console.WriteLine("Adding feedback for ConversationId: " , feedback.ConversationId);
+        //    //Console.WriteLine("Mapped feedback: " , mappedFeedback.Id);
+        //    //Console.WriteLine("feed add to db: ",mappedFeedback);
+        //    var addedFeedback = await _feedbackRepository.AddAsync(mappedFeedback);
+
+        //   await _managerRepository.SaveChangesAsync();
+        //    Console.WriteLine("added feed: "+addedFeedback);
+        //    return addedFeedback;
+        //}
+        public async Task<Feedback> AddFeedbackAsync(FeedbackDto feedbackDto)
         {
-            if (feedback == null)
+            if (feedbackDto == null)
             {
-                throw new ArgumentNullException(nameof(feedback)); // בדיקה אם לא null
+                throw new ArgumentNullException(nameof(feedbackDto)); // בדיקה אם לא null
             }
 
-            // בדיקות אם השדות החשובים קיימים (כמו UserId, ConversationId, וכו')
-            if (feedback.ConversationId == null)//feedback.UserId == null || 
-            {
-                throw new ArgumentException("UserId and ConversationId must not be null.");
-            }
-
-            // מיפוי ה-DTO לישות Feedback
-            var mappedFeedback = _mapper.Map<Feedback>(feedback);
-            Console.WriteLine("Adding feedback for ConversationId: " + feedback.ConversationId);
-            Console.WriteLine("Mapped feedback: " + mappedFeedback.Id);
-
-            var addedFeedback = await _feedbackRepository.AddAsync(mappedFeedback);
-
+            //if (feedbackDto.Id == null)
+            //{
+            //    throw new ArgumentException("UserId and TopicId must not be null.");
+            //}
+            //Console.WriteLine(feedbackDto);
+            var feed = _mapper.Map<Feedback>(feedbackDto);
+            var addedFeedback = await _feedbackRepository.AddAsync(feed);
+            Console.WriteLine(addedFeedback.Id);
+            Console.WriteLine(addedFeedback.GeneralFeedback);
+            Console.WriteLine(addedFeedback.GrammarComment);
+            Console.WriteLine(addedFeedback.GrammarScore);
+            Console.WriteLine(addedFeedback.FluencyComment);
+            Console.WriteLine(addedFeedback.FluencyScore);
+            Console.WriteLine(addedFeedback.ConversationId);
+            Console.WriteLine(addedFeedback.VocabularyComment);
+            Console.WriteLine(addedFeedback.VocabularyScore);
+            Console.WriteLine(addedFeedback.Score);
+            Console.WriteLine(addedFeedback.GivenAt);
+            Console.WriteLine(addedFeedback.TotalWordsRequired);
+            Console.WriteLine(addedFeedback.UsedWordsCount);
             await _managerRepository.SaveChangesAsync();
 
             return addedFeedback;
@@ -79,9 +110,16 @@ namespace LingoFlow.Service
         public async Task<bool> DeleteFeedbackAsync(int id)
         {
             var feedback = await _feedbackRepository.GetFeedbackByIdAsync(id);
-            if (feedback == null) return false;
+            if (feedback == null) 
+                return false;
+            var deleted = await _feedbackRepository.DeleteAsync(id);
 
-            return await _feedbackRepository.DeleteAsync(id);
+            if (deleted)
+            {
+                await _managerRepository.SaveChangesAsync(); // שמירה בפועל לבסיס הנתונים
+            }
+
+            return deleted;
         }
     }
 }

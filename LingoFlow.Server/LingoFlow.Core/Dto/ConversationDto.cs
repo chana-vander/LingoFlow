@@ -16,6 +16,7 @@ namespace LingoFlow.Core.Dto
         public TimeSpan Length { get; set; } // משך זמן השיחה      
         public string Url { get; set; }// כתובת קובץ ההקלטה
         public DateTime Date { get; set; }// תאריך השיחה
+        public string? Transcription { get; set; } // ✅ שדה חדש לתמלול
 
     }
 }

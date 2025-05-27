@@ -30,7 +30,9 @@ namespace LingoFlow.Data.Repositories
 
         public async Task SaveChangesAsync()
         {
+            Console.WriteLine("ok!!");
             await _dataContext.SaveChangesAsync();
+            Console.WriteLine("ok");
         }
 
     }

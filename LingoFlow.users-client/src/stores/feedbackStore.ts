@@ -1,32 +1,113 @@
-class FeedbackStore {
-    constructor() { }
+import { makeAutoObservable, runInAction } from "mobx";
+import axios from "axios";
+import { Feedback } from "../models/feedback";
 
-    // שליחת בקשת POST לשרת לקבלת תמלול
-    async getTranscription(fileUrl: string): Promise<string> {
+class FeedbackStore {
+    transcription: string = "";
+    feedback: Feedback | null = null;
+    loading: boolean = false;
+    error: string = "";
+
+    constructor() {
+        makeAutoObservable(this);
+    }
+
+    async transcribeFromUrl(fileUrl: string, conversationId: number) {
+        console.log("fileUrl: ", fileUrl);
+        console.log("conversationId: ", conversationId);
+
+        this.loading = true;
+        this.error = "";
         try {
-            const response = await fetch("http://localhost:5092/Transcription", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ fileUrl })
+            const response = await axios.post("http://localhost:5092/api/transcription", {
+                fileUrl,
+                conversationId,
             });
 
-            if (!response.ok) {
-                const error = await response.text();
-                console.error("שגיאה בקבלת תמלול:", error);
-                throw new Error("שגיאה בקבלת תמלול");
-            }
+            runInAction(() => {
+                this.transcription = response.data.transcription;
+                this.loading = false;
+            });
 
-            const data = await response.json();
-            return data.text; // מחזיר את הטקסט המתומלל
+        } catch (err: any) {
+            runInAction(() => {
+                this.error = err.response?.data || "שגיאה בתמלול";
+                this.loading = false;
+            });
         }
-        catch (error) {
-            console.error("שגיאה:", error);
-            throw error;
+    }
+
+    async analyzeTranscription(transcription: string, topicId: number, conversationId: number) {
+        this.loading = true;
+        this.error = "";
+        try {
+            const response = await axios.post<Feedback>("http://localhost:5092/api/Feedback/analyze", {
+                transcription,
+                topicId,
+                conversationId,
+            });
+            console.log("1");
+
+            runInAction(() => {
+                this.feedback = response.data;
+                this.loading = false;
+                console.log("res ", response.data);
+            });
+            console.log("2");
+
+        } catch (err: any) {
+            runInAction(() => {
+                this.error = err.response?.data || "שגיאה בניתוח המשוב";
+                this.loading = false;
+                console.log("3");
+
+            });
         }
+    }
+    // async getTranscriptionByRecordId() {
+
+    // }
+    reset() {
+        this.transcription = "";
+        this.feedback = null;
+        this.error = "";
     }
 }
 
-const feedbackStore = new FeedbackStore();
-export default feedbackStore;
+export const feedbackStore = new FeedbackStore();
+
+
+
+// class FeedbackStore {
+//     constructor() { }
+
+//     // שליחת בקשת POST לשרת לקבלת תמלול
+//     async getTranscription(fileUrl: string): Promise<string> {
+//         try {
+//             const response = await fetch("http://localhost:5092/Transcription", {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/json"
+//                 },
+//                 body: JSON.stringify({ fileUrl })
+//             });
+
+//             if (!response.ok) {
+//                 const error = await response.text();
+//                 console.error("שגיאה בקבלת תמלול:", error);
+//                 throw new Error("שגיאה בקבלת תמלול");
+//             }
+
+//             const data = await response.json();
+//             return data.text; // מחזיר את הטקסט המתומלל
+//         }
+//         catch (error) {
+//             console.error("שגיאה:", error);
+//             throw error;
+//         }
+//     }
+
+// }
+
+// const feedbackStore = new FeedbackStore();
+// export default feedbackStore;

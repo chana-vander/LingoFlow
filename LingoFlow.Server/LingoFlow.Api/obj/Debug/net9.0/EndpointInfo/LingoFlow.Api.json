@@ -1257,6 +1257,10 @@
           "length": {
             "type": "string",
             "format": "date-span"
+          },
+          "transcription": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1289,6 +1293,10 @@
           "date": {
             "type": "string",
             "format": "date-time"
+          },
+          "transcription": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1461,6 +1469,10 @@
         "properties": {
           "fileUrl": {
             "type": "string"
+          },
+          "conversationId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

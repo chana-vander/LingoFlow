@@ -200,24 +200,13 @@ import AudioTranscriber from "./audioTranscriber"
 import userStore from "../stores/userStore"
 import topicStore from "../stores/topicStore"
 import recordStore from "../stores/recordStore"
-
+import feedback from "./feedback";
+import { Navigate, useNavigate } from "react-router-dom"
 import { Mic, Square, X, Play, Pause, Upload, Download, Share2, RefreshCw } from "lucide-react"
 import '../css/record.css'
-// Topic interface
-interface Topic {
-  id: number
-  name: string
-}
-
-// Record interface
-interface Record {
-  userId: number
-  topicId: number
-  name: string
-  length: string
-  url: string
-  date: Date
-}
+import { Record } from "../models/record";
+import { feedbackStore } from "../stores/feedbackStore"
+import { transaction } from "mobx"
 
 const AudioRecorder: React.FC = observer(() => {
   // User ID from store
@@ -240,7 +229,7 @@ const AudioRecorder: React.FC = observer(() => {
   // const topics = topicStore.fetchTopics();
   // const [selectedTopic, setSelectedTopic] = useState<number | null>(null)
   const selectedTopic = topicStore.selectedTopicId;
-
+  const navigate = useNavigate();
   // Refs
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
@@ -508,6 +497,7 @@ const AudioRecorder: React.FC = observer(() => {
       showNotification("שגיאה בהעלאת הקובץ", "error")
     }
   }
+
   const saveRecordToDatabase = async (DownloadUrl: string) => {
     if (!userId || !selectedTopic || !recordingName) {
       // showNotification("חסרים פרטים לשמירה במסד הנתונים", "error")
@@ -515,17 +505,32 @@ const AudioRecorder: React.FC = observer(() => {
     }
 
     const record: Record = {
-      userId: userId,
-      topicId: selectedTopic,
       name: recordingName,
-      length: formatTime(duration),
-      // url: url,
-      url: DownloadUrl,
-      // url: uniqueFileName,
       date: new Date(),
+      length: formatTime(duration),
+      url: DownloadUrl,
+      topicId: selectedTopic,
+      userId: userId
     }
-    recordStore.saveRecordToDatabase(record);
+    recordStore.saveAndStoreRecording(record);
+    console.log(recordStore.recording);
+
   }
+  //בדיקה האם התמלול עובד-אחכ למחוק מפה
+  const r = recordStore.recording;
+  console.log("r ", r);
+  if (r?.id !== undefined) {
+    console.log("r.id ", r.id);
+    const transcription = feedbackStore.transcribeFromUrl(r.url, r.id);
+    console.log(transcription);
+    if (selectedTopic) {
+      const feed = feedbackStore.analyzeTranscription(r.url, selectedTopic, r.id);
+      console.log("feed: ", feed);
+
+    }
+    //בדיקה האם המשוב עובד-אחכ למחוק מפה
+  }
+
   // Save record to database
   // const saveRecordToDatabase = async (DownloadUrl: string) => {
   //   if (!userId || !selectedTopic || !recordingName) {
@@ -623,9 +628,13 @@ const AudioRecorder: React.FC = observer(() => {
     }, 3000)
   }
 
+  //getFeedback
+  const getFeedback = () => {
+    // recordStore.setRecording(recordingName: any);
+    navigate("/feedback");
+  }
   return (
     <>
-
       <div className="audio-recorder-container" dir="rtl">
         <div className="recorder-header">
           <h1>מערכת הקלטות</h1>
@@ -695,6 +704,12 @@ const AudioRecorder: React.FC = observer(() => {
                 <span>התחל הקלטה</span>
               </button>
             )}
+            <button className="control-button primary" onClick={getFeedback}
+              // disabled={!isUploading} 
+              title="התחל הקלטה">
+              <Mic size={24} />
+              <span>שלח לקבלת משוב</span>
+            </button>
 
             {isRecording && !isPaused && (
               <>
