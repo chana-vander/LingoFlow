@@ -14,9 +14,7 @@ namespace LingoFlow.Core.Models
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
 
-        //// מזהה המשוב (אופציונלי)
-        //public int? FeedbackId { get; set; }
-        //public Feedback Feedback { get; set; }
+
         // כתובת הקלטת השיחה
         public string Url { get; set; }
 
@@ -30,5 +28,7 @@ namespace LingoFlow.Core.Models
         public TimeSpan Length { get; set; }
         // התמלול של השיחה
         public string? Transcription { get; set; } // ✅ שדה חדש לתמלול
+        //one to one:
+        public Feedback Feedback { get; set; }
     }
 }

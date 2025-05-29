@@ -38,7 +38,7 @@ namespace LingoFlow.Api.Controllers
             return conversations;
         }
 
-        // GET api/<UserController>/5
+        // GET api/<ConversationController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
@@ -93,7 +93,7 @@ namespace LingoFlow.Api.Controllers
                 return StatusCode(500, $"Error uploading file: {ex.Message}");
             }
         }
-        //שליפת הקלטות לפי מזהה
+        //שליפת הקלטות לפי מזהה משתמש
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetRecordingsByUserId(int userId)
         {

@@ -637,8 +637,10 @@ const AudioRecorder: React.FC = observer(() => {
     <>
       <div className="audio-recorder-container" dir="rtl">
         <div className="recorder-header">
-          <h1>מערכת הקלטות</h1>
-          <p className="subtitle">הקלט, שמור ושתף הקלטות בקלות</p>
+          <h1>הי, {userStore.userName}</h1>
+          <p className="subtitle">מחכים כבר להקלטה שלך...</p>
+          {/* <p className="subtitle">כל הקלטה מקרבת אותך לעבר דיבור בטוח, טבעי וזורם</p> */}
+
         </div>
 
         <div className="recorder-card">

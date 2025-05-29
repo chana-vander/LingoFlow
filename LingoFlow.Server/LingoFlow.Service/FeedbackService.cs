@@ -110,7 +110,7 @@ namespace LingoFlow.Service
         public async Task<bool> DeleteFeedbackAsync(int id)
         {
             var feedback = await _feedbackRepository.GetFeedbackByIdAsync(id);
-            if (feedback == null) 
+            if (feedback == null)
                 return false;
             var deleted = await _feedbackRepository.DeleteAsync(id);
 
@@ -120,6 +120,10 @@ namespace LingoFlow.Service
             }
 
             return deleted;
+        }
+        public async Task<List<Feedback>> GetFeedbackByRecordIdAsync(int recordId)
+        {
+            return await _feedbackRepository.GetByRecordIdAsync(recordId);
         }
     }
 }

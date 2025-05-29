@@ -16,5 +16,7 @@ namespace LingoFlow.Core.Repositories
         Task<Feedback> AddAsync(Feedback feedback);
         Task<Feedback> UpdateAsync(Feedback feedback);
 
+        Task<List<Feedback>> GetByRecordIdAsync(int recordId);
+
     }
 }

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        bgcolor: "#0d47a1",
+        bgcolor: "#c0e0ff",
         color: "white",
         py: 2,
         px: 4,
@@ -26,7 +26,7 @@ const Footer = () => {
           <LinkedIn />
         </IconButton>
       </Stack>
-      <Typography variant="body2">
+      <Typography variant="body2" color="blue">
         © {new Date().getFullYear()} LingoFlow. כל הזכויות שמורות.
       </Typography>
     </Box>

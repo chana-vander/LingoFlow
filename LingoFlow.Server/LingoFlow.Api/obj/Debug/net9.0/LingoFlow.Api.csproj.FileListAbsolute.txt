@@ -367,3 +367,10 @@ C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.pdb
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.genruntimeconfig.cache
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\ref\LingoFlow.Api.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Http.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Clients.ActiveDirectory.dll

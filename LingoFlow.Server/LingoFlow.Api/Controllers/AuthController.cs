@@ -129,7 +129,7 @@ public class AuthController : ControllerBase
         }
 
         Console.WriteLine($"Login attempt for: {model.Email}");
-
+        Console.WriteLine(model.Name);
         var token = await _userService.AuthenticateAsync(model.Email, model.Password);
         if (token == null)
         {
@@ -137,7 +137,7 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid credentials");
         }
 
-        var user = await _userService.GetUserByEmailAsync(model.Email);
+        UserLoginDto user = await _userService.GetUserByEmailAsync(model.Email);
         return Ok(new { Token = token, User = user });
     }
 

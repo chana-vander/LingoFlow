@@ -14,11 +14,11 @@ namespace LingoFlow.Data.Migrations
                 name: "IX_Feedbacks_ConversationId",
                 table: "Feedbacks");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Feedbacks_ConversationId",
-                table: "Feedbacks",
-                column: "ConversationId",
-                unique: true);
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_Feedbacks_ConversationId",
+            //    table: "Feedbacks",
+            //    column: "ConversationId",
+            //    unique: true);
         }
 
         /// <inheritdoc />
@@ -28,10 +28,10 @@ namespace LingoFlow.Data.Migrations
                 name: "IX_Feedbacks_ConversationId",
                 table: "Feedbacks");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Feedbacks_ConversationId",
-                table: "Feedbacks",
-                column: "ConversationId");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_Feedbacks_ConversationId",
+            //    table: "Feedbacks",
+            //    column: "ConversationId");
         }
     }
 }

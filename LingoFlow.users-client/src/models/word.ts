@@ -1,4 +1,5 @@
 interface Word {
+    id?:number|undefined;
     name: string;
     translation: string;
     sentence:string;

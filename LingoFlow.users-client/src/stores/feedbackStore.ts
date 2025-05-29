@@ -12,6 +12,27 @@ class FeedbackStore {
         makeAutoObservable(this);
     }
 
+    set Feedback(feedback: Feedback) {
+        this.feedback = feedback;
+    }
+
+    get Feedback() {
+        if (this.feedback === null) {
+            return { /* פרמטרים של אובייקט ברירת מחדל */ } as Feedback; // או זרוק שגיאה
+        }
+        return this.feedback;
+    }
+
+    async getFeedbackByRecordId(recordId: number) {
+        try {
+            const response = await axios.get(`http://localhost:5092/api/Feedback/record/${recordId}`);
+            return response.data; // מחזיר את הנתונים שהתקבלו
+        } catch (error) {
+            console.error("Error fetching feedback:", error); // טיפול בשגיאה
+            throw error; 
+        }
+    }
+
     async transcribeFromUrl(fileUrl: string, conversationId: number) {
         console.log("fileUrl: ", fileUrl);
         console.log("conversationId: ", conversationId);

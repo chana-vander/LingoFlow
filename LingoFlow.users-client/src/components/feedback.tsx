@@ -1,273 +1,275 @@
-// import React, { useEffect } from "react";
-// import { observer } from "mobx-react-lite";
-// import { feedbackStore } from "../stores/feedbackStore";
-// import  recordStore  from "../stores/recordStore"; // וודא שהייבוא נכון: export const recordStore = new RecordStore();
-//קוד שעובד עם עיצוב נחמד
-// import {
-//   Box,
-//   CircularProgress,
-//   Typography,
-//   Card,
-//   CardContent,
-//   Divider,
-// } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { observer } from "mobx-react-lite";
+import { feedbackStore } from "../stores/feedbackStore";
+import recordStore from "../stores/recordStore"; // וודא שהייבוא נכון: export const recordStore = new RecordStore();
+// קוד שעובד עם עיצוב נחמד
+import {
+  Box,
+  CircularProgress,
+  Typography,
+  Card,
+  CardContent,
+  Divider,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-// const Feedback: React.FC = observer(() => {
-//   const navigate = useNavigate(); // השתמש ב-useNavigate מ-React Router
-//   const recording = recordStore.recording; // recording יכול להיות Record | null
+const Feedback: React.FC = observer(() => {
+  const navigate = useNavigate(); // השתמש ב-useNavigate מ-React Router
+  const recording = recordStore.recording; // recording יכול להיות Record | null
 
-//   // useEffect לטיפול בלוגיקה אסינכרונית בעת טעינת הקומפוננטה
-//   useEffect(() => {
-//     const fetchAndProcessFeedback = async () => {
-//       // אם אין הקלטה זמינה, או אם חסרים פרטים חיוניים
-//       if (
-//         !recording ||
-//         recording.id === undefined ||
-//         !recording.url ||
-//         recording.topicId === undefined
-//       ) {
-//         console.warn(
-//           "Missing recording data (ID, URL, or Topic ID). Cannot process feedback."
-//         );
-//         // לדוגמה, הפנה חזרה לדף הבית אם אין נתונים
-//         navigate("/");
-//         return;
-//       }
+  // useEffect לטיפול בלוגיקה אסינכרונית בעת טעינת הקומפוננטה
+  useEffect(() => {
+    const fetchAndProcessFeedback = async () => {
+      // אם אין הקלטה זמינה, או אם חסרים פרטים חיוניים
+      if (
+        !recording ||
+        recording.id === undefined ||
+        !recording.url ||
+        recording.topicId === undefined
+      ) {
+        console.warn(
+          "Missing recording data (ID, URL, or Topic ID). Cannot process feedback."
+        );
+        // לדוגמה, הפנה חזרה לדף הבית אם אין נתונים
+        navigate("/");
+        return;
+      }
 
-//       // אם כבר יש משוב בסטור, אל תבצע קריאות שוב
-//       if (feedbackStore.feedback) {
-//         console.log("Feedback already loaded from store.");
-//         return;
-//       }
+      // אם כבר יש משוב בסטור, אל תבצע קריאות שוב
+      if (feedbackStore.feedback) {
+        console.log("Feedback already loaded from store.");
+        // feedback=feedbackStore.feedback;
+        return;
+      }
 
-//       try {
-//         // 1. בצע תמלול והמתן לסיומו
-//         // transcribeFromUrl מעדכנת את feedbackStore.transcription
-//         await feedbackStore.transcribeFromUrl(recording.url, recording.id);
-//         console.log("Transcription status: ", feedbackStore.transcription ? "Success" : "Failed");
+      try {
+        // 1. בצע תמלול והמתן לסיומו
+        // transcribeFromUrl מעדכנת את feedbackStore.transcription
+        await feedbackStore.transcribeFromUrl(recording.url, recording.id);
+        console.log("Transcription status: ", feedbackStore.transcription ? "Success" : "Failed");
 
-//         // 2. אם התמלול הצליח, בצע ניתוח משוב
-//         if (feedbackStore.transcription) {
-//           // analyzeTranscription מעדכנת את feedbackStore.feedback
-//           await feedbackStore.analyzeTranscription(
-//             feedbackStore.transcription,
-//             // וודא ש-recording.topicId הוא מספר. אם הוא string, המר אותו:
-//             Number(recording.topicId),
-//             recording.id
-//           );
-//           console.log("Feedback status: ", feedbackStore.feedback ? "Success" : "Failed");
-//         } else {
-//           console.error("Transcription failed or is empty. Cannot analyze feedback.");
-//         }
-//       } catch (error) {
-//         console.error("Error during feedback process:", error);
-//         // הגדר הודעת שגיאה בסטור אם לא טופלה כבר ב-feedbackStore
-//         if (!feedbackStore.error) {
-//           feedbackStore.error = "אירעה שגיאה בטעינת המשוב.";
-//         }
-//       }
-//     };
+        // 2. אם התמלול הצליח, בצע ניתוח משוב
+        if (feedbackStore.transcription) {
+          // analyzeTranscription מעדכנת את feedbackStore.feedback
+          await feedbackStore.analyzeTranscription(
+            feedbackStore.transcription,
+            // וודא ש-recording.topicId הוא מספר. אם הוא string, המר אותו:
+            Number(recording.topicId),
+            recording.id
+          );
+          console.log("Feedback status: ", feedbackStore.feedback ? "Success" : "Failed");
+        } else {
+          console.error("Transcription failed or is empty. Cannot analyze feedback.");
+        }
+      } catch (error) {
+        console.error("Error during feedback process:", error);
+        // הגדר הודעת שגיאה בסטור אם לא טופלה כבר ב-feedbackStore
+        if (!feedbackStore.error) {
+          feedbackStore.error = "אירעה שגיאה בטעינת המשוב.";
+        }
+      }
+    };
 
-//     fetchAndProcessFeedback(); // קרא לפונקציה האסינכרונית
+    fetchAndProcessFeedback(); // קרא לפונקציה האסינכרונית
+    console.log(feedbackStore.feedback);
 
-//     // פונקציית ניקוי: מאפסת את הסטור כשיוצאים מהקומפוננטה
-//     return () => {
-//       feedbackStore.reset();
-//     };
-//   }, [recording, navigate]); // תלויות: הפעל מחדש כשההקלטה או הניווט משתנים
+    // // פונקציית ניקוי: מאפסת את הסטור כשיוצאים מהקומפוננטה
+    // return () => {
+    //   feedbackStore.reset();
+    // };
+  }, [recording, navigate]); // תלויות: הפעל מחדש כשההקלטה או הניווט משתנים
 
-//   // הצגת מצב טעינה, שגיאה או משוב
-//   const { loading, error, transcription, feedback } = feedbackStore;
+  // הצגת מצב טעינה, שגיאה או משוב
+  const { loading, error, transcription, feedback } = feedbackStore;
 
-//   if (loading) {
-//     return (
-//       <Box
-//         display="flex"
-//         flexDirection="column"
-//         alignItems="center"
-//         justifyContent="center"
-//         minHeight="80vh"
-//       >
-//         <CircularProgress color="primary" size={60} />
-//         <Typography variant="h6" color="primary" sx={{ mt: 2 }}>
-//           מכינים עבורך משוב על ההקלטה שלך...
-//         </Typography>
-//         <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
-//           זה יכול לקחת כמה רגעים. אנא המתן בסבלנות!
-//         </Typography>
-//       </Box>
-//     );
-//   }
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="80vh"
+      >
+        <CircularProgress color="primary" size={60} />
+        <Typography variant="h6" color="primary" sx={{ mt: 2 }}>
+          מכינים עבורך משוב על ההקלטה שלך...
+        </Typography>
+        <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+          זה יכול לקחת כמה רגעים. אנא המתן בסבלנות!
+        </Typography>
+      </Box>
+    );
+  }
 
-//   if (error) {
-//     return (
-//       <Box
-//         display="flex"
-//         flexDirection="column"
-//         alignItems="center"
-//         justifyContent="center"
-//         minHeight="80vh"
-//         sx={{ color: "red" }}
-//       >
-//         <Typography variant="h5" color="error" gutterBottom>
-//           אופס! משהו השתבש...
-//         </Typography>
-//         <Typography variant="body1" color="error" sx={{ textAlign: 'center' }}>
-//           {error}
-//         </Typography>
-//         <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-//             <button onClick={() => window.location.reload()} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#007bff', color: 'white', cursor: 'pointer' }}>
-//                 נסה שוב
-//             </button>
-//             <button onClick={() => navigate('/')} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#cc0000', color: 'white', cursor: 'pointer' }}>
-//                 חזור לדף הבית
-//             </button>
-//         </Box>
-//       </Box>
-//     );
-//   }
+  if (error) {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="80vh"
+        sx={{ color: "red" }}
+      >
+        <Typography variant="h5" color="error" gutterBottom>
+          אופס! משהו השתבש...
+        </Typography>
+        <Typography variant="body1" color="error" sx={{ textAlign: 'center' }}>
+          {error}
+        </Typography>
+        <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
+          <button onClick={() => window.location.reload()} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#007bff', color: 'white', cursor: 'pointer' }}>
+            נסה שוב
+          </button>
+          <button onClick={() => navigate('/')} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#cc0000', color: 'white', cursor: 'pointer' }}>
+            חזור לדף הבית
+          </button>
+        </Box>
+      </Box>
+    );
+  }
 
-//   // אם אין משוב (אבל אין שגיאה ואין טעינה), זה אומר שלא נמצאו נתונים או שההקלטה לא הייתה תקינה מלכתחילה
-//   if (!feedback) {
-//     return (
-//       <Box
-//         display="flex"
-//         flexDirection="column"
-//         alignItems="center"
-//         justifyContent="center"
-//         minHeight="80vh"
-//       >
-//         <Typography variant="h6" color="textSecondary">
-//           אין משוב זמין עבור ההקלטה הזו.
-//         </Typography>
-//         <button onClick={() => navigate('/')} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#cc0000', color: 'white', cursor: 'pointer', marginTop: '20px' }}>
-//             חזור לדף הראשי
-//         </button>
-//       </Box>
-//     );
-//   }
+  // אם אין משוב (אבל אין שגיאה ואין טעינה), זה אומר שלא נמצאו נתונים או שההקלטה לא הייתה תקינה מלכתחילה
+  if (!feedback) {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="80vh"
+      >
+        <Typography variant="h6" color="textSecondary">
+          אין משוב זמין עבור ההקלטה הזו.
+        </Typography>
+        <button onClick={() => navigate('/')} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#cc0000', color: 'white', cursor: 'pointer', marginTop: '20px' }}>
+          חזור לדף הראשי
+        </button>
+      </Box>
+    );
+  }
 
-//   // תצוגת המשוב בפועל
-//   return (
-//     <Box sx={{ maxWidth: 900, margin: "40px auto", p: 3, direction: "rtl", textAlign: "right" }}>
-//       <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ color: '#007bff' }}>
-//         המשוב שלך על ההקלטה
-//       </Typography>
+  // תצוגת המשוב בפועל
+  return (
+    <Box sx={{ maxWidth: 900, margin: "40px auto", p: 3, direction: "rtl", textAlign: "right" }}>
+      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ color: '#007bff' }}>
+        המשוב שלך על ההקלטה
+      </Typography>
 
-//       {/* ציון כללי */}
-//       <Box
-//         display="flex"
-//         alignItems="center"
-//         justifyContent="center"
-//         mb={4}
-//         gap={2}
-//       >
-//         <Typography variant="h6" color="textPrimary">ציון כללי:</Typography>
-//         <Box
-//           sx={{
-//             width: 80,
-//             height: 80,
-//             borderRadius: "50%",
-//             display: "flex",
-//             alignItems: "center",
-//             justifyContent: "center",
-//             fontSize: "2em",
-//             fontWeight: "bold",
-//             color: "white",
-//             backgroundColor:
-//               feedback.score >= 80
-//                 ? "#4CAF50" // ירוק
-//                 : feedback.score >= 60
-//                 ? "#FFC107" // כתום
-//                 : "#F44336", // אדום
-//             boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-//           }}
-//         >
-//           {feedback.score}
-//         </Box>
-//       </Box>
+      {/* ציון כללי */}
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        mb={4}
+        gap={2}
+      >
+        <Typography variant="h6" color="textPrimary">ציון כללי:</Typography>
+        <Box
+          sx={{
+            width: 80,
+            height: 80,
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2em",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor:
+              feedback.score >= 80
+                ? "#4CAF50" // ירוק
+                : feedback.score >= 60
+                  ? "#FFC107" // כתום
+                  : "#F44336", // אדום
+            boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
+          }}
+        >
+          {feedback.score}
+        </Box>
+      </Box>
 
-//       {/* תמלול ההקלטה */}
-//       {transcription && (
-//         <Card sx={{ mb: 4, bgcolor: '#e6f7ff', border: '1px solid #b3e0ff' }}>
-//           <CardContent>
-//             <Typography variant="h5" component="h3" gutterBottom align="center" sx={{ color: '#007bff' }}>
-//               התמלול של ההקלטה שלך:
-//             </Typography>
-//             <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', color: '#222' }}>
-//               {transcription}
-//             </Typography>
-//           </CardContent>
-//         </Card>
-//       )}
+      {/* תמלול ההקלטה */}
+      {transcription && (
+        <Card sx={{ mb: 4, bgcolor: '#e6f7ff', border: '1px solid #b3e0ff' }}>
+          <CardContent>
+            <Typography variant="h5" component="h3" gutterBottom align="center" sx={{ color: '#007bff' }}>
+              התמלול של ההקלטה שלך:
+            </Typography>
+            <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', color: '#222' }}>
+              {transcription}
+            </Typography>
+          </CardContent>
+        </Card>
+      )}
 
-//       <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: 4 }} />
 
-//       {/* פרטי המשוב */}
-//       <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={3}>
-//         <Card>
-//           <CardContent>
-//             <Typography variant="h6" sx={{ color: '#cc0000' }}>דקדוק:</Typography>
-//             <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.grammarScore}/10</span></Typography>
-//             <Typography variant="body2">{feedback.grammarComment}</Typography>
-//           </CardContent>
-//         </Card>
+      {/* פרטי המשוב */}
+      <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={3}>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" sx={{ color: '#cc0000' }}>דקדוק:</Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.grammarScore}/10</span></Typography>
+            <Typography variant="body2">{feedback.grammarComment}</Typography>
+          </CardContent>
+        </Card>
 
-//         <Card>
-//           <CardContent>
-//             <Typography variant="h6" sx={{ color: '#cc0000' }}>שטף דיבור:</Typography>
-//             <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.fluencyScore}/10</span></Typography>
-//             <Typography variant="body2">{feedback.fluencyComment}</Typography>
-//           </CardContent>
-//         </Card>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" sx={{ color: '#cc0000' }}>שטף דיבור:</Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.fluencyScore}/10</span></Typography>
+            <Typography variant="body2">{feedback.fluencyComment}</Typography>
+          </CardContent>
+        </Card>
 
-//         <Card>
-//           <CardContent>
-//             <Typography variant="h6" sx={{ color: '#cc0000' }}>אוצר מילים:</Typography>
-//             <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.vocabularyScore}/10</span></Typography>
-//             <Typography variant="body2">{feedback.vocabularyComment}</Typography>
-//           </CardContent>
-//         </Card>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" sx={{ color: '#cc0000' }}>אוצר מילים:</Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.vocabularyScore}/10</span></Typography>
+            <Typography variant="body2">{feedback.vocabularyComment}</Typography>
+          </CardContent>
+        </Card>
 
-//         <Card sx={{ gridColumn: '1 / -1' }}> {/* תופס את כל הרוחב */}
-//           <CardContent>
-//             <Typography variant="h6" sx={{ color: '#cc0000' }}>משוב כללי:</Typography>
-//             <Typography variant="body2">{feedback.generalFeedback}</Typography>
-//           </CardContent>
-//         </Card>
+        <Card sx={{ gridColumn: '1 / -1' }}> {/* תופס את כל הרוחב */}
+          <CardContent>
+            <Typography variant="h6" sx={{ color: '#cc0000' }}>משוב כללי:</Typography>
+            <Typography variant="body2">{feedback.generalFeedback}</Typography>
+          </CardContent>
+        </Card>
 
-//         <Card>
-//           <CardContent>
-//             <Typography variant="h6" sx={{ color: '#cc0000' }}>מילים בשימוש:</Typography>
-//             <Typography variant="body1">
-//               <span style={{ fontWeight: 'bold', color: '#007bff' }}>{feedback.usedWordsCount}</span> מתוך <span style={{ fontWeight: 'bold', color: '#007bff' }}>{feedback.totalWordsRequired}</span> נדרשות
-//             </Typography>
-//           </CardContent>
-//         </Card>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" sx={{ color: '#cc0000' }}>מילים בשימוש:</Typography>
+            <Typography variant="body1">
+              <span style={{ fontWeight: 'bold', color: '#007bff' }}>{feedback.usedWordsCount}</span> מתוך <span style={{ fontWeight: 'bold', color: '#007bff' }}>{feedback.totalWordsRequired}</span> נדרשות
+            </Typography>
+          </CardContent>
+        </Card>
 
-//         <Card>
-//           <CardContent>
-//             <Typography variant="h6" sx={{ color: '#cc0000' }}>זמן מתן משוב:</Typography>
-//             <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#007bff' }}>
-//               {new Date(feedback.givenAt).toLocaleString('he-IL')}
-//             </Typography>
-//           </CardContent>
-//         </Card>
-//       </Box>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" sx={{ color: '#cc0000' }}>זמן מתן משוב:</Typography>
+            <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#007bff' }}>
+              {new Date(feedback.givenAt).toLocaleString('he-IL')}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
 
-//       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-//           <button onClick={() => navigate('/')} style={{ padding: '12px 25px', borderRadius: '25px', border: 'none', backgroundColor: '#cc0000', color: 'white', fontSize: '1.1em', fontWeight: 'bold', cursor: 'pointer', transition: 'background-color 0.3s ease, transform 0.2s ease' }}>
-//               חזור לדף הראשי
-//           </button>
-//       </Box>
-//     </Box>
-//   );
-// });
+      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+        <button onClick={() => navigate('/')} style={{ padding: '12px 25px', borderRadius: '25px', border: 'none', backgroundColor: '#cc0000', color: 'white', fontSize: '1.1em', fontWeight: 'bold', cursor: 'pointer', transition: 'background-color 0.3s ease, transform 0.2s ease' }}>
+          חזור לדף הראשי
+        </button>
+      </Box>
+    </Box>
+  );
+});
 
-// export default Feedback;
+export default Feedback;
 
-//שלי
+// שלי
 // const Feedback: React.FC = observer(() => {
 //   const recording=recordStore.recording;
 //   const f=async()=>{
@@ -778,194 +780,194 @@
 // export default FeedbackPage
 
 //gpt
-import React, { useEffect, useState } from "react";
-import { observer } from "mobx-react-lite";
-import { feedbackStore } from "../stores/feedbackStore";
-import recordStore from "../stores/recordStore";
-import {
-  Box,
-  CircularProgress,
-  Typography,
-  Paper,
-  Fade,
-  Button,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
-import ShareIcon from "@mui/icons-material/Share";
-import { styled, keyframes } from "@mui/system";
+// import React, { useEffect, useState } from "react";
+// import { observer } from "mobx-react-lite";
+// import { feedbackStore } from "../stores/feedbackStore";
+// import recordStore from "../stores/recordStore";
+// import {
+//   Box,
+//   CircularProgress,
+//   Typography,
+//   Paper,
+//   Fade,
+//   Button,
+//   IconButton,
+//   Tooltip,
+// } from "@mui/material";
+// import ShareIcon from "@mui/icons-material/Share";
+// import { styled, keyframes } from "@mui/system";
 
-// רקע אנימטיבי
-const pulseBackground = keyframes`
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-`;
+// // רקע אנימטיבי
+// const pulseBackground = keyframes`
+//   0% { background-position: 0% 50%; }
+//   50% { background-position: 100% 50%; }
+//   100% { background-position: 0% 50%; }
+// `;
 
-const Background = styled(Box)({
-  minHeight: "100vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  background: "linear-gradient(-45deg, #1e3c72, #2a5298, #ff4e50, #f9d423)",
-  backgroundSize: "300% 300%",
-  animation: `${pulseBackground} 12s ease infinite`,
-  padding: "2rem",
-  direction: "rtl",
-});
+// const Background = styled(Box)({
+//   minHeight: "100vh",
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+//   background: "linear-gradient(-45deg, #1e3c72, #2a5298, #ff4e50, #f9d423)",
+//   backgroundSize: "300% 300%",
+//   animation: `${pulseBackground} 12s ease infinite`,
+//   padding: "2rem",
+//   direction: "rtl",
+// });
 
-// אפקט הקלדה
-const Typing = ({ text }: { text: string }) => {
-  const [displayed, setDisplayed] = useState("");
+// // אפקט הקלדה
+// const Typing = ({ text }: { text: string }) => {
+//   const [displayed, setDisplayed] = useState("");
 
-  useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      setDisplayed((prev) => prev + text[i]);
-      i++;
-      if (i >= text.length) clearInterval(interval);
-    }, 40);
-    return () => clearInterval(interval);
-  }, [text]);
+//   useEffect(() => {
+//     let i = 0;
+//     const interval = setInterval(() => {
+//       setDisplayed((prev) => prev + text[i]);
+//       i++;
+//       if (i >= text.length) clearInterval(interval);
+//     }, 40);
+//     return () => clearInterval(interval);
+//   }, [text]);
 
-  return (
-    <Typography
-      variant="h5"
-      sx={{ color: "#fff", fontWeight: 500, textShadow: "0 0 6px #000" }}
-    >
-      {displayed}
-    </Typography>
-  );
-};
+//   return (
+//     <Typography
+//       variant="h5"
+//       sx={{ color: "#fff", fontWeight: 500, textShadow: "0 0 6px #000" }}
+//     >
+//       {displayed}
+//     </Typography>
+//   );
+// };
 
-// כרטיס משוב
-const FeedbackCard = styled(Paper)(({ theme }) => ({
-  padding: "2rem",
-  maxWidth: "800px",
-  background: "linear-gradient(145deg, #ffffff, #f1f1f1)",
-  boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-  borderRadius: "20px",
-}));
+// // כרטיס משוב
+// const FeedbackCard = styled(Paper)(({ theme }) => ({
+//   padding: "2rem",
+//   maxWidth: "800px",
+//   background: "linear-gradient(145deg, #ffffff, #f1f1f1)",
+//   boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
+//   borderRadius: "20px",
+// }));
 
-const FeedbackPage: React.FC = observer(() => {
-  const recording = recordStore.recording;
-  const [started, setStarted] = useState(false);
-  const [showCard, setShowCard] = useState(false);
+// const FeedbackPage: React.FC = observer(() => {
+//   const recording = recordStore.recording;
+//   const [started, setStarted] = useState(false);
+//   const [showCard, setShowCard] = useState(false);
 
-  useEffect(() => {
-    if (!recording || !recording.id || !recording.topicId || started) return;
+//   useEffect(() => {
+//     if (!recording || !recording.id || !recording.topicId || started) return;
 
-    setStarted(true);
+//     setStarted(true);
 
-    const run = async () => {
-      try {
-        if (recording.id) {
-          await feedbackStore.transcribeFromUrl(recording.url, recording.id);
-          await feedbackStore.analyzeTranscription(
-            feedbackStore.transcription,
-            recording.topicId,
-            recording.id
-          );
-        }
-        setTimeout(() => setShowCard(true), 300); // מעבר חלק
-      } catch (err) {
-        console.error("שגיאה בתהליך הבאת המשוב", err);
-      }
-    };
+//     const run = async () => {
+//       try {
+//         if (recording.id) {
+//           await feedbackStore.transcribeFromUrl(recording.url, recording.id);
+//           await feedbackStore.analyzeTranscription(
+//             feedbackStore.transcription,
+//             recording.topicId,
+//             recording.id
+//           );
+//         }
+//         setTimeout(() => setShowCard(true), 300); // מעבר חלק
+//       } catch (err) {
+//         console.error("שגיאה בתהליך הבאת המשוב", err);
+//       }
+//     };
 
-    run();
-  }, [recording, started]);
+//     run();
+//   }, [recording, started]);
 
-  const f = feedbackStore.feedback;
+//   const f = feedbackStore.feedback;
 
-  return (
-    <Background>
-      {feedbackStore.loading && (
-        <Box textAlign="center">
-          <CircularProgress
-            size={80}
-            thickness={4}
-            sx={{ color: "#ff3c3c", mb: 3 }}
-          />
-          <Typing text="אנחנו מנתחים עבורך את ההקלטה..." />
-        </Box>
-      )}
+//   return (
+//     <Background>
+//       {feedbackStore.loading && (
+//         <Box textAlign="center">
+//           <CircularProgress
+//             size={80}
+//             thickness={4}
+//             sx={{ color: "#ff3c3c", mb: 3 }}
+//           />
+//           <Typing text="אנחנו מנתחים עבורך את ההקלטה..." />
+//         </Box>
+//       )}
 
-      {feedbackStore.error && (
-        <Typography color="error" variant="h6">
-          שגיאה: {feedbackStore.error}
-        </Typography>
-      )}
+//       {feedbackStore.error && (
+//         <Typography color="error" variant="h6">
+//           שגיאה: {feedbackStore.error}
+//         </Typography>
+//       )}
 
-      {!feedbackStore.loading && f && (
-        <Fade in={showCard} timeout={600}>
-          <FeedbackCard>
-            <Typography variant="h4" gutterBottom color="primary">
-              משוב אישי על ההקלטה
-            </Typography>
+//       {!feedbackStore.loading && f && (
+//         <Fade in={showCard} timeout={600}>
+//           <FeedbackCard>
+//             <Typography variant="h4" gutterBottom color="primary">
+//               משוב אישי על ההקלטה
+//             </Typography>
 
-            <Typography variant="subtitle1" gutterBottom>
-              משוב כללי: {f.generalFeedback}
-            </Typography>
+//             <Typography variant="subtitle1" gutterBottom>
+//               משוב כללי: {f.generalFeedback}
+//             </Typography>
 
-            <Typography>
-              🎯 <strong>ציון כולל:</strong> {f.score}
-            </Typography>
-            <Typography>
-              🧠 <strong>דקדוק:</strong> {f.grammarScore} | {f.grammarComment}
-            </Typography>
-            <Typography>
-              🔊 <strong>שטף דיבור:</strong> {f.fluencyScore} |{" "}
-              {f.fluencyComment}
-            </Typography>
-            <Typography>
-              💬 <strong>אוצר מילים:</strong> {f.vocabularyScore} |{" "}
-              {f.vocabularyComment}
-            </Typography>
+//             <Typography>
+//               🎯 <strong>ציון כולל:</strong> {f.score}
+//             </Typography>
+//             <Typography>
+//               🧠 <strong>דקדוק:</strong> {f.grammarScore} | {f.grammarComment}
+//             </Typography>
+//             <Typography>
+//               🔊 <strong>שטף דיבור:</strong> {f.fluencyScore} |{" "}
+//               {f.fluencyComment}
+//             </Typography>
+//             <Typography>
+//               💬 <strong>אוצר מילים:</strong> {f.vocabularyScore} |{" "}
+//               {f.vocabularyComment}
+//             </Typography>
 
-            <Typography>
-              📚 <strong>מילים נדרשות:</strong> {f.totalWordsRequired}
-            </Typography>
-            <Typography>
-              ✅ <strong>מילים בשימוש:</strong> {f.usedWordsCount}
-            </Typography>
+//             <Typography>
+//               📚 <strong>מילים נדרשות:</strong> {f.totalWordsRequired}
+//             </Typography>
+//             <Typography>
+//               ✅ <strong>מילים בשימוש:</strong> {f.usedWordsCount}
+//             </Typography>
 
-            <Typography sx={{ mt: 2, fontStyle: "italic", fontSize: "0.9rem" }}>
-              🕒 נשלח בתאריך: {f.givenAt}
-            </Typography>
+//             <Typography sx={{ mt: 2, fontStyle: "italic", fontSize: "0.9rem" }}>
+//               🕒 נשלח בתאריך: {f.givenAt}
+//             </Typography>
 
-            <Box mt={3}>
-              <Typography variant="h6" gutterBottom>
-                תמלול ההקלטה:
-              </Typography>
-              <Typography>{feedbackStore.transcription}</Typography>
-            </Box>
+//             <Box mt={3}>
+//               <Typography variant="h6" gutterBottom>
+//                 תמלול ההקלטה:
+//               </Typography>
+//               <Typography>{feedbackStore.transcription}</Typography>
+//             </Box>
 
-            <Box mt={4} textAlign="left">
-              <Tooltip title="שיתוף המשוב">
-                <IconButton
-                  onClick={() => {
-                    navigator.share?.({
-                      title: "LingoFlow Feedback",
-                      text: f.generalFeedback,
-                    });
-                  }}
-                  sx={{
-                    backgroundColor: "#1e88e5",
-                    color: "#fff",
-                    "&:hover": { backgroundColor: "#1565c0" },
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-                  }}
-                >
-                  <ShareIcon />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </FeedbackCard>
-        </Fade>
-      )}
-    </Background>
-  );
-});
+//             <Box mt={4} textAlign="left">
+//               <Tooltip title="שיתוף המשוב">
+//                 <IconButton
+//                   onClick={() => {
+//                     navigator.share?.({
+//                       title: "LingoFlow Feedback",
+//                       text: f.generalFeedback,
+//                     });
+//                   }}
+//                   sx={{
+//                     backgroundColor: "#1e88e5",
+//                     color: "#fff",
+//                     "&:hover": { backgroundColor: "#1565c0" },
+//                     boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+//                   }}
+//                 >
+//                   <ShareIcon />
+//                 </IconButton>
+//               </Tooltip>
+//             </Box>
+//           </FeedbackCard>
+//         </Fade>
+//       )}
+//     </Background>
+//   );
+// });
 
-export default FeedbackPage;
+// export default FeedbackPage;

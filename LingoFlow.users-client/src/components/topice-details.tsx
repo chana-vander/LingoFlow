@@ -187,7 +187,7 @@
 //                                                 <PlayArrowIcon />
 //                                             </IconButton>
 //                                         </Grid>
-                                        
+
 //                                         <Grid item xs={12}>
 //                                             <Divider sx={{ marginY: 1 }} />
 //                                         </Grid>
@@ -210,54 +210,64 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Word from "../models/word";
-import { Container, Typography, Box, IconButton, Grid, Divider, CircularProgress, styled } from "@mui/material";
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import StopIcon from '@mui/icons-material/Stop';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import {
+  Container,
+  Typography,
+  Box,
+  IconButton,
+  Grid,
+  Divider,
+  CircularProgress,
+  styled,
+} from "@mui/material";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import StopIcon from "@mui/icons-material/Stop";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useTheme } from "@mui/material/styles";
-import '../css/details.css';
+import "../css/details.css";
+import Word from "../models/word";
 
+// עיצוב הכרטיסים
 const WordCard = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'light' ? '#f9f9f9' : '#303030',
+  backgroundColor: theme.palette.mode === "light" ? "#f9f9f9" : "#303030",
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[1],
   marginBottom: theme.spacing(2),
   padding: theme.spacing(2),
-  transition: 'transform 0.2s ease-in-out, boxShadow 0.2s ease-in-out',
-  cursor: 'pointer',
-  '&:hover': {
-    transform: 'scale(1.02)',
+  transition: "transform 0.2s ease-in-out, boxShadow 0.2s ease-in-out",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.02)",
     boxShadow: theme.shadows[3],
   },
 }));
 
-const WordContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-}));
+const WordContainer = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+});
 
 const WordText = styled(Typography)(({ theme }) => ({
-  fontWeight: 'bold',
-  color: theme.palette.primary.main, // כחול
-  transition: 'color 0.2s ease-in-out',
+  fontWeight: "bold",
+  color: theme.palette.primary.main,
 }));
 
 const TranslationText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.secondary.main, // אדום
-  fontWeight: 'bold',
-  transition: 'color 0.2s ease-in-out',
-  textAlign: 'right',
+  color: theme.palette.secondary.main,
+  fontWeight: "bold",
+  textAlign: "right",
 }));
 
-const SentenceContainer = styled(Box)(({ theme, expanded }) => ({
+const SentenceContainer = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "expanded",
+})<{ expanded: boolean }>(({ theme, expanded }) => ({
   marginTop: theme.spacing(1),
-  maxHeight: expanded ? '200px' : '0', // גובה מקסימלי להצגת המשפט
-  overflow: 'hidden',
-  transition: 'max-height 0.3s ease-in-out, padding 0.3s ease-in-out',
+  maxHeight: expanded ? "200px" : "0",
+  overflow: "hidden",
+  transition: "max-height 0.3s ease-in-out, padding 0.3s ease-in-out",
   padding: expanded ? theme.spacing(1, 0) : theme.spacing(0),
-  color: theme.palette.secondary.light, // אדום נעים יותר
+  color: theme.palette.secondary.light,
 }));
 
 const WordNumber = styled(Typography)(({ theme }) => ({
@@ -266,7 +276,7 @@ const WordNumber = styled(Typography)(({ theme }) => ({
 }));
 
 const Details = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [words, setWords] = useState<Word[]>([]);
   const [topicName, setTopicName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -278,43 +288,105 @@ const Details = () => {
 
   useEffect(() => {
     fetch(`http://localhost:5092/api/Word/Topic/${id}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setWords(data);
         setLoading(false);
       })
-      .catch(error => {
-        console.error('Error fetching words:', error);
+      .catch((error) => {
+        console.error("Error fetching words:", error);
         setLoading(false);
       });
   }, [id]);
 
   useEffect(() => {
     fetch(`http://localhost:5092/api/Topic/${id}`)
-      .then(res => res.json())
-      .then(data => setTopicName(data.name))
-      .catch(error => console.error('Error fetching topic name: ', error));
+      .then((res) => res.json())
+      .then((data) => setTopicName(data.name))
+      .catch((error) => console.error("Error fetching topic name: ", error));
   }, [id]);
 
+  // const playAplayAudioudio = (text: string) => {
+  //   stopAudio();
+  //   const utterance = new SpeechSynthesisUtterance(text);
+  //   utterance.lang = "en-US";
+  //   utterance.rate = 0.9;
+  //   utterance.onend = () => {
+  //     setSpeech(null);
+  //     setPaused(false);
+  //   };
+  //   window.speechSynthesis.speak(utterance);
+  //   setSpeech(utterance);
+  // };
   const playAudio = (text: string) => {
+    if (!text || text.trim() === "") {
+      console.warn("טקסט ריק. אין מה להשמיע.");
+      return;
+    }
+
+    if (!("speechSynthesis" in window)) {
+      alert("הדפדפן שלך לא תומך בהקראת טקסט.");
+      return;
+    }
+
     stopAudio();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
+
+    const utterance = new SpeechSynthesisUtterance(text.trim());
+
+    // טען קולות זמינים
+    const voices = window.speechSynthesis.getVoices();
+    const englishVoice = voices.find(
+      (v) => v.lang === "en-US" || v.lang.startsWith("en")
+    );
+    console.log(englishVoice);
+
+    if (englishVoice) {
+      utterance.voice = englishVoice;
+    } else {
+      console.warn("לא נמצא קול באנגלית. משתמש בקול ברירת מחדל.");
+    }
+
+    utterance.lang = "en-US";
     utterance.rate = 0.9;
+
+    utterance.onstart = () => {
+      console.log("התחיל להשמיע:", utterance.text);
+    };
+
+    utterance.onerror = (event) => {
+      console.error("שגיאה בהשמעה:", event.error);
+    };
+
     utterance.onend = () => {
+      console.log("סיים להשמיע:", utterance.text);
       setSpeech(null);
       setPaused(false);
     };
+
     window.speechSynthesis.speak(utterance);
     setSpeech(utterance);
   };
 
+  // const playAudio = (text: string) => {
+  //   stopAudio();
+  //   const utterance = new SpeechSynthesisUtterance(text);
+  //   console.log(utterance.text);
+
+  //   utterance.lang = "en-US";
+  //   utterance.rate = 0.9;
+  //   utterance.onend = () => {
+  //     setSpeech(null);
+  //     setPaused(false);
+  //   };
+  //   window.speechSynthesis.speak(utterance);
+  //   setSpeech(utterance.text);
+  // };
   const stopAudio = () => {
-    if (speech) {
+    if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
       window.speechSynthesis.cancel();
-      setSpeech(null);
-      setPaused(false);
     }
+    setSpeech(null);
+    setPaused(false);
   };
 
   const pauseAudio = () => {
@@ -335,26 +407,51 @@ const Details = () => {
     setExpandedWordId(expandedWordId === id ? null : id);
   };
 
-  const handleWordAudioClick = (event: React.MouseEvent, wordName: string, wordId: number) => {
-    event.stopPropagation(); // מונע את סגירת הכרטיסייה כשלוחצים על הרמקול של המילה
+  const handleWordAudioClick = (event: React.MouseEvent, wordName: string) => {
+    event.stopPropagation();
     playAudio(wordName);
-    // הסרנו את השורה הזו: setExpandedWordId(wordId); // פותח את המשפט אם הוא סגור
   };
 
-  const handleSentenceAudioClick = (event: React.MouseEvent, sentence: string, wordId: number) => {
-    event.stopPropagation(); // מונע את סגירת הכרטיסייה כשלוחצים על הרמקול של המשפט
+  const handleSentenceAudioClick = (
+    event: React.MouseEvent,
+    sentence: string,
+    wordId: number
+  ) => {
+    event.stopPropagation();
     playAudio(sentence);
-    setExpandedWordId(wordId); // פותח את המשפט אם הוא סגור
+    setExpandedWordId(wordId);
   };
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 auto' }}>
-      <Typography variant="h4" align="center" sx={{ fontWeight: "bold", color: theme.palette.primary.main, marginBottom: 3 }}>
+    <Container
+      maxWidth="md"
+      sx={{
+        marginTop: 5,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Typography
+        variant="h4"
+        align="center"
+        sx={{
+          fontWeight: "bold",
+          color: theme.palette.primary.main,
+          marginBottom: 3,
+        }}
+      >
         {topicName} Vocabulary
       </Typography>
 
-      <Typography variant="subtitle2" color="textSecondary" align="center" sx={{ marginBottom: 2 }}>
-        לחצו על כרטיסייה כדי לראות את התרגום והמשפט, ועל סמל הרמקול כדי לשמוע את ההגייה.
+      <Typography
+        variant="subtitle2"
+        color="textSecondary"
+        align="center"
+        sx={{ marginBottom: 2 }}
+      >
+        לחצו על כרטיסייה כדי לראות את התרגום והמשפט, ועל סמל הרמקול כדי לשמוע את
+        ההגייה.
       </Typography>
 
       {loading ? (
@@ -362,40 +459,70 @@ const Details = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <Box sx={{ padding: 3, width: '100%' }}>
+        <Box sx={{ padding: 3, width: "100%" }}>
           {words.length > 0 ? (
             words.map((word, index) => (
-              <WordCard key={word.id ? word.id : index} onClick={() => handleCardClick(word.id)}>
+              <WordCard
+                key={word.id || index}
+                onClick={() => handleCardClick(word.id)}
+              >
                 <Grid container alignItems="center" spacing={2}>
                   <Grid item xs={6}>
                     <WordContainer>
                       <WordNumber variant="h6">{index + 1}.</WordNumber>
                       <WordText variant="h5">{word.name}</WordText>
-                      <IconButton onClick={(event) => handleWordAudioClick(event, word.name, word.id)} color="primary" size="small">
+                      <IconButton
+                        onClick={(event) =>
+                          handleWordAudioClick(event, word.name)
+                        }
+                        color="primary"
+                        size="small"
+                      >
                         <VolumeUpIcon />
                       </IconButton>
                     </WordContainer>
                   </Grid>
                   <Grid item xs={6}>
-                    <TranslationText variant="h5" align="right">{word.translation}</TranslationText>
+                    <TranslationText variant="h5" align="right">
+                      {word.translation}
+                    </TranslationText>
                   </Grid>
                   <Grid item xs={12}>
                     <SentenceContainer expanded={expandedWordId === word.id}>
                       <Divider sx={{ marginBottom: 1 }} />
-                      <Typography variant="body1" sx={{ fontStyle: 'italic' }}>
+                      <Typography variant="body1" sx={{ fontStyle: "italic" }}>
                         {word.sentence}
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
                         {word.sentenceTranslate}
                       </Typography>
                       <Box sx={{ mt: 1 }}>
-                        <IconButton onClick={(event) => handleSentenceAudioClick(event, word.sentence, word.id)} color="primary" size="small">
+                        <IconButton
+                          onClick={(event) =>
+                            handleSentenceAudioClick(
+                              event,
+                              word.sentence,
+                              word.id
+                              // ??index
+                            )
+                          }
+                          color="primary"
+                          size="small"
+                        >
                           <VolumeUpIcon />
                         </IconButton>
-                        <IconButton onClick={pauseAudio} color="warning" size="small">
+                        <IconButton
+                          onClick={pauseAudio}
+                          color="warning"
+                          size="small"
+                        >
                           <StopIcon />
                         </IconButton>
-                        <IconButton onClick={resumeAudio} color="success" size="small">
+                        <IconButton
+                          onClick={resumeAudio}
+                          color="success"
+                          size="small"
+                        >
                           <PlayArrowIcon />
                         </IconButton>
                       </Box>
@@ -420,18 +547,18 @@ export default Details;
 // import { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 // import Word from "../models/word";
-// import { 
-//   Container, 
-//   Typography, 
-//   Box, 
-//   List, 
-//   ListItem, 
-//   IconButton, 
-//   Grid, 
-//   Divider, 
-//   CircularProgress, 
-//   Paper, 
-//   Card, 
+// import {
+//   Container,
+//   Typography,
+//   Box,
+//   List,
+//   ListItem,
+//   IconButton,
+//   Grid,
+//   Divider,
+//   CircularProgress,
+//   Paper,
+//   Card,
 //   CardContent,
 //   Chip,
 //   Tooltip,
@@ -568,7 +695,7 @@ export default Details;
 //     return (
 //         <ThemeProvider theme={theme}>
 //             <Container maxWidth="lg" sx={{ marginTop: 5, marginBottom: 5 }}>
-//                 <Box sx={{ 
+//                 <Box sx={{
 //                     backgroundImage: 'linear-gradient(135deg, rgba(25,118,210,0.1) 0%, rgba(211,47,47,0.1) 100%)',
 //                     borderRadius: 4,
 //                     padding: 3,
@@ -578,9 +705,9 @@ export default Details;
 //                     justifyContent: 'center',
 //                     flexDirection: 'column'
 //                 }}>
-//                     <Box sx={{ 
-//                         display: 'flex', 
-//                         alignItems: 'center', 
+//                     <Box sx={{
+//                         display: 'flex',
+//                         alignItems: 'center',
 //                         mb: 1,
 //                         backgroundColor: alpha(theme.palette.primary.main, 0.1),
 //                         px: 3,
@@ -588,8 +715,8 @@ export default Details;
 //                         borderRadius: 2
 //                     }}>
 //                         <MenuBookIcon sx={{ color: theme.palette.primary.main, mr: 1, fontSize: 32 }} />
-//                         <Typography variant="h4" align="center" sx={{ 
-//                             fontWeight: "bold", 
+//                         <Typography variant="h4" align="center" sx={{
+//                             fontWeight: "bold",
 //                             color: theme.palette.primary.main,
 //                             background: 'linear-gradient(45deg, #1976d2 30%, #d32f2f 90%)',
 //                             WebkitBackgroundClip: 'text',
@@ -599,10 +726,10 @@ export default Details;
 //                         </Typography>
 //                     </Box>
 
-//                     <Chip 
-//                         label={`${words.length} words`} 
-//                         color="primary" 
-//                         size="small" 
+//                     <Chip
+//                         label={`${words.length} words`}
+//                         color="primary"
+//                         size="small"
 //                         sx={{ fontWeight: 500 }}
 //                     />
 //                 </Box>
@@ -616,10 +743,10 @@ export default Details;
 //                         <List sx={{ p: 0 }}>
 //                             {words.length > 0 ? (
 //                                 words.map((word, index) => (
-//                                     <Card 
-//                                         key={index} 
-//                                         sx={{ 
-//                                             mb: 3, 
+//                                     <Card
+//                                         key={index}
+//                                         sx={{
+//                                             mb: 3,
 //                                             position: 'relative',
 //                                             overflow: 'visible',
 //                                             '&:hover': {
@@ -627,16 +754,16 @@ export default Details;
 //                                                 transform: 'translateY(-2px)',
 //                                                 transition: 'all 0.3s ease'
 //                                             },
-//                                             borderLeft: playingIndex === index ? 
-//                                                 `5px solid ${theme.palette.secondary.main}` : 
+//                                             borderLeft: playingIndex === index ?
+//                                                 `5px solid ${theme.palette.secondary.main}` :
 //                                                 `5px solid ${theme.palette.primary.main}`
 //                                         }}
 //                                     >
-//                                         <Box 
-//                                             sx={{ 
-//                                                 position: 'absolute', 
-//                                                 top: -12, 
-//                                                 left: 16, 
+//                                         <Box
+//                                             sx={{
+//                                                 position: 'absolute',
+//                                                 top: -12,
+//                                                 left: 16,
 //                                                 backgroundColor: theme.palette.primary.main,
 //                                                 color: 'white',
 //                                                 width: 30,
@@ -655,10 +782,10 @@ export default Details;
 //                                             <Grid container spacing={2}>
 //                                                 <Grid item xs={12} md={5}>
 //                                                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-//                                                         <Typography 
-//                                                             variant="h5" 
-//                                                             sx={{ 
-//                                                                 color: theme.palette.primary.main, 
+//                                                         <Typography
+//                                                             variant="h5"
+//                                                             sx={{
+//                                                                 color: theme.palette.primary.main,
 //                                                                 fontWeight: "bold",
 //                                                                 mr: 1
 //                                                             }}
@@ -666,11 +793,11 @@ export default Details;
 //                                                             {word.name}
 //                                                         </Typography>
 //                                                         <Tooltip title="Pronounce word">
-//                                                             <IconButton 
-//                                                                 onClick={() => playAudio(word.name, index)} 
+//                                                             <IconButton
+//                                                                 onClick={() => playAudio(word.name, index)}
 //                                                                 color="primary"
 //                                                                 size="small"
-//                                                                 sx={{ 
+//                                                                 sx={{
 //                                                                     backgroundColor: alpha(theme.palette.primary.main, 0.1),
 //                                                                     '&:hover': {
 //                                                                         backgroundColor: alpha(theme.palette.primary.main, 0.2),
@@ -681,12 +808,12 @@ export default Details;
 //                                                             </IconButton>
 //                                                         </Tooltip>
 //                                                     </Box>
-                                                    
+
 //                                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
 //                                                         <TranslateIcon sx={{ color: theme.palette.secondary.main, mr: 1, fontSize: 16 }} />
-//                                                         <Typography 
-//                                                             variant="h6" 
-//                                                             sx={{ 
+//                                                         <Typography
+//                                                             variant="h6"
+//                                                             sx={{
 //                                                                 color: theme.palette.secondary.main,
 //                                                                 fontWeight: 500
 //                                                             }}
@@ -697,26 +824,26 @@ export default Details;
 //                                                 </Grid>
 
 //                                                 <Grid item xs={12}>
-//                                                     <Divider sx={{ 
+//                                                     <Divider sx={{
 //                                                         my: 2,
 //                                                         backgroundImage: 'linear-gradient(to right, rgba(25,118,210,0.2), rgba(211,47,47,0.2))'
 //                                                     }} />
 //                                                 </Grid>
 
 //                                                 <Grid item xs={12} md={8}>
-//                                                     <Paper 
-//                                                         elevation={0} 
-//                                                         sx={{ 
-//                                                             p: 2, 
+//                                                     <Paper
+//                                                         elevation={0}
+//                                                         sx={{
+//                                                             p: 2,
 //                                                             backgroundColor: alpha(theme.palette.primary.main, 0.05),
 //                                                             borderRadius: 2,
 //                                                             mb: 1
 //                                                         }}
 //                                                     >
-//                                                         <Typography 
-//                                                             variant="body1" 
-//                                                             sx={{ 
-//                                                                 fontStyle: "italic", 
+//                                                         <Typography
+//                                                             variant="body1"
+//                                                             sx={{
+//                                                                 fontStyle: "italic",
 //                                                                 color: theme.palette.text.primary,
 //                                                                 position: 'relative',
 //                                                                 pl: 3,
@@ -733,19 +860,19 @@ export default Details;
 //                                                             {word.sentence}
 //                                                         </Typography>
 //                                                     </Paper>
-                                                    
-//                                                     <Paper 
-//                                                         elevation={0} 
-//                                                         sx={{ 
-//                                                             p: 2, 
+
+//                                                     <Paper
+//                                                         elevation={0}
+//                                                         sx={{
+//                                                             p: 2,
 //                                                             backgroundColor: alpha(theme.palette.secondary.main, 0.05),
 //                                                             borderRadius: 2,
 //                                                             mb: 1
 //                                                         }}
 //                                                     >
-//                                                         <Typography 
-//                                                             variant="body1" 
-//                                                             sx={{ 
+//                                                         <Typography
+//                                                             variant="body1"
+//                                                             sx={{
 //                                                                 color: theme.palette.text.secondary,
 //                                                                 position: 'relative',
 //                                                                 pl: 3,
@@ -763,14 +890,14 @@ export default Details;
 //                                                         </Typography>
 //                                                     </Paper>
 //                                                 </Grid>
-                                                
+
 //                                                 <Grid item xs={12} md={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: {xs: 'flex-start', md: 'flex-end'} }}>
 //                                                     <Box sx={{ display: 'flex', gap: 1 }}>
 //                                                         <Tooltip title="Pronounce sentence">
-//                                                             <IconButton 
-//                                                                 onClick={() => playAudio(word.sentence, index)} 
+//                                                             <IconButton
+//                                                                 onClick={() => playAudio(word.sentence, index)}
 //                                                                 color="primary"
-//                                                                 sx={{ 
+//                                                                 sx={{
 //                                                                     backgroundColor: theme.palette.primary.main,
 //                                                                     color: 'white',
 //                                                                     '&:hover': {
@@ -781,19 +908,19 @@ export default Details;
 //                                                                 <VolumeUpIcon />
 //                                                             </IconButton>
 //                                                         </Tooltip>
-                                                        
+
 //                                                         <Tooltip title={paused ? "Resume" : "Pause"}>
-//                                                             <IconButton 
+//                                                             <IconButton
 //                                                                 onClick={paused ? resumeAudio : pauseAudio}
 //                                                                 color="secondary"
 //                                                                 disabled={!speech || playingIndex !== index}
-//                                                                 sx={{ 
-//                                                                     backgroundColor: paused ? 
-//                                                                         alpha(theme.palette.secondary.main, 0.1) : 
+//                                                                 sx={{
+//                                                                     backgroundColor: paused ?
+//                                                                         alpha(theme.palette.secondary.main, 0.1) :
 //                                                                         alpha(theme.palette.secondary.main, 0.1),
 //                                                                     '&:hover': {
-//                                                                         backgroundColor: paused ? 
-//                                                                             alpha(theme.palette.secondary.main, 0.2) : 
+//                                                                         backgroundColor: paused ?
+//                                                                             alpha(theme.palette.secondary.main, 0.2) :
 //                                                                             alpha(theme.palette.secondary.main, 0.2),
 //                                                                     },
 //                                                                     '&.Mui-disabled': {
@@ -812,9 +939,9 @@ export default Details;
 //                                     </Card>
 //                                 ))
 //                             ) : (
-//                                 <Paper 
-//                                     sx={{ 
-//                                         p: 4, 
+//                                 <Paper
+//                                     sx={{
+//                                         p: 4,
 //                                         textAlign: 'center',
 //                                         backgroundColor: alpha(theme.palette.primary.main, 0.05),
 //                                         borderRadius: 2
@@ -1273,5 +1400,3 @@ export default Details;
 // }
 
 // export default Details
-
-

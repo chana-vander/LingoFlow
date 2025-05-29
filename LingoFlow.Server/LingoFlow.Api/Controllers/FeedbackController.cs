@@ -114,6 +114,18 @@ namespace LingoFlow.Api.Controllers
 
             return Ok(true);
         }
+        //לפי מזהה הקלטה
+        [HttpGet("record/{recordId}")]
+        public async Task<IActionResult> GetFeedbackByRecordId(int recordId)
+        {
+            var feedback= await _feedbackService.GetFeedbackByRecordIdAsync(recordId);
+            if (feedback == null)
+            {
+                return NotFound($"No feedback found for record ID {recordId}");
+            }
+
+            return Ok(feedback);
+        }
 
     }
 }

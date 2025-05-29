@@ -10,8 +10,6 @@ namespace LingoFlow.Core.Models
     {
 
         public int Id { get; set; }
-        public int ConversationId { get; set; }
-
         public int UsedWordsCount { get; set; }
         public int TotalWordsRequired { get; set; }
 
@@ -28,7 +26,9 @@ namespace LingoFlow.Core.Models
 
         public int Score { get; set; }
         public DateTime GivenAt { get; set; }
-
+        //one to one:
+        public int ConversationId { get; set; }
+        public Conversation Conversation { get; set; }
 
     }
 }

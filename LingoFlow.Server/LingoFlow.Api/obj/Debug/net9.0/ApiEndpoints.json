@@ -348,6 +348,22 @@
     ]
   },
   {
+    "ContainingType": "LingoFlow.Api.Controllers.FeedbackController",
+    "Method": "GetFeedbackByRecordId",
+    "RelativePath": "api/Feedback/record/{recordId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recordId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "LingoFlow.Api.Controllers.TopicController",
     "Method": "Get",
     "RelativePath": "api/Topic",

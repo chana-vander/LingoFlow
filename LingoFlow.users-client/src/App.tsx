@@ -12,6 +12,7 @@ import AboutUs from './components/about-us.tsx';
 import AudioRecorder from './components/record.tsx';
 import FeedbackDisplay from './components/feedback.tsx';
 // import UserRecordings from './components/user-recording.tsx';
+// import MyRecordings from './components/myRecording.tsx';
 function App() {
   return (
     // <Router>
@@ -26,8 +27,8 @@ function App() {
           <Route path="about-us" element={<AboutUs />} />
           <Route path="record" element={<AudioRecorder />} />
           <Route path="feedback" element={<FeedbackDisplay />} />
-          {/* <Route path="user-recording" element={<UserRecordings />} /> */}
-          <Route path="bsd" element={<GetRecords />} />
+          {/* <Route path="user-recording" element={<MyRecordings />} /> */}
+          <Route path="my-recordings" element={<GetRecords />} />
 
         </Route>
       </Routes>
