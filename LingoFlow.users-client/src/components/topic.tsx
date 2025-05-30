@@ -53,7 +53,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, CardContent, Typography, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom"; // לניהול ניווט בעזרת React Router
-import { Book } from "@mui/icons-material"; // אייקון חדש של ספר (למילון)
+// import { Book } from "@mui/icons-material"; // אייקון חדש של ספר (למילון)
 import userStore from "../stores/userStore";
 
 type Topic = {

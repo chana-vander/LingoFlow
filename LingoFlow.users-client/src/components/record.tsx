@@ -200,13 +200,12 @@ import AudioTranscriber from "./audioTranscriber"
 import userStore from "../stores/userStore"
 import topicStore from "../stores/topicStore"
 import recordStore from "../stores/recordStore"
-import feedback from "./feedback";
-import { Navigate, useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
 import { Mic, Square, X, Play, Pause, Upload, Download, Share2, RefreshCw } from "lucide-react"
 import '../style/record.css'
 import { Record } from "../models/record";
 import { feedbackStore } from "../stores/feedbackStore"
-import { transaction } from "mobx"
+// import { transaction } from "mobx"
 
 const AudioRecorder: React.FC = observer(() => {
   // User ID from store

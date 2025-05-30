@@ -259,14 +259,13 @@ import {
 import logoImage from "../images/logo-power2-Photoroom.png";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/userStore";
-import { toJS } from "mobx";
 
 const Header = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
 
   const isLoggedIn = userStore.isLoggedIn;
-  const user = toJS(userStore.user);
+  // const user = toJS(userStore.user);
 
   // מצב ל-hover של ה-dropdown
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

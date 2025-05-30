@@ -44,84 +44,100 @@
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Box, Container, Alert } from "@mui/material";
+import { Box, Alert } from "@mui/material";
 import { motion } from "framer-motion";
-import homeImage from '../images/home.jpg';
-import StepsSection from './step'
+import homeImage from "../images/home.jpg";
+import StepsSection from "./step";
 const Home = () => {
-    const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [message, setMessage] = useState("");
 
-    useEffect(() => {
-        const user = localStorage.getItem("user");
-        setIsLoggedIn(!!user);
-    }, []);
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    setIsLoggedIn(!!user);
+  }, []);
 
-    const handleProtectedClick = (path: string) => {
-        if (isLoggedIn) {
-            navigate(path);
-        } else {
-            setMessage("עליך להתחבר כדי לגשת לאזור זה.");
-            setTimeout(() => setMessage(""), 3000);
-        }
-    };
+  const handleProtectedClick = (path: string) => {
+    if (isLoggedIn) {
+      navigate(path);
+    } else {
+      setMessage("עליך להתחבר כדי לגשת לאזור זה.");
+      setTimeout(() => setMessage(""), 3000);
+    }
+  };
 
-    return (
-        <>
-        <Box className="home-container"
-            sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                color: "white",
-                overflow: "hidden",
-                height: "100vh",
-                width: "100vw",
-                padding: 0,
-                margin: 0,
-            }}>
-            {/* תמונה משמאל */}
-            <Box sx={{ width: "60%", height: "100%" }}>
-                <motion.img
-                    src={homeImage}
-                    alt="LingoFlow Home"
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        display: "block",
-                    }}
-                    initial={{ opacity: 0, scale: 1 }}
-                    animate={{ opacity: 1, scale: 1.05 }}
-                    transition={{ duration: 1 }}
-                />
-            </Box>
-            {/* טקסט מימין */}
-            <Box sx={{ width: "40%", padding: 4,margin:4, direction: "rtl", textAlign: "right" }}>
-                <p style={{ color: '#d32f2f', fontSize: '25px' }}>
-                    רוצים לדבר אנגלית בביטחון? LingoFlow מציעה דרך חדשנית ללמוד אנגלית באמצעות הקלטות ומשוב חכם...
-                </p>
-                <p style={{ color: '#d32f2f', fontSize: '25px' }}>
-                הקליטו את עצמכם, קבלו משוב מיידי מבוסס AI, ושפרו את הדיבור שלכם בקצב אישי - בלי מורים, בלי לחץ, רק התקדמות אמיתית שאתם יכולים לראות ולשמוע.
-                </p>
-            </Box>
-
-            {message && (
-                <Alert severity="warning" sx={{
-                    position: "fixed",
-                    bottom: 20,
-                    left: "50%",
-                    transform: "translateX(-50%)"
-                }}>
-                    {message}
-                </Alert>
-            )}
+  return (
+    <>
+      <Box
+        className="home-container"
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          color: "white",
+          overflow: "hidden",
+          height: "100vh",
+          width: "100vw",
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        {/* תמונה משמאל */}
+        <Box sx={{ width: "60%", height: "100%" }}>
+          <motion.img
+            src={homeImage}
+            alt="LingoFlow Home"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1.05 }}
+            transition={{ duration: 1 }}
+          />
         </Box>
-        <StepsSection/>
-        </>
-    );
+        {/* טקסט מימין */}
+        <Box
+          sx={{
+            width: "40%",
+            padding: 4,
+            margin: 4,
+            direction: "rtl",
+            textAlign: "right",
+          }}
+        >
+          <p style={{ color: "#d32f2f", fontSize: "25px" }}>
+            רוצים לדבר אנגלית בביטחון? LingoFlow מציעה דרך חדשנית ללמוד אנגלית
+            באמצעות הקלטות ומשוב חכם...
+          </p>
+          <p style={{ color: "#d32f2f", fontSize: "25px" }}>
+            הקליטו את עצמכם, קבלו משוב מיידי מבוסס AI, ושפרו את הדיבור שלכם בקצב
+            אישי - בלי מורים, בלי לחץ, רק התקדמות אמיתית שאתם יכולים לראות
+            ולשמוע.
+          </p>
+        </Box>
+        <button onClick ={() =>handleProtectedClick("ff")}>לחץ</button>
+        {message && (
+          <Alert
+            severity="warning"
+            sx={{
+              position: "fixed",
+              bottom: 20,
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            {message}
+          </Alert>
+        )}
+      </Box>
+      <StepsSection />
+    </>
+  );
 };
 
 export default Home;
@@ -488,7 +504,6 @@ export default Home;
 //     </div>
 //   )
 // }
-
 
 // import { useNavigate } from "react-router-dom";
 // import { useEffect, useState } from "react";

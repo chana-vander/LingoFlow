@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography} from "@mui/material";
 import { styled, keyframes } from "@mui/material/styles";
 
 // אנימציית אותיות רקע
@@ -61,11 +61,11 @@ const StepNumber = styled(Box)`
   font-weight: bold;
 `;
 
-const StepTitle = styled(Typography)`
-  font-weight: bold;
-  color: #1976d2;
-  margin-bottom: 0.5rem;
-`;
+// const StepTitle = styled(Typography)`
+//   font-weight: bold;
+//   color: #1976d2;
+//   margin-bottom: 0.5rem;
+// `;
 
 const StepDescription = styled(Typography)`
   color: #444;

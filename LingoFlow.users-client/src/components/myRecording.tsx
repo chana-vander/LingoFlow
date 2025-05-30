@@ -628,7 +628,6 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SearchIcon from "@mui/icons-material/Search";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import DownloadIcon from "@mui/icons-material/Download";
 import AlbumIcon from "@mui/icons-material/Album";
@@ -639,38 +638,38 @@ import "../style/myRecording.css";
 import circle from "../images/circle.png";
 import bgImg from "../images/background.png";
 // Circle Animation Component
-const CircleAnimation = () => (
-  <Box
-    sx={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "50px",
-      gap: "8px",
-      "& .circle": {
-        width: "12px",
-        height: "12px",
-        borderRadius: "50%",
-        bgcolor: "#0288d1",
-        animation: "scalePulse 1.2s infinite ease-in-out",
-      },
-      "& .circle:nth-of-type(2)": {
-        animationDelay: "0.2s",
-      },
-      "& .circle:nth-of-type(3)": {
-        animationDelay: "0.4s",
-      },
-      "@keyframes scalePulse": {
-        "0%, 100%": { transform: "scale(0.8)" },
-        "50%": { transform: "scale(1.2)" },
-      },
-    }}
-  >
-    <Box className="circle" />
-    <Box className="circle" />
-    <Box className="circle" />
-  </Box>
-);
+// const CircleAnimation = () => (
+//   <Box
+//     sx={{
+//       display: "flex",
+//       justifyContent: "center",
+//       alignItems: "center",
+//       height: "50px",
+//       gap: "8px",
+//       "& .circle": {
+//         width: "12px",
+//         height: "12px",
+//         borderRadius: "50%",
+//         bgcolor: "#0288d1",
+//         animation: "scalePulse 1.2s infinite ease-in-out",
+//       },
+//       "& .circle:nth-of-type(2)": {
+//         animationDelay: "0.2s",
+//       },
+//       "& .circle:nth-of-type(3)": {
+//         animationDelay: "0.4s",
+//       },
+//       "@keyframes scalePulse": {
+//         "0%, 100%": { transform: "scale(0.8)" },
+//         "50%": { transform: "scale(1.2)" },
+//       },
+//     }}
+//   >
+//     <Box className="circle" />
+//     <Box className="circle" />
+//     <Box className="circle" />
+//   </Box>
+// );
 
 const MyRecordings = () => {
   const [records, setRecords] = useState<Record[]>([]);

@@ -7,7 +7,6 @@ import {
   X,
   Loader,
   Bot,
-  User,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
