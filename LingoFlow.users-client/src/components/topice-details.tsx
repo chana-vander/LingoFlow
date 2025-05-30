@@ -224,7 +224,7 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import StopIcon from "@mui/icons-material/Stop";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useTheme } from "@mui/material/styles";
-import "../css/details.css";
+import "../style/details.css";
 import Word from "../models/word";
 
 // עיצוב הכרטיסים
@@ -722,8 +722,9 @@ const Details = () => {
   }, [voicesLoaded, stopAudio]); // Dependencies for useCallback
 
   // --- Event Handlers for UI ---
-  const handleCardClick = useCallback((wordId: number) => {
-    setExpandedWordId(expandedWordId === wordId ? null : wordId);
+  const handleCardClick = useCallback((wordId: number|undefined) => {
+    if(wordId!==undefined)
+      setExpandedWordId(expandedWordId === wordId ? null : wordId);
   }, [expandedWordId]);
 
   const handleWordAudioClick = useCallback((event: React.MouseEvent, wordName: string) => {
@@ -734,11 +735,12 @@ const Details = () => {
   const handleSentenceAudioClick = useCallback((
     event: React.MouseEvent,
     sentence: string,
-    wordId: number
+    wordId: number|undefined
   ) => {
     event.stopPropagation(); // Prevent card expansion
     playAudio(sentence);
-    setExpandedWordId(wordId); // Expand the card if not already
+    if(wordId!==undefined)
+      setExpandedWordId(wordId); // Expand the card if not already
   }, [playAudio]);
 
   return (

@@ -203,7 +203,7 @@ import recordStore from "../stores/recordStore"
 import feedback from "./feedback";
 import { Navigate, useNavigate } from "react-router-dom"
 import { Mic, Square, X, Play, Pause, Upload, Download, Share2, RefreshCw } from "lucide-react"
-import '../css/record.css'
+import '../style/record.css'
 import { Record } from "../models/record";
 import { feedbackStore } from "../stores/feedbackStore"
 import { transaction } from "mobx"

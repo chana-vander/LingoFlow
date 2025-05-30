@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { feedbackStore } from "../stores/feedbackStore";
 import recordStore from "../stores/recordStore"; // וודא שהייבוא נכון: export const recordStore = new RecordStore();
-// קוד שעובד עם עיצוב נחמד
+// קוד שעובד עם עיצוב 
 import {
   Box,
   CircularProgress,

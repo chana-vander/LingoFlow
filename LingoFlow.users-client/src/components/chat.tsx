@@ -12,7 +12,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { ChatMessage } from "../models/chat";
-import "../css/chat.css";
+import "../style/chat.css";
 import { Avatar } from "@mui/material";
 import userStore from "../stores/userStore";
 

@@ -238,16 +238,16 @@ const levels = [
     description: "התחלה מהבסיס – ללמוד וליהנות!",
   },
   {
-    id: 3,
-    label: "מתקדמים",
-    icon: <EmojiObjects fontSize="medium" />,
-    description: "רמה למתקדמים שרוצים להתמקצע ולדבר בביטחון.",
-  },
-  {
     id: 2,
     label: "בינוניים",
     icon: <ThumbUpAlt fontSize="medium" />,
     description: "רמה בינונית לשיפור שטף ואוצר מילים.",
+  },
+  {
+    id: 3,
+    label: "מתקדמים",
+    icon: <EmojiObjects fontSize="medium" />,
+    description: "רמה למתקדמים שרוצים להתמקצע ולדבר בביטחון.",
   },
 ];
 
