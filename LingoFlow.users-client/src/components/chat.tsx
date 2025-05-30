@@ -26,7 +26,7 @@ const AIChat = ({ isOpen, onClose }: AIChatProps) => {
     {
       id: "welcome",
       role: "assistant",
-      content: "שלום! אני העוזר שלך ללימוד שפות. איך אפשר לעזור לך היום?",
+      content: "הי, אני העוזר שלך ללימוד אנגלית באפליקציית לינגופלו. איך אפשר לעזור לך היום?",
       timestamp: new Date(),
     },
   ]);
