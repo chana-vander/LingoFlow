@@ -1,4 +1,4 @@
-﻿using LingoFlow.Core.Dto;
+using LingoFlow.Core.Dto;
 //using LingoFlow.Core.DTOs;
 using LingoFlow.Core.Models;
 using System;
@@ -16,18 +16,18 @@ namespace LingoFlow.Core
         {
             return new UserLoginDto { Email = user.Email, Password = user.Password };
         }
-        public static ConversationDto MapToConversationDto(Conversation conversation)
+        public static recordingDto MapTorecordingDto(recording recording)
         {
-            return new ConversationDto
+            return new recordingDto
             {
-                Id = conversation.Id,
-                UserId = conversation.UserId,
-                TopicId = conversation.TopicId,
-                //FeedbackId = conversation.FeedbackId,
-                Url = conversation.Url,
-                Name = conversation.Name,
-                Date = conversation.Date,
-                Length = conversation.Length
+                Id = recording.Id,
+                UserId = recording.UserId,
+                TopicId = recording.TopicId,
+                //FeedbackId = recording.FeedbackId,
+                Url = recording.Url,
+                Name = recording.Name,
+                Date = recording.Date,
+                Length = recording.Length
             };
         }
 
@@ -36,7 +36,7 @@ namespace LingoFlow.Core
             return new FeedbackDto
             {
                 Id = feedback.Id,
-                ConversationId = feedback.ConversationId,
+                recordingId = feedback.recordingId,
 
                 UsedWordsCount = feedback.UsedWordsCount,
                 TotalWordsRequired = feedback.TotalWordsRequired,
@@ -59,9 +59,9 @@ namespace LingoFlow.Core
         {
             return new TopicDto { Id = Topic.Id, Name = Topic.Name };
         }
-        public static WordDto MapToWordDto(Word word)
+        public static VocabularyDto MapToWordDto(Vocabulary word)
         {
-            return new WordDto { Name = word.Name, Translation = word.Translation };
+            return new VocabularyDto { Word = word.Word, WordTranslation = word.WordTranslation };
         }
     }
 }

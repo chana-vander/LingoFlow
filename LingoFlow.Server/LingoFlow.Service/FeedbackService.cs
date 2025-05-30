@@ -1,4 +1,4 @@
-ο»Ώusing AutoMapper;
+using AutoMapper;
 using LingoFlow.Core.Dto;
 using LingoFlow.Core.Models;
 using LingoFlow.Core.Repositories;
@@ -37,18 +37,18 @@ namespace LingoFlow.Service
         //{
         //    if (feedback == null)
         //    {
-        //        throw new ArgumentNullException(nameof(feedback)); // Χ‘Χ“Χ™Χ§Χ” ΧΧ ΧΧ null
+        //        throw new ArgumentNullException(nameof(feedback)); // αγιχδ ΰν μΰ null
         //    }
 
-        //    // Χ‘Χ“Χ™Χ§Χ•Χª ΧΧ Χ”Χ©Χ“Χ•Χª Χ”Χ—Χ©Χ•Χ‘Χ™Χ Χ§Χ™Χ™ΧΧ™Χ (Χ›ΧΧ• UserId, ConversationId, Χ•Χ›Χ•')
-        //    if (feedback.ConversationId == null)//feedback.UserId == null || 
+        //    // αγιχεϊ ΰν δωγεϊ δηωεαιν χιιξιν (λξε UserId, recordingId, ελε')
+        //    if (feedback.recordingId == null)//feedback.UserId == null || 
         //    {
-        //        throw new ArgumentException("UserId and ConversationId must not be null.");
+        //        throw new ArgumentException("UserId and recordingId must not be null.");
         //    }
 
-        //    // ΧΧ™Χ¤Χ•Χ™ Χ”-DTO ΧΧ™Χ©Χ•Χª Feedback
+        //    // ξιτει δ-DTO μιωεϊ Feedback
         //    var mappedFeedback = _mapper.Map<Feedback>(feedback);
-        //    //Console.WriteLine("Adding feedback for ConversationId: " , feedback.ConversationId);
+        //    //Console.WriteLine("Adding feedback for recordingId: " , feedback.recordingId);
         //    //Console.WriteLine("Mapped feedback: " , mappedFeedback.Id);
         //    //Console.WriteLine("feed add to db: ",mappedFeedback);
         //    var addedFeedback = await _feedbackRepository.AddAsync(mappedFeedback);
@@ -61,7 +61,7 @@ namespace LingoFlow.Service
         {
             if (feedbackDto == null)
             {
-                throw new ArgumentNullException(nameof(feedbackDto)); // Χ‘Χ“Χ™Χ§Χ” ΧΧ ΧΧ null
+                throw new ArgumentNullException(nameof(feedbackDto)); // αγιχδ ΰν μΰ null
             }
 
             //if (feedbackDto.Id == null)
@@ -77,7 +77,7 @@ namespace LingoFlow.Service
             Console.WriteLine(addedFeedback.GrammarScore);
             Console.WriteLine(addedFeedback.FluencyComment);
             Console.WriteLine(addedFeedback.FluencyScore);
-            Console.WriteLine(addedFeedback.ConversationId);
+            Console.WriteLine(addedFeedback.recordingId);
             Console.WriteLine(addedFeedback.VocabularyComment);
             Console.WriteLine(addedFeedback.VocabularyScore);
             Console.WriteLine(addedFeedback.Score);
@@ -90,7 +90,7 @@ namespace LingoFlow.Service
         }
         public async Task<FeedbackDto> UpdateFeedbackAsync(int id, FeedbackDto feedback)
         {
-            // Χ‘Χ“Χ™Χ§Χª Χ¤Χ¨ΧΧΧ¨Χ™Χ
+            // αγιχϊ τψξθψιν
             if (id < 0 || feedback == null)
                 return null;
 
@@ -100,7 +100,7 @@ namespace LingoFlow.Service
                 return null;
             }
 
-            _mapper.Map(feedback, existingFeedback); // ΧΆΧ“Χ›Χ•Χ Χ”Χ©Χ“Χ•Χª Χ©Χ Χ”Χ¤Χ™Χ“Χ‘Χ§ Χ”Χ§Χ™Χ™Χ ΧΆΧ Χ”ΧΧ™Χ“ΧΆ Χ”Χ—Χ“Χ©
+            _mapper.Map(feedback, existingFeedback); // ςγλεο δωγεϊ ωμ δτιγαχ δχιιν ςν δξιγς δηγω
             await _managerRepository.SaveChangesAsync();
             return _mapper.Map<FeedbackDto>(existingFeedback);
         }
@@ -116,7 +116,7 @@ namespace LingoFlow.Service
 
             if (deleted)
             {
-                await _managerRepository.SaveChangesAsync(); // Χ©ΧΧ™Χ¨Χ” Χ‘Χ¤Χ•ΧΆΧ ΧΧ‘Χ΅Χ™Χ΅ Χ”Χ ΧªΧ•Χ Χ™Χ
+                await _managerRepository.SaveChangesAsync(); // ωξιψδ ατεςμ μαριρ δπϊεπιν
             }
 
             return deleted;

@@ -33,16 +33,16 @@ class FeedbackStore {
         }
     }
 
-    async transcribeFromUrl(fileUrl: string, conversationId: number) {
+    async transcribeFromUrl(fileUrl: string, recordId: number) {
         console.log("fileUrl: ", fileUrl);
-        console.log("conversationId: ", conversationId);
+        console.log("recordId: ", recordId);
 
         this.loading = true;
         this.error = "";
         try {
             const response = await axios.post("http://localhost:5092/api/transcription", {
                 fileUrl,
-                conversationId,
+                recordId,
             });
 
             runInAction(() => {
@@ -58,14 +58,14 @@ class FeedbackStore {
         }
     }
 
-    async analyzeTranscription(transcription: string, topicId: number, conversationId: number) {
+    async analyzeTranscription(transcription: string, topicId: number, recordId: number) {
         this.loading = true;
         this.error = "";
         try {
             const response = await axios.post<Feedback>("http://localhost:5092/api/Feedback/analyze", {
                 transcription,
                 topicId,
-                conversationId,
+                recordId,
             });
             console.log("1");
 

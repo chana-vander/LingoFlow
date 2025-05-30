@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using LingoFlow.Core.Dto;
 using LingoFlow.Core.Models;
 using LingoFlow.Core.Services;
@@ -38,7 +38,7 @@ namespace LingoFlow.Api.Controllers
         public async Task<ActionResult<Feedback>> Get(int id)
         {
             var Topic = await _TopicService.GetTopicByIdAsync(id);
-            //var wordDto = Mapping.
+            //var vocabularyDto = Mapping.
             if (Topic == null)
             {
                 return NotFound($"Topic with ID {id} not found.");

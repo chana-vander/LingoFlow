@@ -1,4 +1,4 @@
-ï»¿//using AutoMapper;
+//using AutoMapper;
 //using LingoFlow.Api.Models;
 //using LingoFlow.Core.Dto;
 //using LingoFlow.Core.Repositories;
@@ -84,7 +84,7 @@
 //    public string? Password { get; set; }
 //}
 
-//××•×¦×©×§:
+//îåöù÷:
 using LingoFlow.Api.Models;
 using LingoFlow.Core.Dto;
 using LingoFlow.Core.Services;
@@ -145,7 +145,7 @@ public class AuthController : ControllerBase
     //[HttpPost("register")]
     //public async Task<IActionResult> RegisterAsync([FromBody] UserRegisterDto model)
     //{
-    //    var user = await _userService.AddUserAsync(model); // ? ××™×Ÿ ×¦×•×¨×š ×‘-Mapper ×›××Ÿ!
+    //    var user = await _userService.AddUserAsync(model); // ? àéï öåøê á-Mapper ëàï!
     //    if (user == null)
     //    {
     //        //return BadRequest("User could not be created.");
@@ -163,7 +163,7 @@ public class AuthController : ControllerBase
             return BadRequest(new { message = "User with this email already exists." });
         }
 
-        // ×™×¦×™×¨×ª ×˜×•×§×Ÿ ××™×™×“ ×œ××—×¨ ×”×”×¨×©××”
+        // éöéøú èå÷ï îééã ìàçø ääøùîä
         var token = _tokenService.GenerateJwtToken(user.Email, "user");
 
         return Ok(new { Message = "User registered successfully", Token = token, User = user });

@@ -1,4 +1,4 @@
-ï»¿using AutoMapper;
+using AutoMapper;
 using LingoFlow.Core.Dto;
 using LingoFlow.Core.Models;
 using LingoFlow.Core.Services;
@@ -31,7 +31,7 @@ namespace LingoFlow.Api.Controllers
             if (string.IsNullOrWhiteSpace(request.Transcription))
                 return BadRequest("Transcription is required.");
 
-            Feedback feedback = await _feedbackAnalysis.AnalyzeAsync(request.Transcription, request.TopicId, request.ConversationId);
+            Feedback feedback = await _feedbackAnalysis.AnalyzeAsync(request.Transcription, request.TopicId, request.recordingId);
             FeedbackDto feedbackDto = _mapper.Map<FeedbackDto>(feedback);
             var addedFeedback = await _feedbackService.AddFeedbackAsync(feedbackDto);
 
@@ -114,7 +114,7 @@ namespace LingoFlow.Api.Controllers
 
             return Ok(true);
         }
-        //×œ×¤×™ ×ž×–×”×” ×”×§×œ×˜×”
+        //ìôé îæää ä÷ìèä
         [HttpGet("record/{recordId}")]
         public async Task<IActionResult> GetFeedbackByRecordId(int recordId)
         {

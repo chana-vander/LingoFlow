@@ -1,4 +1,4 @@
-﻿using LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

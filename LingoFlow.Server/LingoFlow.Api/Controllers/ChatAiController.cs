@@ -1,4 +1,5 @@
-﻿using LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
+using LingoFlow.Core.Services;
 using LingoFlow.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +13,9 @@ namespace LingoFlow.Api.Controllers
     {
         // GET: api/<ChatAiController>
 
-        private readonly ChatService _chatService;
+        private readonly IChatService _chatService;
 
-        public ChatAiController(ChatService chatService)
+        public ChatAiController(IChatService chatService)
         {
             _chatService = chatService;
         }

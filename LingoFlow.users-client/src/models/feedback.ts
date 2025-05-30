@@ -1,6 +1,6 @@
 export interface Feedback {
     id?: number;
-    conversationId: number;
+    recordingId: number;
     usedWordsCount: number;
     totalWordsRequired: number;
     grammarScore: number;

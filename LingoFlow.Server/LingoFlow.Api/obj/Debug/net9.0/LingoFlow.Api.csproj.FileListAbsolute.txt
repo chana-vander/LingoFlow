@@ -179,6 +179,13 @@ C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main
 C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\ref\LingoFlow.Api.dll
 C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\AWSSDK.Core.dll
 C:\Users\user1\Downloads\LingoFlow-Practiccum-main (1)\LingoFlow-Practiccum-main\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\AWSSDK.S3.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.csproj.AssemblyReference.cache
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.AssemblyInfoInputs.cache
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.AssemblyInfo.cs
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.csproj.CoreCompileInputs.cache
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.sourcelink.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\appsettings.Development.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\appsettings.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\libman.json
@@ -217,17 +224,24 @@ C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Binder.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Http.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Identity.Client.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
@@ -342,14 +356,6 @@ C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\LingoFlow.Core.pdb
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\LingoFlow.Data.pdb
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\LingoFlow.Service.pdb
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.csproj.AssemblyReference.cache
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.GeneratedMSBuildEditorConfig.editorconfig
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.AssemblyInfoInputs.cache
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.AssemblyInfo.cs
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.csproj.CoreCompileInputs.cache
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.MvcApplicationPartsAssemblyInfo.cs
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.MvcApplicationPartsAssemblyInfo.cache
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.sourcelink.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\scopedcss\bundle\LingoFlow.Api.styles.css
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\staticwebassets.build.json
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\staticwebassets.development.json
@@ -367,10 +373,3 @@ C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.pdb
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.genruntimeconfig.cache
 C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\ref\LingoFlow.Api.dll
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Binder.dll
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.dll
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Http.dll
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
-C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Clients.ActiveDirectory.dll

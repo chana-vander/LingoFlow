@@ -124,40 +124,521 @@
 
 // export default GetRecords;
 
-//gemini1:
+//gemini1:- מה שעובד מעולה בסד
+// import { useEffect, useState, useRef } from "react";
+// import recordStore from "../stores/recordStore";
+// import userStore from "../stores/userStore";
+// import { Record } from "../models/record";
+// import Swal from "sweetalert2";
+
+// import {
+//   Box,
+//   Button,
+//   List,
+//   ListItem,
+//   ListItemText,
+//   Typography,
+//   Paper,
+//   Stack,
+//   Collapse,
+//   IconButton,
+//   Dialog,
+//   DialogContent,
+//   DialogTitle,
+//   DialogActions,
+// } from "@mui/material";
+// import FeedbackIcon from "@mui/icons-material/Feedback";
+// import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import PauseIcon from "@mui/icons-material/Pause";
+// import DownloadIcon from "@mui/icons-material/Download";
+// import "../css/search-sidebar.css";
+// import { feedbackStore } from "../stores/feedbackStore";
+// import { Feedback } from "../models/feedback";
+// import { ChevronRight, Filter, Search } from "lucide-react";
+
+// // קומפוננטת אנימציית העיגולים
+// const CircleAnimation = () => (
+//   <Box
+//     sx={{
+//       display: "flex",
+//       justifyContent: "center",
+//       alignItems: "center",
+//       height: "50px",
+//       gap: "8px",
+//       "& .circle": {
+//         width: "12px",
+//         height: "12px",
+//         borderRadius: "50%",
+//         bgcolor: "primary.main",
+//         animation: "scalePulse 1.2s infinite ease-in-out",
+//       },
+//       "& .circle:nth-of-type(2)": {
+//         animationDelay: "0.2s",
+//       },
+//       "& .circle:nth-of-type(3)": {
+//         animationDelay: "0.4s",
+//       },
+//       "@keyframes scalePulse": {
+//         "0%, 100%": { transform: "scale(0.8)" },
+//         "50%": { transform: "scale(1.2)" },
+//       },
+//     }}
+//   >
+//     <Box className="circle" />
+//     <Box className="circle" />
+//     <Box className="circle" />
+//   </Box>
+// );
+
+// const GetRecords = () => {
+//   const [records, setRecords] = useState<Record[]>([]);
+//   // שיניתי את הסוג ל-number | null מכיוון ש-ID הוא מספר
+//   const [playingRecordId, setPlayingRecordId] = useState<number | null>(null);
+//   // שיניתי את הסוג ל-number | undefined מכיוון ש-userStore.user?.id יכול להיות undefined
+//   const userId = userStore.user?.id;
+//   const audioRef = useRef<HTMLAudioElement | null>(null);
+//   const [filteredRecords, setFilteredRecords] = useState<Record[]>([]);
+//   const [isFilterOpen, setIsFilterOpen] = useState(false);
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [sortBy, setSortBy] = useState("date");
+//   const [filterLevel, setFilterLevel] = useState("all");
+//   const [filterTopic, setFilterTopic] = useState("all");
+
+//   // פונקציה לקיבוץ הקלטות לפי נושא
+//   const groupRecordsByTopic = (recordsToGroup: Record[]) => {
+//     const grouped: { [key: string]: Record[] } = {};
+//     recordsToGroup.forEach((record) => {
+//       // ודא שקיים שדה topic במודל Record, אם לא, תחליט מה יהיה נושא ברירת המחדל
+//       const topic = record.topicId || "ללא נושא";
+//       if (!grouped[topic]) {
+//         grouped[topic] = [];
+//       }
+//       grouped[topic].push(record);
+//     });
+//     return grouped;
+//   };
+
+//   const groupedRecords = groupRecordsByTopic(records);
+
+//   // שיניתי את הסוג של recordToDeleteId ל-number
+//   const handleDeleteRecord = async (recordToDeleteId: number) => {
+//     const result = await Swal.fire({
+//       title: "האם אתה בטוח?",
+//       text: "הקלטה זו תימחק לצמיתות ולא ניתן יהיה לשחזר אותה!",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#d33",
+//       cancelButtonColor: "#3085d6",
+//       confirmButtonText: "כן, מחק אותה!",
+//       cancelButtonText: "בטל",
+//     });
+
+//     if (result.isConfirmed) {
+//       try {
+//         await recordStore.deleteRecordFromDB(recordToDeleteId);
+//         setRecords((prevRecords) =>
+//           prevRecords.filter((r) => r.id !== recordToDeleteId)
+//         );
+//         // השוואה נכונה של ID מסוג number
+//         if (playingRecordId === recordToDeleteId) {
+//           setPlayingRecordId(null);
+//           if (audioRef.current) {
+//             audioRef.current.pause();
+//             audioRef.current.src = "";
+//           }
+//         }
+//         Swal.fire("נמחק!", "ההקלטה נמחקה בהצלחה.", "success");
+//       } catch (error) {
+//         console.error("Error deleting record:", error);
+//         Swal.fire("שגיאה!", "אירעה שגיאה בעת מחיקת ההקלטה.", "error");
+//       }
+//     }
+//   };
+
+//   const handlePlayPause = (record: Record) => {
+//     // השוואה נכונה של ID מסוג number
+//     if (playingRecordId === record.id) {
+//       setPlayingRecordId(null);
+//       if (audioRef.current) {
+//         audioRef.current.pause();
+//       }
+//     } else {
+//       if (record.id !== undefined) setPlayingRecordId(record.id);
+//       if (audioRef.current) {
+//         audioRef.current.src = record.url;
+//         audioRef.current
+//           .play()
+//           .catch((e) => console.error("Error playing audio:", e));
+//       }
+//     }
+//   };
+
+//   const handleDownload = async (record: Record) => {
+//     const response = await fetch(record.url);
+//     const blob = await response.blob();
+//     const link = document.createElement("a");
+//     link.href = window.URL.createObjectURL(blob);
+//     link.download = `${record.name}.mp3`;
+//     document.body.appendChild(link);
+//     link.click();
+//     document.body.removeChild(link);
+//   };
+
+//   useEffect(() => {
+//     // ודא ש-userId הוא מספר לפני ששולפים רשומות
+//     if (typeof userId !== "number") return;
+
+//     recordStore
+//       .getRecordsByUserId(userId)
+//       .then((fetchedRecords) => {
+//         setRecords(fetchedRecords);
+//       })
+//       .catch((error) => {
+//         console.error("Error getting records:", error);
+//       });
+//   }, [userId]);
+
+//   // useEffect לטיפול באירועי סיום ניגון
+//   useEffect(() => {
+//     const audio = audioRef.current;
+//     if (audio) {
+//       const handleEnded = () => {
+//         setPlayingRecordId(null);
+//       };
+//       audio.addEventListener("ended", handleEnded);
+//       return () => {
+//         audio.removeEventListener("ended", handleEnded);
+//       };
+//     }
+//   }, [audioRef.current]);
+
+//   const [feedback, setFeedback] = useState<Feedback | null>(null);
+//   const [openDialog, setOpenDialog] = useState(false);
+//   // הוספת useEffect לעקוב אחרי השינויים ב-feedback
+//   useEffect(() => {
+//     if (feedback) {
+//       console.log("Updated feedback:", feedback);
+//       setOpenDialog(true); // פתח את הדיאלוג
+//       console.log(openDialog);
+//     }
+//   }, [feedback]);
+//   const displayFeedback = async (recordId: number) => {
+//     try {
+//       const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
+//       console.log("Feedback Data:", feedbackData);
+
+//       setFeedback(feedbackData[0]);
+
+//       console.log("record", recordId);
+//     } catch (error) {
+//       console.error("Error getting feedback:", error);
+//     }
+//   };
+//   return (
+//     <Box
+//       sx={{
+//         width: "80%",
+//         margin: "40px auto",
+//         padding: 4,
+//         bgcolor: "background.paper",
+//         borderRadius: 4,
+//         boxShadow: 6,
+//         display: "flex",
+//         flexDirection: "column",
+//         alignItems: "center",
+//         textAlign: "center",
+//       }}
+//     >
+
+//       <Typography
+//         variant="h3"
+//         component="h1"
+//         gutterBottom
+//         sx={{ mb: 4, color: "primary.dark", fontWeight: "bold" }}
+//       >
+//         ההקלטות שלך
+//       </Typography>
+
+//       {Object.keys(groupedRecords).length > 0 ? (
+//         <Box sx={{ width: "100%" }}>
+//           {Object.entries(groupedRecords).map(([topic, recordsInTopic]) => (
+//             <Box key={topic} sx={{ mb: 4 }}>
+//               <Typography
+//                 variant="h5"
+//                 sx={{
+//                   mb: 2,
+//                   color: "secondary.main",
+//                   textAlign: "right",
+//                   borderBottom: "2px solid",
+//                   borderColor: "secondary.light",
+//                   pb: 1,
+//                 }}
+//               >
+//                 {topic}
+//               </Typography>
+//               <List sx={{ width: "100%", p: 0 }}>
+//                 {recordsInTopic.map((record) => (
+//                   <Paper
+//                     // מפתח key צריך להיות ייחודי וניתן לרינדור, ID הוא מספר תקין
+//                     key={record.id}
+//                     sx={{
+//                       mb: 2,
+//                       p: 2,
+//                       display: "flex",
+//                       alignItems: "center",
+//                       justifyContent: "space-between",
+//                       elevation: 4,
+//                       borderRadius: 2,
+//                       transition: "all 0.3s ease-in-out",
+//                       "&:hover": {
+//                         transform: "translateY(-5px)",
+//                         boxShadow: 8,
+//                       },
+//                       position: "relative",
+//                       overflow: "hidden",
+//                     }}
+//                   >
+//                     <Box sx={{ flexGrow: 1, textAlign: "right" }}>
+//                       <Typography
+//                         variant="h6"
+//                         sx={{ color: "text.primary", fontWeight: "medium" }}
+//                       >
+//                         {record.name}
+//                       </Typography>
+//                       <Typography variant="body2" color="text.secondary">
+//                         {record.date}
+//                       </Typography>
+//                     </Box>
+
+//                     <Stack
+//                       direction="row"
+//                       spacing={1}
+//                       sx={{
+//                         opacity: { xs: 1, md: 0 },
+//                         transition: "opacity 0.3s ease-in-out",
+//                         position: "absolute",
+//                         right: 16,
+//                         top: "50%",
+//                         transform: "translateY(-50%)",
+//                         zIndex: 1,
+//                         "@media (hover: hover)": {
+//                           "&:hover, .MuiPaper-root:hover &": {
+//                             opacity: 1,
+//                           },
+//                         },
+//                       }}
+//                     >
+//                       <IconButton
+//                         aria-label="הורדה"
+//                         onClick={() => handleDownload(record)}
+//                       >
+//                         {" "}
+//                         <DownloadIcon />
+//                       </IconButton>
+//                       <IconButton
+//                         color="success"
+//                         aria-label="הצג משוב"
+//                         onClick={() => {
+//                           if (record.id !== undefined) {
+//                             displayFeedback(record.id);
+//                           }
+//                         }}
+//                       >
+//                         {/* כאן תוכל להוסיף אייקון או טקסט לכפתור */}
+//                         <FeedbackIcon color="primary" fontSize="large" />
+//                       </IconButton>
+//                       <IconButton
+//                         color="primary"
+//                         aria-label={
+//                           playingRecordId === record.id
+//                             ? "השהה הקלטה"
+//                             : "השמע הקלטה"
+//                         }
+//                         onClick={() => handlePlayPause(record)}
+//                         sx={{
+//                           p: 1.5,
+//                           bgcolor: "primary.light",
+//                           "&:hover": { bgcolor: "primary.main" },
+//                         }}
+//                       >
+//                         {playingRecordId === record.id ? (
+//                           <PauseIcon sx={{ fontSize: 28 }} />
+//                         ) : (
+//                           <PlayArrowIcon sx={{ fontSize: 28 }} />
+//                         )}
+//                       </IconButton>
+
+//                       <IconButton
+//                         color="error"
+//                         aria-label="מחק הקלטה"
+//                         onClick={() => {
+//                           if (record.id !== undefined) {
+//                             handleDeleteRecord(record.id);
+//                           } else {
+//                             console.error("Record ID is undefined");
+//                           }
+//                         }}
+//                         sx={{
+//                           p: 1.5,
+//                           bgcolor: "error.light",
+//                           "&:hover": { bgcolor: "error.main" },
+//                         }}
+//                       >
+//                         <DeleteIcon sx={{ fontSize: 28 }} />
+//                       </IconButton>
+//                     </Stack>
+//                   </Paper>
+//                 ))}
+//               </List>
+//             </Box>
+//           ))}
+//         </Box>
+//       ) : (
+//         <Typography
+//           variant="h6"
+//           color="text.secondary"
+//           sx={{
+//             mt: 4,
+//             p: 3,
+//             border: "1px dashed",
+//             borderColor: "grey.400",
+//             borderRadius: 2,
+//           }}
+//         >
+//           אין עדיין הקלטות להצגה. התחל להקליט משהו חדש!
+//         </Typography>
+//       )}
+
+//       <Collapse
+//         in={!!playingRecordId}
+//         sx={{
+//           width: "100%",
+//           display: "flex",
+//           flexDirection: "column",
+//           alignItems: "center",
+//         }}
+//       >
+//         {playingRecordId && (
+//           <Box
+//             sx={{
+//               mt: 4,
+//               width: "100%",
+//               maxWidth: 600,
+//               bgcolor: "#e3f2fd",
+//               p: 3,
+//               borderRadius: 3,
+//               boxShadow: 3,
+//               display: "flex",
+//               flexDirection: "column",
+//               alignItems: "center",
+//             }}
+//           >
+//             <Typography
+//               variant="subtitle1"
+//               color="text.secondary"
+//               sx={{ mb: 1 }}
+//             >
+//               מנגן כעת: {records.find((r) => r.id === playingRecordId)?.name}
+//             </Typography>
+//             <audio
+//               ref={audioRef}
+//               controls
+//               src={records.find((r) => r.id === playingRecordId)?.url}
+//               style={{
+//                 width: "100%",
+//                 outline: "none",
+//                 filter: "contrast(1.1)",
+//               }}
+//               onEnded={() => setPlayingRecordId(null)}
+//             />
+//             <CircleAnimation />
+//           </Box>
+//         )}
+//       </Collapse>
+//       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+//         <DialogTitle>משוב להקלטה</DialogTitle>
+//         <DialogContent>
+//           {feedback ? (
+//             <Box>
+//               {/* <Typography variant="h6">משוב כללי: {feedback.}</Typography> */}
+//               {/* <Typography variant="h6">ציון כללי: {feedback.}</Typography> */}
+
+//               <Typography>
+//                 ציון דקדוק: {feedback.grammarScore} - {feedback.grammarComment}
+//               </Typography>
+//               <Typography>
+//                 ציון שטף: {feedback.fluencyScore} - {feedback.fluencyComment}
+//               </Typography>
+//               <Typography>
+//                 ציון אוצר מילים: {feedback.vocabularyScore} -{" "}
+//                 {feedback.vocabularyComment}
+//               </Typography>
+//               <Typography>
+//                 תאריך: {new Date(feedback.givenAt).toLocaleDateString()}
+//               </Typography>
+//             </Box>
+//           ) : (
+//             <Typography>אין משוב זמין.</Typography>
+//           )}
+//         </DialogContent>
+//         <DialogActions>
+//           <Button onClick={() => setOpenDialog(false)} color="primary">
+//             סגור
+//           </Button>
+//         </DialogActions>
+//       </Dialog>
+//     </Box>
+//   );
+// };
+
+// export default GetRecords;
+
+"use client";
+
+import type React from "react";
+
 import { useEffect, useState, useRef } from "react";
 import recordStore from "../stores/recordStore";
 import userStore from "../stores/userStore";
-import { Record } from "../models/record";
+import type { Record } from "../models/record";
 import Swal from "sweetalert2";
 
 import {
   Box,
   Button,
-  List,
-  ListItem,
-  ListItemText,
   Typography,
   Paper,
-  Stack,
-  Collapse,
   IconButton,
   Dialog,
   DialogContent,
   DialogTitle,
   DialogActions,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  LinearProgress,
+  Tooltip,
+  Zoom,
+  TextField,
+  InputAdornment,
+  Avatar,
 } from "@mui/material";
-import FeedbackIcon from "@mui/icons-material/Feedback";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import SearchIcon from "@mui/icons-material/Search";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import DeleteIcon from "@mui/icons-material/Delete";
 import PauseIcon from "@mui/icons-material/Pause";
 import DownloadIcon from "@mui/icons-material/Download";
-import "../css/search-sidebar.css";
+import AlbumIcon from "@mui/icons-material/Album";
+import SearchOffIcon from "@mui/icons-material/SearchOff";
 import { feedbackStore } from "../stores/feedbackStore";
-import { Feedback } from "../models/feedback";
-import { ChevronRight, Filter, Search } from "lucide-react";
-
-// קומפוננטת אנימציית העיגולים
+import type { Feedback } from "../models/feedback";
+import "../css/myRecording.css";
+import circle from "../images/circle.png";
+import bgImg from "../images/background.png"
+// Circle Animation Component
 const CircleAnimation = () => (
   <Box
     sx={{
@@ -170,7 +651,7 @@ const CircleAnimation = () => (
         width: "12px",
         height: "12px",
         borderRadius: "50%",
-        bgcolor: "primary.main",
+        bgcolor: "#0288d1",
         animation: "scalePulse 1.2s infinite ease-in-out",
       },
       "& .circle:nth-of-type(2)": {
@@ -191,25 +672,38 @@ const CircleAnimation = () => (
   </Box>
 );
 
-const GetRecords = () => {
+const MyRecordings = () => {
   const [records, setRecords] = useState<Record[]>([]);
-  // שיניתי את הסוג ל-number | null מכיוון ש-ID הוא מספר
   const [playingRecordId, setPlayingRecordId] = useState<number | null>(null);
-  // שיניתי את הסוג ל-number | undefined מכיוון ש-userStore.user?.id יכול להיות undefined
   const userId = userStore.user?.id;
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [filteredRecords, setFilteredRecords] = useState<Record[]>([]);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [openDialog, setOpenDialog] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("date");
-  const [filterLevel, setFilterLevel] = useState("all");
-  const [filterTopic, setFilterTopic] = useState("all");
+  const [recordDurations, setRecordDurations] = useState<{
+    [key: number]: number;
+  }>({});
 
-  // פונקציה לקיבוץ הקלטות לפי נושא
+  // Load audio metadata to get duration
+  const loadAudioMetadata = async (record: Record) => {
+    return new Promise<number>((resolve) => {
+      const audio = new Audio();
+      audio.addEventListener("loadedmetadata", () => {
+        resolve(audio.duration);
+      });
+      audio.addEventListener("error", () => {
+        resolve(0);
+      });
+      audio.src = record.url;
+    });
+  };
+
+  // Group recordings by topic
   const groupRecordsByTopic = (recordsToGroup: Record[]) => {
     const grouped: { [key: string]: Record[] } = {};
     recordsToGroup.forEach((record) => {
-      // ודא שקיים שדה topic במודל Record, אם לא, תחליט מה יהיה נושא ברירת המחדל
       const topic = record.topicId || "ללא נושא";
       if (!grouped[topic]) {
         grouped[topic] = [];
@@ -219,19 +713,41 @@ const GetRecords = () => {
     return grouped;
   };
 
-  const groupedRecords = groupRecordsByTopic(records);
+  const filterAndSortRecords = (recordsToFilter: Record[]) => {
+    let filtered = recordsToFilter;
 
-  // שיניתי את הסוג של recordToDeleteId ל-number
+    // Filter by search term
+    if (searchTerm.trim()) {
+      filtered = filtered.filter((record) =>
+        record.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Sort by date (newest first)
+    filtered.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+
+    return filtered;
+  };
+
+  const filteredAndSortedRecords = filterAndSortRecords(records);
+  const groupedRecords = groupRecordsByTopic(filteredAndSortedRecords);
+
   const handleDeleteRecord = async (recordToDeleteId: number) => {
     const result = await Swal.fire({
-      title: "האם אתה בטוח?",
-      text: "הקלטה זו תימחק לצמיתות ולא ניתן יהיה לשחזר אותה!",
-      icon: "warning",
+      title: "מחיקת הקלטה",
+      text: "האם אתה בטוח שברצונך למחוק הקלטה זו?!",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "כן, מחק אותה!",
-      cancelButtonText: "בטל",
+      confirmButtonColor: "#f44336",
+      cancelButtonColor: "#2196f3",
+      confirmButtonText: "כן, מחק!",
+      cancelButtonText: "ביטול",
+      reverseButtons: true,
+      customClass: {
+        popup: "rtl-popup",
+      },
     });
 
     if (result.isConfirmed) {
@@ -240,7 +756,6 @@ const GetRecords = () => {
         setRecords((prevRecords) =>
           prevRecords.filter((r) => r.id !== recordToDeleteId)
         );
-        // השוואה נכונה של ID מסוג number
         if (playingRecordId === recordToDeleteId) {
           setPlayingRecordId(null);
           if (audioRef.current) {
@@ -248,16 +763,31 @@ const GetRecords = () => {
             audioRef.current.src = "";
           }
         }
-        Swal.fire("נמחק!", "ההקלטה נמחקה בהצלחה.", "success");
+        Swal.fire({
+          title: "נמחק!",
+          text: "ההקלטה נמחקה בהצלחה.",
+          icon: "success",
+          confirmButtonColor: "#4caf50",
+          customClass: {
+            popup: "rtl-popup",
+          },
+        });
       } catch (error) {
         console.error("Error deleting record:", error);
-        Swal.fire("שגיאה!", "אירעה שגיאה בעת מחיקת ההקלטה.", "error");
+        Swal.fire({
+          title: "שגיאה!",
+          text: "אירעה שגיאה בעת מחיקת ההקלטה.",
+          icon: "error",
+          confirmButtonColor: "#f44336",
+          customClass: {
+            popup: "rtl-popup",
+          },
+        });
       }
     }
   };
 
   const handlePlayPause = (record: Record) => {
-    // השוואה נכונה של ID מסוג number
     if (playingRecordId === record.id) {
       setPlayingRecordId(null);
       if (audioRef.current) {
@@ -285,215 +815,458 @@ const GetRecords = () => {
     document.body.removeChild(link);
   };
 
+  const handleProgressClick = (
+    event: React.MouseEvent<HTMLDivElement>,
+    recordId: number
+  ) => {
+    if (playingRecordId === recordId && audioRef.current && duration > 0) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const width = rect.width;
+      const clickTime = (clickX / width) * duration;
+      audioRef.current.currentTime = clickTime;
+      setCurrentTime(clickTime);
+    }
+  };
+
+  const updateProgress = () => {
+    if (audioRef.current && !isNaN(audioRef.current.duration)) {
+      setCurrentTime(audioRef.current.currentTime);
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const displayFeedback = async (recordId: number) => {
+    try {
+      const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
+      console.log("Feedback Data:", feedbackData);
+      setFeedback(feedbackData[0]);
+    } catch (error) {
+      console.error("Error getting feedback:", error);
+    }
+  };
+
   useEffect(() => {
-    // ודא ש-userId הוא מספר לפני ששולפים רשומות
     if (typeof userId !== "number") return;
 
     recordStore
       .getRecordsByUserId(userId)
-      .then((fetchedRecords) => {
+      .then(async (fetchedRecords) => {
         setRecords(fetchedRecords);
+
+        // Load durations for all records
+        const durations: { [key: number]: number } = {};
+        for (const record of fetchedRecords) {
+          if (record.id !== undefined) {
+            const duration = await loadAudioMetadata(record);
+            durations[record.id] = duration;
+          }
+        }
+        setRecordDurations(durations);
       })
       .catch((error) => {
         console.error("Error getting records:", error);
       });
   }, [userId]);
 
-  // useEffect לטיפול באירועי סיום ניגון
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
       const handleEnded = () => {
         setPlayingRecordId(null);
+        setCurrentTime(0);
+        setDuration(0);
       };
+
+      const handleTimeUpdate = () => {
+        updateProgress();
+      };
+
+      const handleLoadedMetadata = () => {
+        updateProgress();
+      };
+
       audio.addEventListener("ended", handleEnded);
+      audio.addEventListener("timeupdate", handleTimeUpdate);
+      audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+
       return () => {
         audio.removeEventListener("ended", handleEnded);
+        audio.removeEventListener("timeupdate", handleTimeUpdate);
+        audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
       };
     }
   }, [audioRef.current]);
 
-  const [feedback, setFeedback] = useState<Feedback | null>(null);
-  const [openDialog, setOpenDialog] = useState(false);
-  // הוספת useEffect לעקוב אחרי השינויים ב-feedback
   useEffect(() => {
     if (feedback) {
-      console.log("Updated feedback:", feedback);
-      setOpenDialog(true); // פתח את הדיאלוג
-      console.log(openDialog);
+      setOpenDialog(true);
     }
   }, [feedback]);
-  const displayFeedback = async (recordId: number) => {
-    try {
-      const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
-      console.log("Feedback Data:", feedbackData);
 
-      setFeedback(feedbackData[0]);
-
-      console.log("record", recordId);
-    } catch (error) {
-      console.error("Error getting feedback:", error);
-    }
+  const formatTime = (time: number) => {
+    if (isNaN(time) || time === 0) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
+
+  const getRecordDuration = (recordId: number | undefined) => {
+    if (recordId === undefined) return 0;
+    return recordDurations[recordId] || 0;
+  };
+
   return (
     <Box
       sx={{
-        width: "80%",
+        width: "90%",
         margin: "40px auto",
         padding: 4,
-        bgcolor: "background.paper",
+        bgcolor: "#f5f9fc",
         borderRadius: 4,
         boxShadow: 6,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         textAlign: "center",
+        direction: "rtl",
       }}
     >
-     
+      {/* <Box sx={{
+        display: 'flex', // מפעיל Flexbox
+        alignItems: 'center', // מיישר את הפריטים אנכית למרכז
+        justifyContent: 'center',
+        mb: 4, // מרווח תחתון כללי ל-Box
+        width: '100%', // ודא שהקונטיינר תופס את כל הרוחב הזמין
+      }}> */}
+        <Typography
+          gutterBottom
+          sx={{color: "#0277bd" ,margin:"auuto",fontSize:"25px",marginBottom:"30px"}}
+        >
+         הנה הקלטות שלך, כדי שתוכל לעקוב אחרי הדרך שעשית וללמוד ממה שכבר הצלחת.
+        </Typography>
 
-      <Typography
-        variant="h3"
-        component="h1"
-        gutterBottom
-        sx={{ mb: 4, color: "primary.dark", fontWeight: "bold" }}
-      >
-        ההקלטות שלך
-      </Typography>
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="חפש הקלטה..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{
+            mb: 0,
+            maxWidth: 240,
+            // maxHeight:200,
+            // marginLeft: '10%',
+            marginRight:'48%',
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 3,
+              bgcolor: "white",
+              direction: "ltr",
+            },
+            "& .MuiInputBase-input": {
+              textAlign: "right",
+            },
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon sx={{ color: "#0288d1" }} />
+              </InputAdornment>
+            ),
+          }}
+        />
+      {/* </Box> */}
+      <audio
+        ref={audioRef}
+        style={{ display: "none" }}
+        onEnded={() => setPlayingRecordId(null)}
+      />
 
       {Object.keys(groupedRecords).length > 0 ? (
         <Box sx={{ width: "100%" }}>
           {Object.entries(groupedRecords).map(([topic, recordsInTopic]) => (
-            <Box key={topic} sx={{ mb: 4 }}>
+            <Box key={topic} sx={{ mb: 5 }}>
               <Typography
                 variant="h5"
                 sx={{
-                  mb: 2,
-                  color: "secondary.main",
+                  mb: 3,
+                  color: "#01579b",
+                  
+                  // color:"#fff",
                   textAlign: "right",
-                  borderBottom: "2px solid",
-                  borderColor: "secondary.light",
                   pb: 1,
                 }}
               >
                 {topic}
               </Typography>
-              <List sx={{ width: "100%", p: 0 }}>
+              <Grid container spacing={3} sx={{ direction: "rtl" }}>
                 {recordsInTopic.map((record) => (
-                  <Paper
-                    // מפתח key צריך להיות ייחודי וניתן לרינדור, ID הוא מספר תקין
-                    key={record.id}
-                    sx={{
-                      mb: 2,
-                      p: 2,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      elevation: 4,
-                      borderRadius: 2,
-                      transition: "all 0.3s ease-in-out",
-                      "&:hover": {
-                        transform: "translateY(-5px)",
-                        boxShadow: 8,
-                      },
-                      position: "relative",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Box sx={{ flexGrow: 1, textAlign: "right" }}>
-                      <Typography
-                        variant="h6"
-                        sx={{ color: "text.primary", fontWeight: "medium" }}
-                      >
-                        {record.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {record.date}
-                      </Typography>
-                    </Box>
-
-                    <Stack
-                      direction="row"
-                      spacing={1}
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={record.id}>
+                    <Card
                       sx={{
-                        opacity: { xs: 1, md: 0 },
-                        transition: "opacity 0.3s ease-in-out",
-                        position: "absolute",
-                        right: 16,
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        zIndex: 1,
-                        "@media (hover: hover)": {
-                          "&:hover, .MuiPaper-root:hover &": {
-                            opacity: 1,
-                          },
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          transform: "translateY(-8px)",
+                          boxShadow: 8,
                         },
+                        bgcolor: "#e1f5fe",
+                        borderRadius: 3,
+                        overflow: "hidden",
+                        direction: "rtl",
                       }}
                     >
-                      <IconButton
-                        aria-label="הורדה"
-                        onClick={() => handleDownload(record)}
-                      >
-                        {" "}
-                        <DownloadIcon />
-                      </IconButton>
-                      <IconButton
-                        color="success"
-                        aria-label="הצג משוב"
-                        onClick={() => {
-                          if (record.id !== undefined) {
-                            displayFeedback(record.id);
-                          }
-                        }}
-                      >
-                        {/* כאן תוכל להוסיף אייקון או טקסט לכפתור */}
-                        <FeedbackIcon color="primary" fontSize="large" />
-                      </IconButton>
-                      <IconButton
-                        color="primary"
-                        aria-label={
-                          playingRecordId === record.id
-                            ? "השהה הקלטה"
-                            : "השמע הקלטה"
-                        }
-                        onClick={() => handlePlayPause(record)}
+                      {/* החלק העליון של הכרטיס -התמונה */}
+                      <Box
                         sx={{
-                          p: 1.5,
-                          bgcolor: "primary.light",
-                          "&:hover": { bgcolor: "primary.main" },
+                          position: "relative",
+                          height: 180,
+                          // bgcolor: "#0288d1",
+                          backgroundImage: `url(${bgImg})`,
+                          backgroundSize: 'cover', // התמונה תכסה את כל השטח
+                          backgroundPosition: 'center', // התמונה תמורכז
+                          backgroundRepeat: 'no-repeat', // למנוע חזרות
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          overflow: "hidden",
+                          filter: 'opacity(80%)'
                         }}
                       >
-                        {playingRecordId === record.id ? (
-                          <PauseIcon sx={{ fontSize: 28 }} />
-                        ) : (
-                          <PlayArrowIcon sx={{ fontSize: 28 }} />
-                        )}
-                      </IconButton>
+                        <AlbumIcon
+                          sx={{
+                            fontSize: 100,
+                            color: "#e1f5fe",
+                            opacity: 0.8,
+                            transition: "transform 0.5s ease",
+                            animation:
+                              playingRecordId === record.id
+                                ? "spin 4s linear infinite"
+                                : "none",
+                            "@keyframes spin": {
+                              "0%": { transform: "rotate(0deg)" },
+                              "100%": { transform: "rotate(360deg)" },
+                            },
+                          }}
+                        />
+                        <Typography
+                          sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            color: "white",
+                            fontWeight: "bold",
+                            fontSize: "1.5rem",
+                            textShadow: "1px 1px 3px rgba(0,0,0,0.5)",
+                            pointerEvents: "none",
+                          }}
+                        >
+                          {record.name.substring(0, 2).toUpperCase()}
+                        </Typography>
+                      </Box>
 
-                      <IconButton
-                        color="error"
-                        aria-label="מחק הקלטה"
-                        onClick={() => {
-                          if (record.id !== undefined) {
-                            handleDeleteRecord(record.id);
-                          } else {
-                            console.error("Record ID is undefined");
-                          }
-                        }}
+                      <CardContent
+                        sx={{ flexGrow: 1, textAlign: "right", pb: 1 }}
+                      >
+                        <Typography
+                          variant="h6"
+                          sx={{ color: "#01579b", fontWeight: "medium", mb: 1 }}
+                        >
+                          {record.name}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ mb: 2 }}
+                        >
+                          {record.date}
+                        </Typography>
+
+                        {/* Always visible progress bar */}
+                        <Box sx={{ width: "100%", mb: 1 }}>
+                          <Box
+                            onClick={(e) => handleProgressClick(e, record.id!)}
+                            sx={{
+                              cursor:
+                                playingRecordId === record.id
+                                  ? "pointer"
+                                  : "default",
+                              "&:hover": {
+                                opacity:
+                                  playingRecordId === record.id ? 0.8 : 1,
+                              },
+                            }}
+                          >
+                            <LinearProgress
+                              variant="determinate"
+                              value={
+                                playingRecordId === record.id && duration > 0
+                                  ? (currentTime / duration) * 100
+                                  : 0
+                              }
+                              sx={{
+                                height: 8,
+                                borderRadius: 4,
+                                bgcolor: "#b3e5fc",
+                                "& .MuiLinearProgress-bar": {
+                                  bgcolor: "#d50000",
+                                },
+                              }}
+                            />
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              mt: 0.5,
+                              fontSize: "0.75rem",
+                              color: "text.secondary",
+                            }}
+                          >
+                            <span>
+                              {playingRecordId === record.id
+                                ? formatTime(currentTime)
+                                : "0:00"}
+                            </span>
+                            <span>
+                              {playingRecordId === record.id && duration > 0
+                                ? formatTime(duration)
+                                : formatTime(getRecordDuration(record.id))}
+                            </span>
+                          </Box>
+                        </Box>
+                      </CardContent>
+
+                      <CardActions
                         sx={{
-                          p: 1.5,
-                          bgcolor: "error.light",
-                          "&:hover": { bgcolor: "error.main" },
+                          justifyContent: "center",
+                          gap: 1,
+                          pb: 2,
                         }}
                       >
-                        <DeleteIcon sx={{ fontSize: 28 }} />
-                      </IconButton>
-                    </Stack>
-                  </Paper>
+                        <Tooltip title="מחק" TransitionComponent={Zoom} arrow>
+                          <IconButton
+                            size="small"
+                            onClick={() => {
+                              if (record.id !== undefined) {
+                                handleDeleteRecord(record.id);
+                              }
+                            }}
+                            sx={{
+                              color: "#0277bd",
+                              "&:hover": { bgcolor: "#e1f5fe" },
+                            }}
+                          >
+                            <DeleteForeverIcon />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="הורד" TransitionComponent={Zoom} arrow>
+                          <IconButton
+                            size="small"
+                            onClick={() => handleDownload(record)}
+                            sx={{
+                              color: "#0277bd",
+                              "&:hover": { bgcolor: "#e1f5fe" },
+                            }}
+                          >
+                            <DownloadIcon />
+                          </IconButton>
+                        </Tooltip>
+
+                        <Tooltip
+                          title="הצג משוב"
+                          TransitionComponent={Zoom}
+                          arrow
+                        >
+                          <IconButton
+                            size="small"
+                            onClick={() => {
+                              if (record.id !== undefined) {
+                                displayFeedback(record.id);
+                              }
+                            }}
+                            sx={{
+                              color: "#0277bd",
+                              "&:hover": { bgcolor: "#e1f5fe" },
+                            }}
+                          >
+                            <VisibilityIcon />
+                          </IconButton>
+                        </Tooltip>
+
+                        <Tooltip
+                          title={playingRecordId === record.id ? "השהה" : "נגן"}
+                          TransitionComponent={Zoom}
+                          arrow
+                        >
+                          <IconButton
+                            size="large"
+                            onClick={() => handlePlayPause(record)}
+                            sx={{
+                              bgcolor: "white",
+                              color: "primary", // שיניתי ל-primary כדי שהאייקון/טקסט יהיה כחול על רקע לבן, או שים צבע אחר שמתאים לך
+                              "&:hover": {
+                                bgcolor: "#f0f0f0", // צבע אפור בהיר בריחוף, כדי שתהיה אינדיקציה כלשהי
+                              },
+                              transition: "all 0.2s ease",
+                              transform: "scale(1.2)",
+                              // הוסף עיצוב נוסף אם האווטאר לא נראה עגול מספיק
+                              borderRadius: "50%", // לוודא צורה עגולה
+                              overflow: "hidden", // לוודא שהתמונה נחתכת לעיגול
+                              padding: 0, // לוודא שאין ריפוד שמשפיע על הצורה
+                              display: "flex", // ליישור התוכן במרכז
+                              alignItems: "center", // ליישור אנכי
+                              justifyContent: "center", // ליישור אופקי
+                            }}
+                          >
+                            {playingRecordId === record.id ? (
+                              <PauseIcon />
+                            ) : (
+                              <Avatar
+                                src={circle}
+                                alt="Play"
+                                sx={{
+                                  width: "130%", // מילוי כל השטח של ה-IconButton
+                                  height: "130%", // מילוי כל השטח של ה-IconButton
+                                  // וודא שהתמונה ממלאת את האווטאר ושומרת על פרופורציות
+                                  objectFit: "cover",
+                                }}
+                              />
+                            )}
+                          </IconButton>
+                        </Tooltip>
+                      </CardActions>
+                    </Card>
+                  </Grid>
                 ))}
-              </List>
+              </Grid>
             </Box>
           ))}
+        </Box>
+      ) : searchTerm.trim() ? (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            mt: 4,
+            p: 4,
+            border: "2px dashed",
+            borderColor: "#4fc3f7",
+            borderRadius: 3,
+            bgcolor: "#f8f9fa",
+          }}
+        >
+          <SearchOffIcon sx={{ fontSize: 64, color: "#90a4ae", mb: 2 }} />
+          <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
+            אין הקלטות התואמות לחיפוש שלך
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            נסה לחפש במילות מפתח אחרות או נקה את שדה החיפוש
+          </Typography>
         </Box>
       ) : (
         <Typography
@@ -503,7 +1276,7 @@ const GetRecords = () => {
             mt: 4,
             p: 3,
             border: "1px dashed",
-            borderColor: "grey.400",
+            borderColor: "#4fc3f7",
             borderRadius: 2,
           }}
         >
@@ -511,80 +1284,121 @@ const GetRecords = () => {
         </Typography>
       )}
 
-      <Collapse
-        in={!!playingRecordId}
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        dir="rtl"
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            minWidth: 320,
+            maxWidth: 500,
+          },
         }}
       >
-        {playingRecordId && (
-          <Box
-            sx={{
-              mt: 4,
-              width: "100%",
-              maxWidth: 600,
-              bgcolor: "#e3f2fd",
-              p: 3,
-              borderRadius: 3,
-              boxShadow: 3,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              sx={{ mb: 1 }}
-            >
-              מנגן כעת: {records.find((r) => r.id === playingRecordId)?.name}
-            </Typography>
-            <audio
-              ref={audioRef}
-              controls
-              src={records.find((r) => r.id === playingRecordId)?.url}
-              style={{
-                width: "100%",
-                outline: "none",
-                filter: "contrast(1.1)",
-              }}
-              onEnded={() => setPlayingRecordId(null)}
-            />
-            <CircleAnimation />
-          </Box>
-        )}
-      </Collapse>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>משוב להקלטה</DialogTitle>
-        <DialogContent>
+        <DialogTitle
+          sx={{
+            bgcolor: "#0288d1",
+            color: "white",
+            textAlign: "center",
+            fontWeight: "bold",
+          }}
+        >
+          משוב להקלטה
+        </DialogTitle>
+        <DialogContent sx={{ p: 3, mt: 2 }}>
           {feedback ? (
-            <Box>
-              {/* <Typography variant="h6">משוב כללי: {feedback.}</Typography> */}
-              {/* <Typography variant="h6">ציון כללי: {feedback.}</Typography> */}
+            <Box sx={{ direction: "rtl" }}>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  bgcolor: "#e3f2fd",
+                  borderRadius: 2,
+                  borderRight: "4px solid #0288d1",
+                }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", color: "#01579b" }}
+                >
+                  דקדוק: {feedback.grammarScore}/10
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  {feedback.grammarComment}
+                </Typography>
+              </Paper>
 
-              <Typography>
-                ציון דקדוק: {feedback.grammarScore} - {feedback.grammarComment}
-              </Typography>
-              <Typography>
-                ציון שטף: {feedback.fluencyScore} - {feedback.fluencyComment}
-              </Typography>
-              <Typography>
-                ציון אוצר מילים: {feedback.vocabularyScore} -{" "}
-                {feedback.vocabularyComment}
-              </Typography>
-              <Typography>
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  bgcolor: "#e8f5e9",
+                  borderRadius: 2,
+                  borderRight: "4px solid #2e7d32",
+                }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", color: "#2e7d32" }}
+                >
+                  שטף: {feedback.fluencyScore}/10
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  {feedback.fluencyComment}
+                </Typography>
+              </Paper>
+
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  bgcolor: "#fff3e0",
+                  borderRadius: 2,
+                  borderRight: "4px solid #e65100",
+                }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", color: "#e65100" }}
+                >
+                  אוצר מילים: {feedback.vocabularyScore}/10
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  {feedback.vocabularyComment}
+                </Typography>
+              </Paper>
+
+              <Typography
+                variant="caption"
+                sx={{
+                  display: "block",
+                  textAlign: "left",
+                  mt: 2,
+                  color: "text.secondary",
+                }}
+              >
                 תאריך: {new Date(feedback.givenAt).toLocaleDateString()}
               </Typography>
             </Box>
           ) : (
-            <Typography>אין משוב זמין.</Typography>
+            <Typography sx={{ textAlign: "center", py: 3 }}>
+              אין משוב זמין להקלטה זו.
+            </Typography>
           )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)} color="primary">
+        <DialogActions sx={{ p: 2, justifyContent: "center" }}>
+          <Button
+            onClick={() => setOpenDialog(false)}
+            variant="contained"
+            sx={{
+              bgcolor: "#0288d1",
+              "&:hover": { bgcolor: "#01579b" },
+            }}
+          >
             סגור
           </Button>
         </DialogActions>
@@ -593,7 +1407,8 @@ const GetRecords = () => {
   );
 };
 
-export default GetRecords;
+export default MyRecordings;
+
 // //היום -שלישי בלילה
 // import React, { useState, useEffect, useMemo, useCallback } from 'react';
 // import { observer } from 'mobx-react-lite';

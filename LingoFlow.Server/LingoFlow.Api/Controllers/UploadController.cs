@@ -1,4 +1,4 @@
-ο»Ώusing Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.Runtime;
@@ -17,38 +17,38 @@ namespace MagicalMusic.Api.Controllers
         // Constructor
         public UploadController()
         {
-            // ΧΧ•ΧΆΧ ΧΧª ΧΧ©ΧªΧ Χ™ Χ”Χ΅Χ‘Χ™Χ‘Χ” ΧΧªΧ•Χ Χ§Χ•Χ‘Χ¥ .env
+            // θεςο ΰϊ ξωϊπι δραιαδ ξϊεκ χεαυ .env
             Env.Load();
             Console.WriteLine($"Current Directory: {System.IO.Directory.GetCurrentDirectory()}");
 
-            // Χ©ΧΧ™Χ¤Χ” Χ©Χ Χ”ΧΧ™Χ“ΧΆ ΧΧªΧ•Χ Χ§Χ•Χ‘Χ¥ Χ”-ENV
+            // ωμιτδ ωμ δξιγς ξϊεκ χεαυ δ-ENV
             var accessKey = Env.GetString("AWS__AccessKey");
             Console.WriteLine("accessKey: "+ accessKey);
             var secretKey = Env.GetString("AWS__SecretKey");
             var region = Env.GetString("AWS__Region");
             var bucketName = Env.GetString("AWS__BucketName");
 
-            // ΧΧ ΧΧ—Χ“ ΧΧ”ΧΆΧ¨Χ›Χ™Χ Χ—Χ΅Χ¨, Χ™Χ© ΧΧ”Χ¤Χ΅Χ™Χ§ ΧΧª Χ”Χ¤ΧΆΧ•ΧΧ”
+            // ΰν ΰηγ ξδςψλιν ηρψ, ιω μδτριχ ΰϊ δτςεμδ
             if (string.IsNullOrEmpty(accessKey) || string.IsNullOrEmpty(secretKey) || string.IsNullOrEmpty(region) || string.IsNullOrEmpty(bucketName))
             {
                 throw new ArgumentNullException("AWS credentials or region are missing from the .env file");
             }
 
-            // Χ”Χ’Χ“Χ¨Χª Χ”ΧΧ§Χ•Χ— Χ©Χ S3
+            // δβγψϊ δμχεη ωμ S3
             var config = new AmazonS3Config
             {
-                RegionEndpoint = RegionEndpoint.GetBySystemName(region)  // Χ”Χ’Χ“Χ¨Χª Χ”ΧΧ–Χ•Χ¨
+                RegionEndpoint = RegionEndpoint.GetBySystemName(region)  // δβγψϊ δΰζεψ
             };
 
             var credentials = new BasicAWSCredentials(accessKey, secretKey);
             _s3Client = new AmazonS3Client(credentials, config);
         }
 
-        // Χ¤Χ•Χ Χ§Χ¦Χ™Χ” ΧΧ§Χ‘ΧΧª URL Χ©Χ PUT ΧΧ¤Χ§Χ•Χ“Χª Χ¤Χ¨Χ”-Χ΅Χ™Χ™Χ Χ“
+        // τεπχφιδ μχαμϊ URL ωμ PUT μτχεγϊ τψδ-ριιπγ
         [HttpGet("presigned-url")]
         public async Task<IActionResult> GetPresignedUrl([FromQuery] string fileName)
         {
-            // Χ©ΧΧ™Χ¤Χ” Χ©Χ Χ©Χ Χ”Χ“ΧΧ™ ΧΧ”-ENV
+            // ωμιτδ ωμ ων δγμι ξδ-ENV
             var bucketName = Env.GetString("AWS__BucketName");
 
             var request = new GetPreSignedUrlRequest
@@ -57,14 +57,14 @@ namespace MagicalMusic.Api.Controllers
                 Key = fileName,
                 Verb = HttpVerb.PUT,
                 Expires = DateTime.UtcNow.AddMinutes(60),
-                ContentType = "audio/mp3" // Χ΅Χ•Χ’ Χ”Χ§Χ•Χ‘Χ¥ Χ”ΧΧªΧΧ™Χ
+                ContentType = "audio/mp3" // ρεβ δχεαυ δξϊΰιν
             };
 
             string url = _s3Client.GetPreSignedURL(request);
             return Ok(new { url });
         }
 
-        // ΧΧ—Χ–Χ™Χ¨ URL Χ—ΧªΧ•Χ ΧΧ¨ΧΧ© ΧΧ”Χ•Χ¨Χ“Χª Χ§Χ•Χ‘Χ¥ (ΧΧ”Χ©ΧΧΆΧ”)
+        // ξηζιψ URL ηϊεν ξψΰω μδεψγϊ χεαυ (μδωξςδ)
         [HttpGet("download-url")]
         public IActionResult GetDownloadPresignedUrl([FromQuery] string fileName)
         {

@@ -1,4 +1,4 @@
-ο»Ώusing LingoFlow.Core.Dto;
+using LingoFlow.Core.Dto;
 using LingoFlow.Core.Models;
 using System.Threading.Tasks;
 
@@ -12,7 +12,7 @@ namespace LingoFlow.Core.Repositories
         Task<User> UpdateUserAsync(int id, User user);
         Task<bool> DeleteUserAsync(int id);
 
-        // ΧΆΧ“Χ›Χ•Χ Χ”Χ©Χ Χ›Χ Χ©Χ™Χ”Χ™Χ” ΧªΧ•ΧΧ Χ-UserRepository
+        // ςγλεο δων λκ ωιδιδ ϊεΰν μ-UserRepository
         Task<User> GetUserByEmailAsync(string email);
 
     }

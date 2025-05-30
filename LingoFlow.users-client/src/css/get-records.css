@@ -1,0 +1,68 @@
+/* Right-to-left support */
+body {
+  direction: rtl;
+}
+
+/* Custom RTL popup for SweetAlert */
+.rtl-popup {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+.rtl-popup .swal2-title {
+  text-align: center !important;
+}
+
+.rtl-popup .swal2-content {
+  text-align: right !important;
+}
+
+/* Audio player custom styling */
+audio::-webkit-media-controls-panel {
+  background-color: #e1f5fe;
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: #6baccf;
+  border-radius: 50%;
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: #9bc4e3;
+}
+
+/* Animation for playing state */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.playing-animation {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e1f5fe;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #37a8e4;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5b9fd3;
+}

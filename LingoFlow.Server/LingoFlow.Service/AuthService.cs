@@ -1,4 +1,4 @@
-ο»Ώusing LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
 using LingoFlow.Core.Services;
 using LingoFlow.Data;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +25,7 @@ public class AuthService : IAuthService
         var claims = new List<Claim>
     {
         new Claim(ClaimTypes.Name, username),
-        new Claim(ClaimTypes.Role, role) // Χ”Χ•Χ΅Χ¤Χª ΧªΧ¤Χ§Χ™Χ“ ΧΧ—Χ“ Χ‘ΧΧ‘Χ“
+        new Claim(ClaimTypes.Role, role) // δερτϊ ϊτχιγ ΰηγ αμαγ
     };
 
         var token = new JwtSecurityToken(

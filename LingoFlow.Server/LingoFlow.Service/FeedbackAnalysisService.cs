@@ -1,4 +1,4 @@
-ο»Ώusing LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
 using LingoFlow.Core.Repositories;
 using LingoFlow.Core.Services;
 using Microsoft.Extensions.Configuration;
@@ -14,13 +14,13 @@ namespace LingoFlow.Service
     public class FeedbackAnalysisService : IFeedbackAnalysisService
     {
         private readonly HttpClient _httpClient;
-        private readonly IWordRepository _wordRepo;
+        private readonly IVocabularyRepository _vocabularyRepo;
         private readonly IConfiguration _configuration;
 
-        public FeedbackAnalysisService(HttpClient httpClient, IWordRepository wordRepo, IConfiguration configuration)
+        public FeedbackAnalysisService(HttpClient httpClient, IVocabularyRepository vocabularyRepo, IConfiguration configuration)
         {
             _httpClient = httpClient;
-            _wordRepo = wordRepo;
+            _vocabularyRepo = vocabularyRepo;
             _configuration = configuration;
 
             var apiKey = _configuration["OpenAI:GptKey"];
@@ -36,17 +36,17 @@ namespace LingoFlow.Service
             }
         }
 
-        public async Task<Feedback> AnalyzeAsync(string transcription, int topicId, int conversationId)
+        public async Task<Feedback> AnalyzeAsync(string transcription, int topicId, int recordingId)
         {
-            var words = await _wordRepo.GetWordsByTopicIdAsync(topicId);
-            var wordList = string.Join(", ", words.Select(w => w.Name));
+            var words = await _vocabularyRepo.GetVocabularyByTopicIdAsync(topicId);
+            var wordList = string.Join(", ", words.Select(w => w.Word));
 
             var prompt = BuildPrompt(transcription, wordList);
             var gptResult = await SendToGPT(prompt);
 
             return new Feedback
             {
-                ConversationId = conversationId,
+                recordingId = recordingId,
                 UsedWordsCount = gptResult.UsedWordsCount,
                 TotalWordsRequired = gptResult.TotalWordsRequired,
                 GrammarScore = gptResult.GrammarScore,
@@ -62,36 +62,36 @@ namespace LingoFlow.Service
         }
         private string BuildPrompt(string transcription, string wordList)
         {
-            return $@"ΧΧªΧ” ΧΧ•Χ¨Χ” Χ¤Χ¨ΧΧ™ ΧΧΧ Χ’ΧΧ™Χª Χ”ΧΧΧΧ“ ΧªΧΧΧ™Χ“Χ™Χ Χ‘Χ¦Χ•Χ¨Χ” ΧΧ™Χ©Χ™Χª Χ•ΧΧΆΧ•Χ“Χ“Χª.
+            return $@"ΰϊδ ξεψδ τψθι μΰπβμιϊ δξμξγ ϊμξιγιν αφεψδ ΰιωιϊ εξςεγγϊ.
 
-Χ§Χ™Χ‘ΧΧª ΧªΧΧΧ•Χ ΧΧ©Χ™Χ—Χ” Χ©Χ ΧªΧΧΧ™Χ“ Χ‘ΧΧ΅Χ’Χ¨Χª Χ©Χ™ΧΆΧ•Χ¨ Χ‘Χ Χ•Χ©Χ ΧΧ΅Χ•Χ™Χ.
-Χ”Χ Χ” Χ”ΧΧ§Χ΅Χ Χ©Χ Χ”Χ©Χ™Χ—Χ”:
+χιαμϊ ϊξμεμ ξωιηδ ωμ ϊμξιγ αξρβψϊ ωιςεψ απεωΰ ξρειν.
+δπδ δθχρθ ωμ δωιηδ:
 ""{transcription}""
 
-Χ•Χ”Χ Χ” Χ¨Χ©Χ™ΧΧª ΧΧ™ΧΧ™Χ Χ¨ΧΧ•Χ•Χ ΧΧ™Χ•Χª ΧΧ Χ•Χ©Χ Χ©Χ Χ”Χ©Χ™Χ—Χ”:
+εδπδ ψωιξϊ ξιμιν ψμεεπθιεϊ μπεωΰ ωμ δωιηδ:
 {wordList}
 
-ΧΧ Χ Χ‘Χ¦ΧΆ ΧΧª Χ”Χ“Χ‘Χ¨Χ™Χ Χ”Χ‘ΧΧ™Χ:
+ΰπΰ αφς ΰϊ δγαψιν δαΰιν:
 
-1. Χ‘Χ“Χ•Χ§ Χ›ΧΧ” ΧΧ™ΧΧ™Χ ΧΧªΧ•Χ Χ”Χ¨Χ©Χ™ΧΧ” Χ”Χ•Χ¤Χ™ΧΆΧ• Χ‘Χ©Χ™Χ—Χ” (ΧΧ ΧªΧªΧ—Χ©Χ‘ Χ‘Χ”ΧΧ™Χ•Χª β€“ Χ’Χ ΧΧ™ΧΧ” Χ“Χ•ΧΧ” Χ Χ—Χ©Χ‘Χª).
-2. ΧªΧ Χ¦Χ™Χ•Χ ΧΧ“Χ§Χ“Χ•Χ§ (Grammar) Χ-0 ΧΆΧ“ 10, Χ›Χ•ΧΧ Χ”ΧΆΧ¨Χ” Χ§Χ¦Χ¨Χ”.
-3. ΧªΧ Χ¦Χ™Χ•Χ ΧΧ©ΧΧ£ Χ”Χ“Χ™Χ‘Χ•Χ¨ (Fluency) Χ-0 ΧΆΧ“ 10, Χ›Χ•ΧΧ Χ”ΧΆΧ¨Χ” Χ§Χ¦Χ¨Χ”.
-4. ΧªΧ Χ¦Χ™Χ•Χ ΧΧΧ•Χ¦Χ¨ ΧΧ™ΧΧ™Χ (Vocabulary) Χ-0 ΧΆΧ“ 10, Χ›Χ•ΧΧ Χ”ΧΆΧ¨Χ” Χ§Χ¦Χ¨Χ”.
-5. ΧªΧ Χ¦Χ™Χ•Χ Χ›ΧΧΧ™ Χ-0 ΧΆΧ“ 100 ΧΆΧ Χ‘Χ΅Χ™Χ΅ Χ©ΧΧ•Χ©Χª Χ”ΧΧ“Χ“Χ™Χ Χ™Χ—Χ“.
-6. Χ—Χ©Χ•Χ‘: ΧªΧ ΧΧ©Χ•Χ‘ ΧΧ™Χ©Χ™ Χ•ΧΧΆΧ•Χ“Χ“ ΧΧªΧΧΧ™Χ“ ΧΆΧ Χ”Χ©Χ™Χ—Χ”. Χ”ΧΧ©Χ•Χ‘ Χ¦Χ¨Χ™Χ ΧΧ”Χ™Χ•Χª Χ™Χ©Χ™Χ¨ (""Χ›Χ Χ”Χ›Χ‘Χ•Χ“!"", ""Χ™Χ“ΧΆΧª ΧΧ”Χ©ΧªΧΧ© Χ‘ΧΧ™ΧΧ™Χ Χ™Χ¤Χ”"", ""Χ”Χ©ΧªΧ¤Χ¨Χª ΧΧΧ•Χ“"", ""ΧªΧΧ©Χ™Χ Χ›Χ›Χ”"" Χ•Χ›Χ“Χ•ΧΧ”).
+1. αγεχ λξδ ξιμιν ξϊεκ δψωιξδ δετιςε αωιηδ (ΰμ ϊϊηωα αδθιεϊ – βν ξιμδ γεξδ πηωαϊ).
+2. ϊο φιεο μγχγεχ (Grammar) ξ-0 ςγ 10, λεμμ δςψδ χφψδ.
+3. ϊο φιεο μωθσ δγιαεψ (Fluency) ξ-0 ςγ 10, λεμμ δςψδ χφψδ.
+4. ϊο φιεο μΰεφψ ξιμιν (Vocabulary) ξ-0 ςγ 10, λεμμ δςψδ χφψδ.
+5. ϊο φιεο λμμι ξ-0 ςγ 100 ςμ αριρ ωμεωϊ δξγγιν ιηγ.
+6. ηωεα: ϊο ξωεα ΰιωι εξςεγγ μϊμξιγ ςμ δωιηδ. δξωεα φψικ μδιεϊ ιωιψ (""λμ δλαεγ!"", ""ιγςϊ μδωϊξω αξιμιν ιτδ"", ""δωϊτψϊ ξΰεγ"", ""ϊξωικ λλδ"" ελγεξδ).
 
-Χ”Χ—Χ–Χ¨ ΧΧª Χ›Χ Χ”ΧªΧ©Χ•Χ‘Χ•Χª Χ‘Χ¤Χ•Χ¨ΧΧ JSON ΧΧ“Χ•Χ™Χ§, Χ›Χ:
-Χ›ΧΧ•Χ‘Χ Χ©ΧªΧ’Χ•Χ•Χ Χ‘ΧªΧ©Χ•Χ‘Χ•Χª Χ©ΧΧ Χ ΧªΧªΧ™ ΧΧ Χ¨Χ§ Χ“Χ•Χ’ΧΧ
+δηζψ ΰϊ λμ δϊωεαεϊ ατεψξθ JSON ξγειχ, λκ:
+λξεαο ωϊβεεο αϊωεαεϊ ωμκ πϊϊι μκ ψχ γεβξΰ
 {{
   ""usedWordsCount"": 5,
   ""totalWordsRequired"": 10,
   ""grammarScore"": 8,
-  ""grammarComment"": ""ΧΧΆΧ Χ©Χ’Χ™ΧΧ•Χª Χ‘Χ“Χ§Χ“Χ•Χ§, ΧΧ Χ¨Χ•Χ‘ Χ”ΧΧ©Χ¤ΧΧ™Χ Χ Χ›Χ•Χ Χ™Χ."",
+  ""grammarComment"": ""ξςθ ωβιΰεϊ αγχγεχ, ΰκ ψεα δξωτθιν πλεπιν."",
   ""fluencyScore"": 7,
-  ""fluencyComment"": ""Χ“Χ™Χ‘Χ•Χ¨ Χ©Χ•ΧΧ£ Χ™Χ—Χ΅Χ™Χª, Χ”Χ™Χ• ΧΧ΅Χ¤Χ¨ Χ”Χ¤Χ΅Χ§Χ•Χª."",
+  ""fluencyComment"": ""γιαεψ ωεθσ ιηριϊ, διε ξρτψ δτρχεϊ."",
   ""vocabularyScore"": 6,
-  ""vocabularyComment"": ""Χ ΧΆΧ©Χ” Χ©Χ™ΧΧ•Χ© Χ‘ΧΧ•Χ¦Χ¨ ΧΧ™ΧΧ™Χ Χ‘Χ΅Χ™Χ΅Χ™ Χ‘ΧΧ‘Χ“."",
-  ""generalFeedback"": ""Χ›Χ Χ”Χ›Χ‘Χ•Χ“! Χ”Χ©ΧªΧΧ©Χª Χ‘Χ›ΧΧ” ΧΧ™ΧΧ™Χ Χ¨ΧΧ•Χ•Χ ΧΧ™Χ•Χª Χ•Χ Χ©ΧΧΆ Χ©Χ™Χ© ΧΧ Χ‘Χ™ΧΧ—Χ•Χ Χ‘Χ“Χ™Χ‘Χ•Χ¨. ΧªΧΧ©Χ™Χ ΧΧªΧ¨Χ’Χ Χ•ΧΧ”Χ¨Χ—Χ™Χ‘ ΧΧª ΧΧ•Χ¦Χ¨ Χ”ΧΧ™ΧΧ™Χ Χ©ΧΧ!"",
+  ""vocabularyComment"": ""πςωδ ωιξεω αΰεφψ ξιμιν αριρι αμαγ."",
+  ""generalFeedback"": ""λμ δλαεγ! δωϊξωϊ αλξδ ξιμιν ψμεεπθιεϊ επωξς ωιω μκ αιθηεο αγιαεψ. ϊξωικ μϊψβμ εμδψηια ΰϊ ΰεφψ δξιμιν ωμκ!"",
   ""score"": 82
 }}";
         }
@@ -105,7 +105,7 @@ namespace LingoFlow.Service
                 model = "gpt-4o-mini",
                 messages = new[]
                 {
-            new { role = "system", content = "ΧΧªΧ” ΧΧ—Χ–Χ™Χ¨ ΧΧ Χ•Χ¨Χ§ JSON ΧªΧ§Χ Χ™ (Χ‘ΧΧ™ Χ©Χ•Χ ΧΧ§Χ΅Χ ΧΧ΅Χ‘Χ™Χ‘, Χ‘ΧΧ™ Χ”Χ΅Χ‘Χ¨Χ™Χ) ΧΆΧ Χ”Χ©Χ“Χ•Χª Χ”Χ‘ΧΧ™Χ: usedWordsCount, totalWordsRequired, grammarScore, grammarComment, fluencyScore, fluencyComment, vocabularyScore, vocabularyComment, generalFeedback, score. ΧΧ ΧªΧ©ΧªΧΧ© Χ‘ΧªΧ’Χ™Χ•Χª ```json ΧΧ• ΧΧ§Χ΅Χ Χ—Χ™Χ¦Χ•Χ Χ™." },
+            new { role = "system", content = "ΰϊδ ξηζιψ ΰκ εψχ JSON ϊχπι (αμι ωεν θχρθ ξραια, αμι δραψιν) ςν δωγεϊ δαΰιν: usedWordsCount, totalWordsRequired, grammarScore, grammarComment, fluencyScore, fluencyComment, vocabularyScore, vocabularyComment, generalFeedback, score. ΰμ ϊωϊξω αϊβιεϊ ```json ΰε θχρθ ηιφεπι." },
             new { role = "user", content = prompt }
         },
                 temperature = 0.7
@@ -128,7 +128,7 @@ namespace LingoFlow.Service
             var rawText = doc.RootElement.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
             Console.WriteLine("text: " + rawText);
 
-            var cleanJson = ExtractJsonFromText(rawText); // Χ΅Χ™Χ Χ•Χ Χ‘ΧΧ•Χ§Χ™Χ ΧΧ™Χ•ΧªΧ¨Χ™Χ
+            var cleanJson = ExtractJsonFromText(rawText); // ριπεο αμεχιν ξιεϊψιν
             var resultJson = JsonSerializer.Deserialize<GptFeedbackResult>(cleanJson);
             Console.WriteLine("result: " + resultJson);
 
@@ -141,7 +141,7 @@ namespace LingoFlow.Service
         private string ExtractJsonFromText(string text)
         {
             var start = text.IndexOf("```json");
-            if (start == -1) return text.Trim(); // ΧΧ™Χ ΧªΧ’Χ™Χ•Χª β€“ Χ›Χ Χ¨ΧΧ” Χ©Χ–Χ” JSON Χ Χ§Χ™
+            if (start == -1) return text.Trim(); // ΰιο ϊβιεϊ – λπψΰδ ωζδ JSON πχι
 
             var end = text.IndexOf("```", start + 6);
             if (end == -1) throw new Exception("Could not find end of JSON in GPT response");
@@ -157,7 +157,7 @@ namespace LingoFlow.Service
         //        model = "gpt-4",
         //        messages = new[]
         //        {
-        //            new { role = "system", content = "ΧΧªΧ” ΧΧ ΧªΧ— Χ©Χ™Χ—Χ•Χª Χ‘ΧΧ Χ’ΧΧ™Χª ΧΧ¦Χ•Χ¨Χ ΧΧ©Χ•Χ‘ ΧΧΧ©ΧªΧΧ©Χ™Χ." },
+        //            new { role = "system", content = "ΰϊδ ξπϊη ωιηεϊ αΰπβμιϊ μφεψκ ξωεα μξωϊξωιν." },
         //            new { role = "user", content = prompt }
         //        },
         //        temperature = 0.7

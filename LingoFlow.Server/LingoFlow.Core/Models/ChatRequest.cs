@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +14,7 @@ namespace LingoFlow.Core.Models
 
     public class ChatMessage
     {
-        public string Role { get; set; } = "user"; // ××• "system", "assistant"
+        public string Role { get; set; } = "user"; // àå "system", "assistant"
         public string Content { get; set; } = string.Empty;
     }
 }

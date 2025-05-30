@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +27,8 @@ namespace LingoFlow.Core.Models
         public int Score { get; set; }
         public DateTime GivenAt { get; set; }
         //one to one:
-        public int ConversationId { get; set; }
-        public Conversation Conversation { get; set; }
+        public int recordingId { get; set; }
+        public recording recording { get; set; }
 
     }
 }

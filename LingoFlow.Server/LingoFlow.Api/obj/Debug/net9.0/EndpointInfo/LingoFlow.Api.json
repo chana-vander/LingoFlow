@@ -67,274 +67,30 @@
         }
       }
     },
-    "/api/Conversation": {
-      "get": {
-        "tags": [
-          "Conversation"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConversationDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConversationDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ConversationDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/ChatAi": {
       "post": {
         "tags": [
-          "Conversation"
+          "ChatAi"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConversationDto"
+                "$ref": "#/components/schemas/ChatRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ConversationDto"
+                "$ref": "#/components/schemas/ChatRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ConversationDto"
+                "$ref": "#/components/schemas/ChatRequest"
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Conversation/{id}": {
-      "get": {
-        "tags": [
-          "Conversation"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Conversation"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ConversationDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ConversationDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ConversationDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Conversation"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Conversation/upload": {
-      "post": {
-        "tags": [
-          "Conversation"
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "File",
-                  "TopicName",
-                  "UserId"
-                ],
-                "type": "object",
-                "properties": {
-                  "File": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "UserId": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
-                  "TopicName": {
-                    "type": "string"
-                  }
-                }
-              },
-              "encoding": {
-                "File": {
-                  "style": "form"
-                },
-                "UserId": {
-                  "style": "form"
-                },
-                "TopicName": {
-                  "style": "form"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Conversation/user/{userId}": {
-      "get": {
-        "tags": [
-          "Conversation"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -617,6 +373,281 @@
         "parameters": [
           {
             "name": "recordId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recording": {
+      "get": {
+        "tags": [
+          "recording"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/recordingDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/recordingDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/recordingDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "recording"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recordingDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recordingDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/recordingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recording/{id}": {
+      "get": {
+        "tags": [
+          "recording"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "recording"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recordingDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recordingDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/recordingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "recording"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recording/upload": {
+      "post": {
+        "tags": [
+          "recording"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "File",
+                  "TopicName",
+                  "UserId"
+                ],
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "UserId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "TopicName": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                },
+                "UserId": {
+                  "style": "form"
+                },
+                "TopicName": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/recording/user/{userId}": {
+      "get": {
+        "tags": [
+          "recording"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
             "in": "path",
             "required": true,
             "schema": {
@@ -1035,10 +1066,10 @@
         }
       }
     },
-    "/api/Word": {
+    "/api/Vocabulary": {
       "get": {
         "tags": [
-          "Word"
+          "Vocabulary"
         ],
         "responses": {
           "200": {
@@ -1048,7 +1079,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WordDto"
+                    "$ref": "#/components/schemas/VocabularyDto"
                   }
                 }
               },
@@ -1056,7 +1087,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WordDto"
+                    "$ref": "#/components/schemas/VocabularyDto"
                   }
                 }
               },
@@ -1064,7 +1095,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WordDto"
+                    "$ref": "#/components/schemas/VocabularyDto"
                   }
                 }
               }
@@ -1074,23 +1105,23 @@
       },
       "post": {
         "tags": [
-          "Word"
+          "Vocabulary"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WordDto"
+                "$ref": "#/components/schemas/VocabularyDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/WordDto"
+                "$ref": "#/components/schemas/VocabularyDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/WordDto"
+                "$ref": "#/components/schemas/VocabularyDto"
               }
             }
           }
@@ -1102,10 +1133,10 @@
         }
       }
     },
-    "/api/Word/{id}": {
+    "/api/Vocabulary/{id}": {
       "get": {
         "tags": [
-          "Word"
+          "Vocabulary"
         ],
         "parameters": [
           {
@@ -1124,17 +1155,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Word"
+                  "$ref": "#/components/schemas/Vocabulary"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Word"
+                  "$ref": "#/components/schemas/Vocabulary"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Word"
+                  "$ref": "#/components/schemas/Vocabulary"
                 }
               }
             }
@@ -1143,7 +1174,7 @@
       },
       "put": {
         "tags": [
-          "Word"
+          "Vocabulary"
         ],
         "parameters": [
           {
@@ -1160,17 +1191,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/WordDto"
+                "$ref": "#/components/schemas/VocabularyDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/WordDto"
+                "$ref": "#/components/schemas/VocabularyDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/WordDto"
+                "$ref": "#/components/schemas/VocabularyDto"
               }
             }
           }
@@ -1183,7 +1214,7 @@
       },
       "delete": {
         "tags": [
-          "Word"
+          "Vocabulary"
         ],
         "parameters": [
           {
@@ -1203,10 +1234,10 @@
         }
       }
     },
-    "/api/Word/Topic/{TopicId}": {
+    "/api/Vocabulary/Topic/{TopicId}": {
       "get": {
         "tags": [
-          "Word"
+          "Vocabulary"
         ],
         "parameters": [
           {
@@ -1239,90 +1270,33 @@
             "type": "integer",
             "format": "int32"
           },
-          "conversationId": {
+          "recordingId": {
             "type": "integer",
             "format": "int32"
           }
         },
         "additionalProperties": false
       },
-      "Conversation": {
+      "ChatMessage": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "topicId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "topic": {
-            "$ref": "#/components/schemas/Topic"
-          },
-          "url": {
+          "role": {
             "type": "string"
           },
-          "name": {
+          "content": {
             "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "length": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "transcription": {
-            "type": "string",
-            "nullable": true
-          },
-          "feedback": {
-            "$ref": "#/components/schemas/Feedback"
           }
         },
         "additionalProperties": false
       },
-      "ConversationDto": {
+      "ChatRequest": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "topicId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string"
-          },
-          "length": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "url": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "transcription": {
-            "type": "string",
-            "nullable": true
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatMessage"
+            }
           }
         },
         "additionalProperties": false
@@ -1374,12 +1348,12 @@
             "type": "string",
             "format": "date-time"
           },
-          "conversationId": {
+          "recordingId": {
             "type": "integer",
             "format": "int32"
           },
-          "conversation": {
-            "$ref": "#/components/schemas/Conversation"
+          "recording": {
+            "$ref": "#/components/schemas/recording"
           }
         },
         "additionalProperties": false
@@ -1391,7 +1365,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "conversationId": {
+          "recordingId": {
             "type": "integer",
             "format": "int32"
           },
@@ -1467,15 +1441,12 @@
           "name": {
             "type": "string"
           },
+          "translation": {
+            "type": "string"
+          },
           "level": {
             "type": "integer",
             "format": "int32"
-          },
-          "words": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Word"
-            }
           }
         },
         "additionalProperties": false
@@ -1489,6 +1460,9 @@
           },
           "name": {
             "type": "string"
+          },
+          "translation": {
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -1499,7 +1473,7 @@
           "fileUrl": {
             "type": "string"
           },
-          "conversationId": {
+          "recordingId": {
             "type": "integer",
             "format": "int32"
           }
@@ -1533,10 +1507,10 @@
           "role": {
             "$ref": "#/components/schemas/Role"
           },
-          "conversations": {
+          "recordings": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Conversation"
+              "$ref": "#/components/schemas/recording"
             }
           }
         },
@@ -1582,17 +1556,17 @@
         },
         "additionalProperties": false
       },
-      "Word": {
+      "Vocabulary": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "name": {
+          "word": {
             "type": "string"
           },
-          "translation": {
+          "wordTranslation": {
             "type": "string"
           },
           "sentence": {
@@ -1611,13 +1585,13 @@
         },
         "additionalProperties": false
       },
-      "WordDto": {
+      "VocabularyDto": {
         "type": "object",
         "properties": {
-          "name": {
+          "word": {
             "type": "string"
           },
-          "translation": {
+          "wordTranslation": {
             "type": "string"
           },
           "topicId": {
@@ -1629,6 +1603,87 @@
           },
           "sentenceTranslate": {
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "recording": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "topicId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "topic": {
+            "$ref": "#/components/schemas/Topic"
+          },
+          "url": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "length": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "transcription": {
+            "type": "string",
+            "nullable": true
+          },
+          "feedback": {
+            "$ref": "#/components/schemas/Feedback"
+          }
+        },
+        "additionalProperties": false
+      },
+      "recordingDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "topicId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          },
+          "length": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "url": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transcription": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

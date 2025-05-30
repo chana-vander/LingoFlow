@@ -143,7 +143,7 @@ class RecordStore {
 
     async getRecordsByUserId(userId: any): Promise<Record[]> {
         try {
-            const response = await fetch(`http://localhost:5092/api/Conversation/user/${userId}`, {
+            const response = await fetch(`http://localhost:5092/api/recording/user/${userId}`, {
                 method: 'GET'
             });
 
@@ -161,7 +161,7 @@ class RecordStore {
 
     async saveAndStoreRecording(recordData: Record): Promise<Record | null> {
         try {
-            const response = await fetch("http://localhost:5092/api/Conversation", {
+            const response = await fetch("http://localhost:5092/api/recording", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -194,7 +194,7 @@ class RecordStore {
 
     async deleteRecordFromDB(recordId: any) {
         try {
-            const response = await fetch(`http://localhost:5092/api/Conversation/${recordId}`, {
+            const response = await fetch(`http://localhost:5092/api/recording/${recordId}`, {
                 method: 'DELETE'
             });
 

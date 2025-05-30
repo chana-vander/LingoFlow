@@ -1,4 +1,4 @@
-ο»Ώusing LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
 using LingoFlow.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,7 +26,7 @@ namespace LingoFlow.Data.Repositories
         }
         public async Task<Topic?> GetTopicByIdAsync(int id)
         {
-            return await _context.Topics.FirstOrDefaultAsync(c => c.Id == id);  // ΧΧ—Χ¤Χ© ΧΧª Χ”ΧΧ©ΧªΧΧ© ΧΧ¤Χ™ ΧΧ–Χ”Χ”
+            return await _context.Topics.FirstOrDefaultAsync(c => c.Id == id);  // ξητω ΰϊ δξωϊξω μτι ξζδδ
         }
 
         public async Task<List<Topic>> GetTopicsByLevelAsync(int level)

@@ -32,161 +32,16 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
-    "Method": "Get",
-    "RelativePath": "api/Conversation",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LingoFlow.Core.Dto.ConversationDto, LingoFlow.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
+    "ContainingType": "LingoFlow.Api.Controllers.ChatAiController",
     "Method": "Post",
-    "RelativePath": "api/Conversation",
+    "RelativePath": "api/ChatAi",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "conversation",
-        "Type": "LingoFlow.Core.Dto.ConversationDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
-    "Method": "Get",
-    "RelativePath": "api/Conversation/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "LingoFlow.Core.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
-    "Method": "Put",
-    "RelativePath": "api/Conversation/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "conversation",
-        "Type": "LingoFlow.Core.Dto.ConversationDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Boolean",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
-    "Method": "Delete",
-    "RelativePath": "api/Conversation/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Boolean",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
-    "Method": "UploadAudio",
-    "RelativePath": "api/Conversation/upload",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "File",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
-        "IsRequired": false
-      },
-      {
-        "Name": "UserId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "TopicName",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "LingoFlow.Api.Controllers.ConversationController",
-    "Method": "GetRecordingsByUserId",
-    "RelativePath": "api/Conversation/user/{userId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
+        "Name": "request",
+        "Type": "LingoFlow.Core.Models.ChatRequest",
         "IsRequired": true
       }
     ],
@@ -357,6 +212,167 @@
     "Parameters": [
       {
         "Name": "recordId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LingoFlow.Api.Controllers.recordingController",
+    "Method": "Get",
+    "RelativePath": "api/recording",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LingoFlow.Core.Dto.recordingDto, LingoFlow.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "LingoFlow.Api.Controllers.recordingController",
+    "Method": "Post",
+    "RelativePath": "api/recording",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "recording",
+        "Type": "LingoFlow.Core.Dto.recordingDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LingoFlow.Api.Controllers.recordingController",
+    "Method": "Get",
+    "RelativePath": "api/recording/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LingoFlow.Core.Models.User",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "LingoFlow.Api.Controllers.recordingController",
+    "Method": "Put",
+    "RelativePath": "api/recording/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "recording",
+        "Type": "LingoFlow.Core.Dto.recordingDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "LingoFlow.Api.Controllers.recordingController",
+    "Method": "Delete",
+    "RelativePath": "api/recording/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "LingoFlow.Api.Controllers.recordingController",
+    "Method": "UploadAudio",
+    "RelativePath": "api/recording/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "UserId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "TopicName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LingoFlow.Api.Controllers.recordingController",
+    "Method": "GetRecordingsByUserId",
+    "RelativePath": "api/recording/user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -610,16 +626,16 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LingoFlow.Api.Controllers.WordController",
+    "ContainingType": "LingoFlow.Api.Controllers.VocabularyController",
     "Method": "Get",
-    "RelativePath": "api/Word",
+    "RelativePath": "api/Vocabulary",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[LingoFlow.Core.Dto.WordDto, LingoFlow.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[LingoFlow.Core.Dto.VocabularyDto, LingoFlow.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -630,25 +646,25 @@
     ]
   },
   {
-    "ContainingType": "LingoFlow.Api.Controllers.WordController",
+    "ContainingType": "LingoFlow.Api.Controllers.VocabularyController",
     "Method": "Post",
-    "RelativePath": "api/Word",
+    "RelativePath": "api/Vocabulary",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "wordDto",
-        "Type": "LingoFlow.Core.Dto.WordDto",
+        "Type": "LingoFlow.Core.Dto.VocabularyDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LingoFlow.Api.Controllers.WordController",
+    "ContainingType": "LingoFlow.Api.Controllers.VocabularyController",
     "Method": "Get",
-    "RelativePath": "api/Word/{id}",
+    "RelativePath": "api/Vocabulary/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -661,7 +677,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "LingoFlow.Core.Models.Word",
+        "Type": "LingoFlow.Core.Models.Vocabulary",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -672,9 +688,9 @@
     ]
   },
   {
-    "ContainingType": "LingoFlow.Api.Controllers.WordController",
+    "ContainingType": "LingoFlow.Api.Controllers.VocabularyController",
     "Method": "Put",
-    "RelativePath": "api/Word/{id}",
+    "RelativePath": "api/Vocabulary/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -686,16 +702,16 @@
       },
       {
         "Name": "wordDto",
-        "Type": "LingoFlow.Core.Dto.WordDto",
+        "Type": "LingoFlow.Core.Dto.VocabularyDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LingoFlow.Api.Controllers.WordController",
+    "ContainingType": "LingoFlow.Api.Controllers.VocabularyController",
     "Method": "Delete",
-    "RelativePath": "api/Word/{id}",
+    "RelativePath": "api/Vocabulary/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -709,9 +725,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "LingoFlow.Api.Controllers.WordController",
+    "ContainingType": "LingoFlow.Api.Controllers.VocabularyController",
     "Method": "GetByTopicId",
-    "RelativePath": "api/Word/Topic/{TopicId}",
+    "RelativePath": "api/Vocabulary/Topic/{TopicId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

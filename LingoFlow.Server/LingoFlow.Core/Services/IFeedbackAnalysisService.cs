@@ -1,4 +1,4 @@
-﻿using LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace LingoFlow.Core.Services
 {
     public interface IFeedbackAnalysisService
     {
-        public Task<Feedback> AnalyzeAsync(string transcription, int topicId, int conversationId);
+        public Task<Feedback> AnalyzeAsync(string transcription, int topicId, int recordingId);
         //public string BuildPrompt(string transcription, string wordList);
         //public Task<(string FluencyComment, string GrammarComment, string GeneralFeedback, int Score)> SendToGPT(string prompt);
     }

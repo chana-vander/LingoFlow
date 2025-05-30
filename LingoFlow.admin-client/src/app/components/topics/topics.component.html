@@ -1,0 +1,78 @@
+<div class="topics-container">
+  <div class="header">
+    <h1>ניהול נושאי השיחה</h1>
+    <button (click)="showAddForm = !showAddForm" class="add-btn">
+      @if (showAddForm) {
+      <span>ביטול</span>
+      } @else {
+      <span>+ הוספת נושא חדש</span>
+      }
+    </button>
+  </div>
+
+  @if (showAddForm) {
+  <div class="form-card">
+    <h3>{{ editingTopic ? "עריכת נושא" : "הוספת נושא חדש" }}</h3>
+    <form [formGroup]="topicForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">שם הנושא</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            placeholder="הכנס שם נושא"
+          />
+        </div>
+        <div class="form-group">
+          <label for="translation">תרגום</label>
+          <input
+            type="text"
+            id="translation"
+            formControlName="translation"
+            placeholder="הכנס תרגום"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">תיאור</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="הכנס תיאור הנושא"
+        ></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" [disabled]="topicForm.invalid" class="save-btn">
+          {{ editingTopic ? "עדכון" : "שמירה" }}
+        </button>
+        <button type="button" (click)="cancelEdit()" class="cancel-btn">
+          ביטול
+        </button>
+      </div>
+    </form>
+  </div>
+  }
+
+  <div class="topics-grid">
+    @for (topic of topics; track topic.id) {
+    <div class="topic-card">
+      <div class="topic-header">
+        <h3>{{ topic.name }}</h3>
+        <span class="translation">{{ topic.translation }}</span>
+      </div>
+      <p class="description">{{ topic.description }}</p>
+      <div class="topic-actions">
+        <button (click)="editTopic(topic)" class="edit-btn">עריכה</button>
+        <button (click)="deleteTopic(topic.id)" class="delete-btn">
+          מחיקה
+        </button>
+      </div>
+    </div>
+    } @empty {
+    <div class="empty-state">
+      <p>אין נושאים זמינים</p>
+    </div>
+    }
+  </div>
+</div>

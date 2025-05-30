@@ -1,7 +1,7 @@
 interface Word {
     id?:number|undefined;
-    name: string;
-    translation: string;
+    word: string;
+    wordTanslation: string;
     sentence:string;
     sentenceTranslate:string;
 }

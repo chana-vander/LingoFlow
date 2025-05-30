@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace LingoFlow.Api.Models
 {
     public class FeedbackPostModel
     {
-        public int ConversationId { get; set; }
+        public int recordingId { get; set; }
 
         public string? Comments { get; set; }
 

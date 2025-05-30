@@ -22,46 +22,6 @@ namespace LingoFlow.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("LingoFlow.Core.Models.Conversation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("Length")
-                        .HasColumnType("time");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TopicId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Transcription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TopicId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Conversations");
-                });
-
             modelBuilder.Entity("LingoFlow.Core.Models.Feedback", b =>
                 {
                     b.Property<int>("Id")
@@ -69,9 +29,6 @@ namespace LingoFlow.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ConversationId")
-                        .HasColumnType("int");
 
                     b.Property<string>("FluencyComment")
                         .IsRequired()
@@ -110,9 +67,12 @@ namespace LingoFlow.Data.Migrations
                     b.Property<int>("VocabularyScore")
                         .HasColumnType("int");
 
+                    b.Property<int>("recordingId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ConversationId")
+                    b.HasIndex("recordingId")
                         .IsUnique();
 
                     b.ToTable("Feedbacks");
@@ -147,6 +107,10 @@ namespace LingoFlow.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Translation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -188,17 +152,13 @@ namespace LingoFlow.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("LingoFlow.Core.Models.Word", b =>
+            modelBuilder.Entity("LingoFlow.Core.Models.Vocabulary", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sentence")
                         .IsRequired()
@@ -211,7 +171,11 @@ namespace LingoFlow.Data.Migrations
                     b.Property<int>("TopicId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Translation")
+                    b.Property<string>("Word")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WordTranslation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -222,34 +186,55 @@ namespace LingoFlow.Data.Migrations
                     b.ToTable("Words");
                 });
 
-            modelBuilder.Entity("LingoFlow.Core.Models.Conversation", b =>
+            modelBuilder.Entity("LingoFlow.Core.Models.recording", b =>
                 {
-                    b.HasOne("LingoFlow.Core.Models.Topic", "Topic")
-                        .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("LingoFlow.Core.Models.User", "User")
-                        .WithMany("Conversations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Navigation("Topic");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
-                    b.Navigation("User");
+                    b.Property<TimeSpan>("Length")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Transcription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TopicId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("recordings");
                 });
 
             modelBuilder.Entity("LingoFlow.Core.Models.Feedback", b =>
                 {
-                    b.HasOne("LingoFlow.Core.Models.Conversation", "Conversation")
+                    b.HasOne("LingoFlow.Core.Models.recording", "recording")
                         .WithOne("Feedback")
-                        .HasForeignKey("LingoFlow.Core.Models.Feedback", "ConversationId")
+                        .HasForeignKey("LingoFlow.Core.Models.Feedback", "recordingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Conversation");
+                    b.Navigation("recording");
                 });
 
             modelBuilder.Entity("LingoFlow.Core.Models.User", b =>
@@ -263,10 +248,10 @@ namespace LingoFlow.Data.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("LingoFlow.Core.Models.Word", b =>
+            modelBuilder.Entity("LingoFlow.Core.Models.Vocabulary", b =>
                 {
                     b.HasOne("LingoFlow.Core.Models.Topic", "Topic")
-                        .WithMany("Words")
+                        .WithMany()
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -274,10 +259,23 @@ namespace LingoFlow.Data.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("LingoFlow.Core.Models.Conversation", b =>
+            modelBuilder.Entity("LingoFlow.Core.Models.recording", b =>
                 {
-                    b.Navigation("Feedback")
+                    b.HasOne("LingoFlow.Core.Models.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("LingoFlow.Core.Models.User", "User")
+                        .WithMany("recordings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Topic");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LingoFlow.Core.Models.Role", b =>
@@ -285,14 +283,15 @@ namespace LingoFlow.Data.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("LingoFlow.Core.Models.Topic", b =>
-                {
-                    b.Navigation("Words");
-                });
-
             modelBuilder.Entity("LingoFlow.Core.Models.User", b =>
                 {
-                    b.Navigation("Conversations");
+                    b.Navigation("recordings");
+                });
+
+            modelBuilder.Entity("LingoFlow.Core.Models.recording", b =>
+                {
+                    b.Navigation("Feedback")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

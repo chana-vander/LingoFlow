@@ -1,4 +1,4 @@
-ο»Ώ
+
 
 using AutoMapper;
 using LingoFlow.Core.Dto;
@@ -46,7 +46,7 @@ namespace LingoFlow.Service
         }
         public async Task<UserRegisterDto> AddUserAsync(UserRegisterDto user)
         {
-            // Χ‘Χ“Χ™Χ§Χ” ΧΧ Χ§Χ™Χ™Χ ΧΧ©ΧªΧΧ© ΧΆΧ ΧΧ•ΧªΧ• ΧΧ™Χ™Χ
+            // αγιχδ ΰν χιιν ξωϊξω ςν ΰεϊε ξιιμ
             var existingUser = await _userRepository.GetUserByEmailAsync(user.Email);
             if (existingUser != null)
             {
@@ -54,19 +54,19 @@ namespace LingoFlow.Service
                 return null;
             }
 
-            // ΧΧ™Χ¤Χ•Χ™ Χ•Χ”Χ•Χ΅Χ¤Χª Χ”ΧΧ©ΧªΧΧ©
+            // ξιτει εδερτϊ δξωϊξω
             var addUser = _mapper.Map<User>(user);
 
-            // Χ§Χ‘Χ™ΧΆΧª RoleId ΧΧ¤Χ™ Χ”ΧΧ™Χ™Χ Χ©Χ Χ”ΧΧ Χ”Χ
+            // χαιςϊ RoleId μτι δξιιμ ωμ δξπδμ
             string adminEmail = _configuration["AdminEmail"] ?? string.Empty;
             Console.WriteLine("adminEmail "+ adminEmail);
             addUser.RoleId = user.Email == adminEmail ? 2 : 1; // 2 = Admin, 1 = User
 
-            // Χ©ΧΧ™Χ¨Χ” Χ‘-Repository
+            // ωξιψδ α-Repository
             var createdUser = await _userRepository.AddUserAsync(addUser);
             await _managerRepository.SaveChangesAsync();
 
-            // Χ”Χ—Χ–Χ¨Χª DTO
+            // δηζψϊ DTO
             return _mapper.Map<UserRegisterDto>(createdUser);
         }
 
@@ -76,7 +76,7 @@ namespace LingoFlow.Service
                 return null;
             var updateUser = _mapper.Map<User>(user);
             var result = await _managerRepository.UserM.UpdateUserAsync(id, updateUser);
-            Console.WriteLine("Χ Χ§Χ•Χ“Χª ΧΆΧ¦Χ™Χ¨Χ”");
+            Console.WriteLine("πχεγϊ ςφιψδ");
             await _managerRepository.SaveChangesAsync();
 
             return _mapper.Map<UserRegisterDto>(result);
@@ -87,7 +87,7 @@ namespace LingoFlow.Service
             await _managerRepository.SaveChangesAsync();
             return await _managerRepository.UserM.DeleteUserAsync(id);
         }
-        //ΧΧ΅Χ“Χ¨ ΧΧª ΧΆΧ Χ™Χ Χ”ΧΧ©ΧªΧΧ©
+        //μργψ ΰϊ ςπιο δξωϊξω
         public async Task<string?> AuthenticateAsync(string email, string password)
         {
             var user = await _userRepository.GetUserByEmailAsync(email);
@@ -114,7 +114,7 @@ namespace LingoFlow.Service
         {
             if (await _userRepository.GetUserByEmailAsync(email) != null)
             {
-                return false; // Χ”ΧΧ©ΧªΧΧ© Χ›Χ‘Χ¨ Χ§Χ™Χ™Χ
+                return false; // δξωϊξω λαψ χιιν
             }
 
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, workFactor: 11);

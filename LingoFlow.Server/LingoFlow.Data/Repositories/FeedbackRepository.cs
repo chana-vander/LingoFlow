@@ -1,4 +1,4 @@
-ο»Ώusing LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
 using LingoFlow.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
@@ -32,9 +32,9 @@ namespace LingoFlow.Data.Repositories
                 throw new ArgumentNullException(nameof(feedback));
             }
 
-            _context.Feedbacks.Add(feedback); // ΧΧ•Χ΅Χ™Χ£ ΧΧª Χ”ΧΧ©Χ•Χ‘ ΧΧΧ΅Χ“ Χ”Χ ΧªΧ•Χ Χ™Χ
+            _context.Feedbacks.Add(feedback); // ξερισ ΰϊ δξωεα μξργ δπϊεπιν
             Console.WriteLine("hi");
-            await _context.SaveChangesAsync(); // Χ©Χ•ΧΧ¨ ΧΧª Χ”Χ©Χ™Χ Χ•Χ™Χ™Χ
+            await _context.SaveChangesAsync(); // ωεξψ ΰϊ δωιπειιν
             Console.WriteLine("hi2");
             return feedback;
         }
@@ -44,7 +44,7 @@ namespace LingoFlow.Data.Repositories
         }
         public async Task<Feedback?> GetFeedbackByIdAsync(int id)
         {
-            return await _context.Feedbacks.FirstOrDefaultAsync(c => c.Id == id);  // ΧΧ—Χ¤Χ© ΧΧª Χ”ΧΧ©ΧªΧΧ© ΧΧ¤Χ™ ΧΧ–Χ”Χ”
+            return await _context.Feedbacks.FirstOrDefaultAsync(c => c.Id == id);  // ξητω ΰϊ δξωϊξω μτι ξζδδ
         }
         public async Task<Feedback> UpdateAsync(Feedback feedback)
         {
@@ -67,7 +67,7 @@ namespace LingoFlow.Data.Repositories
         public async Task<List<Feedback>> GetByRecordIdAsync(int recordId)
         {
             return await _context.Feedbacks
-                .Where(f => f.ConversationId == recordId)
+                .Where(f => f.recordingId == recordId)
                 .ToListAsync();
         }
     }

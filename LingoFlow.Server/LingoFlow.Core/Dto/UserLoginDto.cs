@@ -1,4 +1,4 @@
-﻿using LingoFlow.Core.Models;
+using LingoFlow.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +15,6 @@ namespace LingoFlow.Core.Dto
         public string Email { get; set; }
         public string Password { get; set; }
         //public DateTime CreatedAt { get; set; }
-        //public List<Conversation> Conversations { get; set; } = new();
+        //public List<recording> recordings { get; set; } = new();
     }
 }

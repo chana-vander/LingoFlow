@@ -72,7 +72,7 @@ export default function RecordingsPage() {
         }
 
         // שלב 1 - שליפת רשימת ההקלטות
-        const response = await fetch(`http://localhost:5092/api/Conversation/user/${userId}`)
+        const response = await fetch(`http://localhost:5092/api/recording/user/${userId}`)
         if (!response.ok) {
           throw new Error(`שגיאה בטעינת ההקלטות: ${response.status}`)
         }

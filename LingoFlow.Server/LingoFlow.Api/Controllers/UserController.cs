@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using LingoFlow.Api.Models;
 using LingoFlow.Core.Dto;
 using LingoFlow.Core.Models;

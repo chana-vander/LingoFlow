@@ -1,4 +1,4 @@
-ο»Ώusing System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +9,8 @@ namespace LingoFlow.Core.Models
     public class Role
     {
         public int RoleId { get; set; }
-        public string RoleName { get; set; } // ΧΧΧ©Χ "Admin", "User"
+        public string RoleName { get; set; } // μξωμ "Admin", "User"
 
-        public List<User> Users { get; set; } = new();// Χ§Χ©Χ¨ Χ”Χ¤Χ•Χ Χ-User (Χ”Χ¨Χ‘Χ” ΧΧ©ΧªΧΧ©Χ™Χ Χ™Χ›Χ•ΧΧ™Χ ΧΧ”Χ™Χ•Χª ΧΧ©Χ•Χ™Χ›Χ™Χ ΧΧªΧ¤Χ§Χ™Χ“ ΧΧ—Χ“)
+        public List<User> Users { get; set; } = new();// χωψ δτεκ μ-User (δψαδ ξωϊξωιν ιλεμιν μδιεϊ ξωειλιν μϊτχιγ ΰηγ)
     }
 }

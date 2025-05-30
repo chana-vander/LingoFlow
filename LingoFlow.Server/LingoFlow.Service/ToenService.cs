@@ -1,4 +1,4 @@
-ο»Ώusing System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using LingoFlow.Core.Services;
@@ -14,14 +14,14 @@ public class TokenService : ITokenService
 
     public TokenService(IConfiguration configuration)
     {
-        // Χ§Χ¨Χ™ΧΧ” ΧΧ”Χ’Χ“Χ•Χª Χ§Χ•Χ Χ¤Χ™Χ’Χ•Χ¨Χ¦Χ™Χ”
+        // χψιΰδ μδβγεϊ χεπτιβεψφιδ
         _jwtSecret = configuration["Jwt:Secret"] ?? throw new Exception("JWT Secret is not configured.");
         _jwtIssuer = configuration["Jwt:Issuer"] ?? throw new Exception("JWT Issuer is not configured.");
         _jwtAudience = configuration["Jwt:Audience"] ?? throw new Exception("JWT Audience is not configured.");
-        _jwtExpiryHours = int.TryParse(configuration["Jwt:ExpiryHours"], out var expiryHours) ? expiryHours : 2; // Χ‘Χ¨Χ™Χ¨Χª ΧΧ—Χ“Χ Χ©Χ 2 Χ©ΧΆΧ•Χª
+        _jwtExpiryHours = int.TryParse(configuration["Jwt:ExpiryHours"], out var expiryHours) ? expiryHours : 2; // αψιψϊ ξηγμ ωμ 2 ωςεϊ
     }
 
-    // Χ™Χ¦Χ™Χ¨Χª JWT Token
+    // ιφιψϊ JWT Token
     public string GenerateJwtToken(string email, string role)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -30,7 +30,7 @@ public class TokenService : ITokenService
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, email),
-            new Claim(ClaimTypes.Role, role) // Χ©ΧΧ™Χ¨Χª ΧªΧ¤Χ§Χ™Χ“ Χ‘Χ•Χ“Χ“
+            new Claim(ClaimTypes.Role, role) // ωξιψϊ ϊτχιγ αεγγ
         };
 
         var tokenDescriptor = new SecurityTokenDescriptor
@@ -38,7 +38,7 @@ public class TokenService : ITokenService
             Issuer = _jwtIssuer,
             Audience = _jwtAudience,
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddHours(_jwtExpiryHours), // Χ–ΧΧ ΧªΧ¤Χ•Χ’Χ”
+            Expires = DateTime.UtcNow.AddHours(_jwtExpiryHours), // ζξο ϊτεβδ
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
 
@@ -46,7 +46,7 @@ public class TokenService : ITokenService
         return tokenHandler.WriteToken(token);
     }
 
-    // ΧΧ™ΧΧ•Χª JWT Token
+    // ΰιξεϊ JWT Token
     public bool ValidateJwtToken(string token, out string email, out string role)
     {
         email = string.Empty;
@@ -61,11 +61,11 @@ public class TokenService : ITokenService
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = true, // ΧΧ™ΧΧ•Χª Χ”ΧΧ Χ¤Χ™Χ§
-                ValidIssuer = _jwtIssuer, // Χ”ΧΧ Χ¤Χ™Χ§
-                ValidateAudience = true, // ΧΧ™ΧΧ•Χª Χ”Χ§Χ”Χ
-                ValidAudience = _jwtAudience, // Χ”Χ§Χ”Χ
-                ClockSkew = TimeSpan.Zero // ΧΧ ΧΧªΧ›Χ Χ ΧΧª Χ”Χ©ΧΆΧ•Χ
+                ValidateIssuer = true, // ΰιξεϊ δξπτιχ
+                ValidIssuer = _jwtIssuer, // δξπτιχ
+                ValidateAudience = true, // ΰιξεϊ δχδμ
+                ValidAudience = _jwtAudience, // δχδμ
+                ClockSkew = TimeSpan.Zero // μΰ μϊλπο ΰϊ δωςεο
             };
 
             var principal = tokenHandler.ValidateToken(token, parameters, out _);
@@ -80,12 +80,12 @@ public class TokenService : ITokenService
         }
         catch (SecurityTokenException)
         {
-            // ΧΧ™Χ¤Χ•Χ Χ‘Χ©Χ’Χ™ΧΧ•Χª Χ©Χ Token Validation
+            // θιτεμ αωβιΰεϊ ωμ Token Validation
             return false;
         }
         catch (Exception)
         {
-            // ΧΧ™Χ¤Χ•Χ Χ‘Χ©Χ’Χ™ΧΧ•Χª Χ›ΧΧΧ™Χ•Χª
+            // θιτεμ αωβιΰεϊ λμμιεϊ
             return false;
         }
     }

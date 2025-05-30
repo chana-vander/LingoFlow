@@ -1,4 +1,4 @@
-ο»Ώusing Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -18,22 +18,24 @@ using Amazon.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using DotEnv;
 
-// ΧΧ•ΧΆΧ ΧΧª ΧΧ©ΧªΧ Χ™ Χ”Χ΅Χ‘Χ™Χ‘Χ” ΧΧ§Χ•Χ‘Χ¥ .env
+// θεςο ΰϊ ξωϊπι δραιαδ ξχεαυ .env
 Env.Load();
 Console.WriteLine("Loaded .env file...");
 Console.WriteLine("Bucket: " + Env.GetString("AWS__BucketName"));
-//Env.Load("C:\\Χ©Χ Χ” Χ‘ ΧªΧ›Χ Χ•Χª\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\env.env");
+//Env.Load("C:\\ωπδ α ϊλπεϊ\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\env.env");
 var builder = WebApplication.CreateBuilder(args);
-//Χ©ΧΧ™Χ¤Χª Χ ΧªΧ•Χ Χ™Χ ΧΧ§Χ•Χ‘Χ¥ Χ΅Χ‘Χ™Χ‘Χ”
+//ωμιτϊ πϊεπιν ξχεαυ ραιαδ
 builder.Configuration["AWS:BucketName"]= Env.GetString("AWS__BucketName");
 builder.Configuration["AWS:Region"] = Env.GetString("AWS__Region");
 builder.Configuration["AWS:AccessKey"] = Env.GetString("AWS__AccessKey");
 builder.Configuration["AWS:SecretKey"] = Env.GetString("AWS__SecretKey");
 builder.Configuration["OpenAI:ApiKey"] = Env.GetString("OpenAI__ApiKey");
 builder.Configuration["OpenAI:GptKey"] = Env.GetString("OpenAi__GptKey");
+builder.Configuration["Connection:String"] = Env.GetString("Connection__String");
 Console.WriteLine("AI GPT:  "+ Env.GetString("OpenAI__GptKey"));
 Console.WriteLine("bucket name: "+Env.GetString("AWS__BucketName"));
-// Χ”Χ•Χ΅Χ¤Χª CORS ΧΆΧ Χ”Χ¨Χ©ΧΧ” ΧΧ›Χ Χ”ΧΧ§Χ•Χ¨Χ•Χª
+Console.WriteLine("connection string: "+Env.GetString("Connection__String"));
+// δερτϊ CORS ςν δψωΰδ μλμ δξχεψεϊ
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", policy =>
@@ -46,25 +48,27 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<DataContext>();
 
 
-// Χ¨Χ™Χ©Χ•Χ Χ©Χ™Χ¨Χ•ΧªΧ™Χ Χ-DI
+// ψιωεν ωιψεϊιν μ-DI
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IConversationService, ConversationService>();
+builder.Services.AddScoped<IrecordingService, recordingService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<ITopicService, TopicService>();
-builder.Services.AddScoped<IWordService, WordService>();
+builder.Services.AddScoped<IVocabularyService, VocabularyService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFeedbackAnalysisService,FeedbackAnalysisService>();
 
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
+builder.Services.AddScoped<IrecordingRepository, recordingRepository>();
 builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
-builder.Services.AddScoped<IWordRepository, WordRepository>();
+builder.Services.AddScoped<IVocabularyRepository, VocabularyRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
-// Χ”Χ•Χ΅Χ¤Χª Χ‘Χ§Χ¨Χ™ API
+// δερτϊ αχψι API
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
@@ -72,10 +76,10 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "LingoFlow API", Version = "v1" });
 
-    // π‘‡ ΧΧ•Χ΅Χ™Χ¤Χ™Χ ΧªΧΧ™Χ›Χ” Χ‘ΧΧ¤Χ΅Χ™Χ
+    // ?? ξεριτιν ϊξιλδ αθτριν
     c.SupportNonNullableReferenceTypes();
 
-    // π‘‡ ΧΧ•Χ΅Χ™Χ¤Χ™Χ ΧΧª Χ–Χ” Χ›Χ“Χ™ Χ©Swagger Χ™Χ“ΧΆ ΧΧ”ΧªΧΧ•Χ“Χ“ ΧΆΧ Χ§Χ‘Χ¦Χ™Χ
+    // ?? ξεριτιν ΰϊ ζδ λγι ωSwagger ιγς μδϊξεγγ ςν χαφιν
     c.MapType<IFormFile>(() => new OpenApiSchema
     {
         Type = "string",
@@ -83,14 +87,14 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Χ”Χ’Χ“Χ¨Χª AutoMapper
+// δβγψϊ AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddAWSService<IAmazonS3>();
-//ΧªΧΧ™Χ›Χ” Χ‘HTTP
+//ϊξιλδ αHTTP
 builder.Services.AddHttpClient();
 
-// Χ”Χ•Χ΅Χ¤Χª Χ§Χ•Χ Χ¤Χ™Χ’Χ•Χ¨Χ¦Χ™Χ” Χ©Χ RegionEndpoint
+// δερτϊ χεπτιβεψφιδ ωμ RegionEndpoint
 builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
 {
     //var region = Environment.GetEnvironmentVariable("AWS__Region");
@@ -99,7 +103,8 @@ builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
     var region = Env.GetString("AWS__Region");
     var accessKey = Env.GetString("AWS__AccessKey");
     var secretKey = Env.GetString("AWS__SecretKey");
-
+    var dbname = Env.GetString("Connection__string");
+    Console.WriteLine(dbname);
 
     if (string.IsNullOrEmpty(region) || string.IsNullOrEmpty(accessKey) || string.IsNullOrEmpty(secretKey))
     {
@@ -114,13 +119,13 @@ builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
         new BasicAWSCredentials(accessKey, secretKey),
         new AmazonS3Config
         {
-            RegionEndpoint = RegionEndpoint.GetBySystemName(region)  // Χ”Χ’Χ“Χ¨Χª Χ”ΧΧ–Χ•Χ¨ Χ›ΧΧ
+            RegionEndpoint = RegionEndpoint.GetBySystemName(region)  // δβγψϊ δΰζεψ λΰο
         });
 
 });
 
 
-// Χ”Χ’Χ“Χ¨Χª JWT Authentication
+// δβγψϊ JWT Authentication
 
 var jwtKey = Environment.GetEnvironmentVariable("JWT__Key");
 if (string.IsNullOrEmpty(jwtKey))
@@ -143,25 +148,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Χ”Χ¨Χ©ΧΧ•Χª ΧΧ‘Χ•Χ΅Χ΅-ΧªΧ¤Χ§Χ™Χ“Χ™Χ
+// δψωΰεϊ ξαερρ-ϊτχιγιν
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin")); // ΧΧΧ Χ”ΧΧ™Χ Χ‘ΧΧ‘Χ“
-    options.AddPolicy("UserOnly", policy => policy.RequireRole("User")); // ΧΧΧ©ΧªΧΧ©Χ™Χ Χ‘ΧΧ‘Χ“
-    options.AddPolicy("AdminOrUser", policy => policy.RequireRole("Admin", "User")); // ΧΧ©Χ Χ™ Χ”ΧªΧ¤Χ§Χ™Χ“Χ™Χ
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin")); // μξπδμιν αμαγ
+    options.AddPolicy("UserOnly", policy => policy.RequireRole("User")); // μξωϊξωιν αμαγ
+    options.AddPolicy("AdminOrUser", policy => policy.RequireRole("Admin", "User")); // μωπι δϊτχιγιν
 });
 
-// Χ™Χ¦Χ™Χ¨Χª ΧΧ¤ΧΧ™Χ§Χ¦Χ™Χ”
+// ιφιψϊ ΰτμιχφιδ
 var app = builder.Build();
 
-// Χ”Χ¤ΧΆΧΧª Swagger Χ¨Χ§ Χ‘Χ΅Χ‘Χ™Χ‘Χª Χ¤Χ™ΧªΧ•Χ—
+// δτςμϊ Swagger ψχ αραιαϊ τιϊεη
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Χ΅Χ“Χ¨ Χ Χ›Χ•Χ Χ©Χ Χ”-Middleware
+// ργψ πλεο ωμ δ-Middleware
 app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins");
 app.UseAuthentication();

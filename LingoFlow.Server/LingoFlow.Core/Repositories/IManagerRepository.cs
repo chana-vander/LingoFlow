@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +10,10 @@ namespace LingoFlow.Core.Repositories
     {
 
         IUserRepository UserM { get; }
-        IConversationRepository ConversationM { get; }
+        IrecordingRepository recordingM { get; }
         IFeedbackRepository FeedbackM { get; }
         ITopicRepository TopicM { get; }
-        IWordRepository WordM { get; }
+        IVocabularyRepository WordM { get; }
 
         //Task SaveChangesAsync();
         Task SaveChangesAsync();

@@ -1,4 +1,4 @@
-﻿using LingoFlow.Core.Repositories;
+using LingoFlow.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +13,16 @@ namespace LingoFlow.Data.Repositories
         DataContext _dataContext;
 
         public IUserRepository UserM { get; }
-        public IConversationRepository ConversationM { get; }
+        public IrecordingRepository recordingM { get; }
         public IFeedbackRepository FeedbackM { get; }
         public ITopicRepository TopicM { get; }
-        public IWordRepository WordM { get; }
+        public IVocabularyRepository WordM { get; }
 
-        public ManagerRepository(DataContext dataContext, IUserRepository userM, IConversationRepository conversationM, IFeedbackRepository feedbackM, ITopicRepository TopicM, IWordRepository wordM)
+        public ManagerRepository(DataContext dataContext, IUserRepository userM, IrecordingRepository recordingM, IFeedbackRepository feedbackM, ITopicRepository TopicM, IVocabularyRepository wordM)
         {
             _dataContext = dataContext;
             UserM = userM;
-            ConversationM = conversationM;
+            recordingM = recordingM;
             FeedbackM = feedbackM;
             TopicM = TopicM;
             WordM = wordM;

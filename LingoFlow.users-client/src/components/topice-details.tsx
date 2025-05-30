@@ -208,7 +208,7 @@
 
 // export default Details;
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Container,
@@ -275,6 +275,280 @@ const WordNumber = styled(Typography)(({ theme }) => ({
   marginRight: theme.spacing(1),
 }));
 
+// const Details = () => {
+//   const { id } = useParams<{ id: string }>();
+//   const [words, setWords] = useState<Word[]>([]);
+//   const [topicName, setTopicName] = useState<string>("");
+//   const [loading, setLoading] = useState<boolean>(true);
+//   const [speech, setSpeech] = useState<SpeechSynthesisUtterance | null>(null);
+//   const [paused, setPaused] = useState<boolean>(false);
+//   const [expandedWordId, setExpandedWordId] = useState<number | null>(null);
+
+//   const theme = useTheme();
+
+//   useEffect(() => {
+//     fetch(`http://localhost:5092/api/Vocabulary/Topic/${id}`)
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log(data);
+        
+//         setWords(data);
+//         setLoading(false);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching words:", error);
+//         setLoading(false);
+//       });
+//   }, [id]);
+
+//   useEffect(() => {
+//     fetch(`http://localhost:5092/api/Topic/${id}`)
+//       .then((res) => res.json())
+//       .then((data) => setTopicName(data.name))
+//       .catch((error) => console.error("Error fetching topic name: ", error));
+//   }, [id]);
+// console.log(words);
+
+//   // const playAplayAudioudio = (text: string) => {
+//   //   stopAudio();
+//   //   const utterance = new SpeechSynthesisUtterance(text);
+//   //   utterance.lang = "en-US";
+//   //   utterance.rate = 0.9;
+//   //   utterance.onend = () => {
+//   //     setSpeech(null);
+//   //     setPaused(false);
+//   //   };
+//   //   window.speechSynthesis.speak(utterance);
+//   //   setSpeech(utterance);
+//   // };
+//   const playAudio = (text: string) => {
+//     console.log(text);
+    
+//     if (!text || text.trim() === "") {
+//       console.warn("טקסט ריק. אין מה להשמיע.");
+//       return;
+//     }
+
+//     if (!("speechSynthesis" in window)) {
+//       alert("הדפדפן שלך לא תומך בהקראת טקסט.");
+//       return;
+//     }
+
+//     stopAudio();
+
+//     const utterance = new SpeechSynthesisUtterance(text.trim());
+
+//     // טען קולות זמינים
+//     const voices = window.speechSynthesis.getVoices();
+//     const englishVoice = voices.find(
+//       (v) => v.lang === "en-US" || v.lang.startsWith("en")
+//     );
+//     console.log(englishVoice);//undefind
+
+//     if (englishVoice) {
+//       utterance.voice = englishVoice;
+//     } else {
+//       console.warn("לא נמצא קול באנגלית. משתמש בקול ברירת מחדל.");
+//     }
+
+//     utterance.lang = "en-US";
+//     utterance.rate = 0.9;
+
+//     utterance.onstart = () => {
+//       console.log("התחיל להשמיע:", utterance.text);
+//     };
+
+//     utterance.onerror = (event) => {
+//       console.error("שגיאה בהשמעה:", event.error);
+//     };
+
+//     utterance.onend = () => {
+//       console.log("סיים להשמיע:", utterance.text);
+//       setSpeech(null);
+//       setPaused(false);
+//     };
+
+//     window.speechSynthesis.speak(utterance);
+//     setSpeech(utterance);
+//   };
+
+//   // const playAudio = (text: string) => {
+//   //   stopAudio();
+//   //   const utterance = new SpeechSynthesisUtterance(text);
+//   //   console.log(utterance.text);
+
+//   //   utterance.lang = "en-US";
+//   //   utterance.rate = 0.9;
+//   //   utterance.onend = () => {
+//   //     setSpeech(null);
+//   //     setPaused(false);
+//   //   };
+//   //   window.speechSynthesis.speak(utterance);
+//   //   setSpeech(utterance.text);
+//   // };
+//   const stopAudio = () => {
+//     if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
+//       window.speechSynthesis.cancel();
+//     }
+//     setSpeech(null);
+//     setPaused(false);
+//   };
+
+//   const pauseAudio = () => {
+//     if (speech && !paused) {
+//       window.speechSynthesis.pause();
+//       setPaused(true);
+//     }
+//   };
+
+//   const resumeAudio = () => {
+//     if (paused) {
+//       window.speechSynthesis.resume();
+//       setPaused(false);
+//     }
+//   };
+
+//   const handleCardClick = (id: number) => {
+//     setExpandedWordId(expandedWordId === id ? null : id);
+//   };
+
+//   const handleWordAudioClick = (event: React.MouseEvent, wordName: string) => {
+//     event.stopPropagation();
+//     playAudio(wordName);
+//   };
+
+//   const handleSentenceAudioClick = (
+//     event: React.MouseEvent,
+//     sentence: string,
+//     wordId: number
+//   ) => {
+//     event.stopPropagation();
+//     playAudio(sentence);
+//     setExpandedWordId(wordId);
+//   };
+
+//   return (
+//     <Container
+//       maxWidth="md"
+//       sx={{
+//         marginTop: 5,
+//         display: "flex",
+//         flexDirection: "column",
+//         alignItems: "center",
+//       }}
+//     >
+//       <Typography
+//         variant="h4"
+//         align="center"
+//         sx={{
+//           fontWeight: "bold",
+//           color: theme.palette.primary.main,
+//           marginBottom: 3,
+//         }}
+//       >
+//         {topicName} Vocabulary
+//       </Typography>
+
+//       <Typography
+//         variant="subtitle2"
+//         color="textSecondary"
+//         align="center"
+//         sx={{ marginBottom: 2 }}
+//       >
+//         לחצו על כרטיסייה כדי לראות את התרגום והמשפט, ועל סמל הרמקול כדי לשמוע את
+//         ההגייה.
+//       </Typography>
+
+//       {loading ? (
+//         <Box sx={{ display: "flex", justifyContent: "center", marginTop: 4 }}>
+//           <CircularProgress />
+//         </Box>
+//       ) : (
+//         <Box sx={{ padding: 3, width: "100%" }}>
+//           {words.length > 0 ? (
+//             words.map((word, index) => (
+//               <WordCard
+//                 key={word.id || index}
+//                 onClick={() => handleCardClick(word.id)}
+//               >
+//                 <Grid container alignItems="center" spacing={2}>
+//                   <Grid item xs={6}>
+//                     <WordContainer>
+//                       <WordNumber variant="h6">{index + 1}.</WordNumber>
+//                       <WordText variant="h5">{word.word}</WordText>
+//                       <IconButton
+//                         onClick={(event) =>
+//                           handleWordAudioClick(event, word.word)
+//                         }
+//                         color="primary"
+//                         size="small"
+//                       >
+//                         <VolumeUpIcon />
+//                       </IconButton>
+//                     </WordContainer>
+//                   </Grid>
+//                   <Grid item xs={6}>
+//                     <TranslationText variant="h5" align="right">
+//                       {word.wordTanslation}
+//                     </TranslationText>
+//                   </Grid>
+//                   <Grid item xs={12}>
+//                     <SentenceContainer expanded={expandedWordId === word.id}>
+//                       <Divider sx={{ marginBottom: 1 }} />
+//                       <Typography variant="body1" sx={{ fontStyle: "italic" }}>
+//                         {word.sentence}
+//                       </Typography>
+//                       <Typography variant="body2" color="textSecondary">
+//                         {word.sentenceTranslate}
+//                       </Typography>
+//                       <Box sx={{ mt: 1 }}>
+//                         <IconButton
+//                           onClick={(event) =>
+//                             handleSentenceAudioClick(
+//                               event,
+//                               word.sentence,
+//                               word.id
+//                               // ??index
+//                             )
+//                           }
+//                           color="primary"
+//                           size="small"
+//                         >
+//                           <VolumeUpIcon />
+//                         </IconButton>
+//                         <IconButton
+//                           onClick={pauseAudio}
+//                           color="warning"
+//                           size="small"
+//                         >
+//                           <StopIcon />
+//                         </IconButton>
+//                         <IconButton
+//                           onClick={resumeAudio}
+//                           color="success"
+//                           size="small"
+//                         >
+//                           <PlayArrowIcon />
+//                         </IconButton>
+//                       </Box>
+//                     </SentenceContainer>
+//                   </Grid>
+//                 </Grid>
+//               </WordCard>
+//             ))
+//           ) : (
+//             <Typography variant="body1" color="textSecondary" align="center">
+//               לא נמצאו מילים.
+//             </Typography>
+//           )}
+//         </Box>
+//       )}
+//     </Container>
+//   );
+// };
+
+// export default Details;
+
 const Details = () => {
   const { id } = useParams<{ id: string }>();
   const [words, setWords] = useState<Word[]>([]);
@@ -283,13 +557,23 @@ const Details = () => {
   const [speech, setSpeech] = useState<SpeechSynthesisUtterance | null>(null);
   const [paused, setPaused] = useState<boolean>(false);
   const [expandedWordId, setExpandedWordId] = useState<number | null>(null);
+  const [voicesLoaded, setVoicesLoaded] = useState<boolean>(false); // New state to track voice loading
 
   const theme = useTheme();
 
+  // --- Data Fetching UseEffects ---
   useEffect(() => {
-    fetch(`http://localhost:5092/api/Word/Topic/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
+    if (!id) return; // Prevent fetch if ID is not available
+
+    fetch(`http://localhost:5092/api/Vocabulary/Topic/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data: Word[]) => { // Add type annotation for data
+        console.log("Fetched words:", data);
         setWords(data);
         setLoading(false);
       })
@@ -300,127 +584,162 @@ const Details = () => {
   }, [id]);
 
   useEffect(() => {
+    if (!id) return; // Prevent fetch if ID is not available
+
     fetch(`http://localhost:5092/api/Topic/${id}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => setTopicName(data.name))
       .catch((error) => console.error("Error fetching topic name: ", error));
   }, [id]);
 
-  // const playAplayAudioudio = (text: string) => {
-  //   stopAudio();
-  //   const utterance = new SpeechSynthesisUtterance(text);
-  //   utterance.lang = "en-US";
-  //   utterance.rate = 0.9;
-  //   utterance.onend = () => {
-  //     setSpeech(null);
-  //     setPaused(false);
-  //   };
-  //   window.speechSynthesis.speak(utterance);
-  //   setSpeech(utterance);
-  // };
-  const playAudio = (text: string) => {
-    if (!text || text.trim() === "") {
-      console.warn("טקסט ריק. אין מה להשמיע.");
-      return;
-    }
+  console.log("Current words state:", words); // Moved console.log here for better insight
 
-    if (!("speechSynthesis" in window)) {
-      alert("הדפדפן שלך לא תומך בהקראת טקסט.");
-      return;
-    }
+  // --- Speech Synthesis Logic ---
 
-    stopAudio();
-
-    const utterance = new SpeechSynthesisUtterance(text.trim());
-
-    // טען קולות זמינים
-    const voices = window.speechSynthesis.getVoices();
-    const englishVoice = voices.find(
-      (v) => v.lang === "en-US" || v.lang.startsWith("en")
-    );
-    console.log(englishVoice);
-
-    if (englishVoice) {
-      utterance.voice = englishVoice;
-    } else {
-      console.warn("לא נמצא קול באנגלית. משתמש בקול ברירת מחדל.");
-    }
-
-    utterance.lang = "en-US";
-    utterance.rate = 0.9;
-
-    utterance.onstart = () => {
-      console.log("התחיל להשמיע:", utterance.text);
-    };
-
-    utterance.onerror = (event) => {
-      console.error("שגיאה בהשמעה:", event.error);
-    };
-
-    utterance.onend = () => {
-      console.log("סיים להשמיע:", utterance.text);
-      setSpeech(null);
-      setPaused(false);
-    };
-
-    window.speechSynthesis.speak(utterance);
-    setSpeech(utterance);
-  };
-
-  // const playAudio = (text: string) => {
-  //   stopAudio();
-  //   const utterance = new SpeechSynthesisUtterance(text);
-  //   console.log(utterance.text);
-
-  //   utterance.lang = "en-US";
-  //   utterance.rate = 0.9;
-  //   utterance.onend = () => {
-  //     setSpeech(null);
-  //     setPaused(false);
-  //   };
-  //   window.speechSynthesis.speak(utterance);
-  //   setSpeech(utterance.text);
-  // };
-  const stopAudio = () => {
+  // Function to stop audio (memoized with useCallback)
+  const stopAudio = useCallback(() => {
     if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
       window.speechSynthesis.cancel();
     }
     setSpeech(null);
     setPaused(false);
-  };
+  }, []); // No dependencies as it operates on window.speechSynthesis directly and resets local states
 
-  const pauseAudio = () => {
+  // Function to pause audio (memoized with useCallback)
+  const pauseAudio = useCallback(() => {
     if (speech && !paused) {
       window.speechSynthesis.pause();
       setPaused(true);
     }
-  };
+  }, [speech, paused]);
 
-  const resumeAudio = () => {
+  // Function to resume audio (memoized with useCallback)
+  const resumeAudio = useCallback(() => {
     if (paused) {
       window.speechSynthesis.resume();
       setPaused(false);
     }
-  };
+  }, [paused]);
 
-  const handleCardClick = (id: number) => {
-    setExpandedWordId(expandedWordId === id ? null : id);
-  };
+  // Effect to load voices when the component mounts or when voices change
+  useEffect(() => {
+    const loadVoices = () => {
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        setVoicesLoaded(true);
+        console.log("SpeechSynthesis voices loaded.");
+      } else {
+        // Fallback for browsers that might load voices asynchronously slower
+        // or if getVoices() returns empty array initially.
+        // This is less common in modern browsers if called after document load.
+        console.warn("No voices found initially. Waiting for 'voiceschanged' event.");
+      }
+    };
 
-  const handleWordAudioClick = (event: React.MouseEvent, wordName: string) => {
-    event.stopPropagation();
+    // Attempt to load voices immediately
+    loadVoices();
+
+    // Listen for the 'voiceschanged' event to ensure voices are available
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    // Cleanup function for when the component unmounts
+    return () => {
+      if (window.speechSynthesis.onvoiceschanged === loadVoices) {
+        window.speechSynthesis.onvoiceschanged = null;
+      }
+    };
+  }, []); // Empty dependency array means this runs once on mount and cleans up on unmount
+
+  // Main playAudio function (memoized with useCallback)
+  const playAudio = useCallback((text: string) => {
+    console.log("Attempting to play audio for:", text);
+
+    if (!text || text.trim() === "") {
+      console.warn("Empty text. Nothing to play.");
+      return;
+    }
+
+    if (!("speechSynthesis" in window)) {
+      alert("Your browser does not support text-to-speech.");
+      return;
+    }
+
+    // Crucial: Only attempt to play if voices are loaded
+    if (!voicesLoaded) {
+      console.warn("Speech voices are not yet loaded. Please wait a moment.");
+      // You might want to provide visual feedback to the user here.
+      return;
+    }
+
+    stopAudio(); // Stop any currently speaking audio
+
+    const utterance = new SpeechSynthesisUtterance(text.trim());
+
+    const voices = window.speechSynthesis.getVoices();
+    // Prioritize en-US, then any English voice
+    const englishVoice = voices.find(
+      (v) => v.lang === "en-US" || v.lang.startsWith("en")
+    );
+
+    if (englishVoice) {
+      utterance.voice = englishVoice;
+      console.log("Selected English voice:", englishVoice.name);
+    } else {
+      console.warn("No specific English voice found. Using default browser voice.");
+      // Even if no specific English voice is found, setting lang helps with pronunciation
+    }
+
+    utterance.lang = "en-US"; // Set language explicitly for correct pronunciation
+    utterance.rate = 0.9; // Set a slightly slower rate
+
+    utterance.onstart = () => {
+      console.log("Started playing:", utterance.text);
+    };
+
+    utterance.onerror = (event: SpeechSynthesisErrorEvent) => { // Add type for event
+      console.error("Speech error:", event.error);
+      // It's common to get 'interrupted' if another speak() is called too quickly
+      // or if browser autoplay policies prevent it.
+      setSpeech(null); // Clear speech state on error
+      setPaused(false);
+    };
+
+    utterance.onend = () => {
+      console.log("Finished playing:", utterance.text);
+      setSpeech(null);
+      setPaused(false);
+    };
+
+    window.speechSynthesis.speak(utterance);
+    setSpeech(utterance); // Store the utterance in state
+  }, [voicesLoaded, stopAudio]); // Dependencies for useCallback
+
+  // --- Event Handlers for UI ---
+  const handleCardClick = useCallback((wordId: number) => {
+    setExpandedWordId(expandedWordId === wordId ? null : wordId);
+  }, [expandedWordId]);
+
+  const handleWordAudioClick = useCallback((event: React.MouseEvent, wordName: string) => {
+    event.stopPropagation(); // Prevent card expansion
     playAudio(wordName);
-  };
+  }, [playAudio]);
 
-  const handleSentenceAudioClick = (
+  const handleSentenceAudioClick = useCallback((
     event: React.MouseEvent,
     sentence: string,
     wordId: number
   ) => {
-    event.stopPropagation();
+    event.stopPropagation(); // Prevent card expansion
     playAudio(sentence);
-    setExpandedWordId(wordId);
-  };
+    setExpandedWordId(wordId); // Expand the card if not already
+  }, [playAudio]);
 
   return (
     <Container
@@ -470,13 +789,14 @@ const Details = () => {
                   <Grid item xs={6}>
                     <WordContainer>
                       <WordNumber variant="h6">{index + 1}.</WordNumber>
-                      <WordText variant="h5">{word.name}</WordText>
+                      <WordText variant="h5">{word.word}</WordText>
                       <IconButton
                         onClick={(event) =>
-                          handleWordAudioClick(event, word.name)
+                          handleWordAudioClick(event, word.word)
                         }
                         color="primary"
                         size="small"
+                        disabled={!voicesLoaded} // Disable if voices not loaded
                       >
                         <VolumeUpIcon />
                       </IconButton>
@@ -484,7 +804,7 @@ const Details = () => {
                   </Grid>
                   <Grid item xs={6}>
                     <TranslationText variant="h5" align="right">
-                      {word.translation}
+                      {word.wordTanslation}
                     </TranslationText>
                   </Grid>
                   <Grid item xs={12}>
@@ -503,11 +823,11 @@ const Details = () => {
                               event,
                               word.sentence,
                               word.id
-                              // ??index
                             )
                           }
                           color="primary"
                           size="small"
+                          disabled={!voicesLoaded} // Disable if voices not loaded
                         >
                           <VolumeUpIcon />
                         </IconButton>
@@ -515,6 +835,7 @@ const Details = () => {
                           onClick={pauseAudio}
                           color="warning"
                           size="small"
+                          disabled={!speech || paused} // Disable if no speech or already paused
                         >
                           <StopIcon />
                         </IconButton>
@@ -522,6 +843,7 @@ const Details = () => {
                           onClick={resumeAudio}
                           color="success"
                           size="small"
+                          disabled={!speech || !paused} // Disable if no speech or not paused
                         >
                           <PlayArrowIcon />
                         </IconButton>
@@ -534,6 +856,12 @@ const Details = () => {
           ) : (
             <Typography variant="body1" color="textSecondary" align="center">
               לא נמצאו מילים.
+            </Typography>
+          )}
+          {/* Optional: Display a loading message for voices */}
+          {!voicesLoaded && (
+            <Typography variant="caption" color="textSecondary" align="center" sx={{ mt: 2 }}>
+              טוען קולות דיבור...
             </Typography>
           )}
         </Box>

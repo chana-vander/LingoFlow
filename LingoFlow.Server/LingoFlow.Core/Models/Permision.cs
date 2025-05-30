@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,8 +10,8 @@ namespace LingoFlow.Core.Models
     public class Permision
     {
         [Key]
-        public int Id { get; set; } // ××–×”×” ×™×™×—×•×“×™
-        public string PermissionName { get; set; } // ×©× ×”×”×¨×©××”
-        public string Description { get; set; } // ×ª×™××•×¨ ×”×”×¨×©××”
+        public int Id { get; set; } // îæää ééçåãé
+        public string PermissionName { get; set; } // ùí ääøùàä
+        public string Description { get; set; } // úéàåø ääøùàä
     }
 }

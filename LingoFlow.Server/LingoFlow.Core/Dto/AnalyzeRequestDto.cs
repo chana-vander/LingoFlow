@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ namespace LingoFlow.Core.Dto
     {
         public string Transcription { get; set; } = string.Empty;
         public int TopicId { get; set; }
-        public int ConversationId { get; set; }
+        public int recordingId { get; set; }
 
         //public int UsedWordsCount { get; set; }
         //public int TotalWordsRequired { get; set; }

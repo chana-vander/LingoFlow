@@ -1,4 +1,4 @@
-ο»Ώusing Microsoft.VisualBasic;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,11 +13,11 @@ namespace LingoFlow.Core.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; } // ΧΧ—Χ΅Χ•Χ Χ΅Χ™Χ΅ΧΧΧ•Χª ΧΧ•Χ¦Χ¤Χ
+        public string Password { get; set; } // ΰηρεο ριρξΰεϊ ξεφτο
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int RoleId { get; set; }
         public Role Role { get; set; }
-        public List<Conversation> Conversations { get; set; } = new();
+        public List<recording> recordings { get; set; } = new();
 
     }
 }
