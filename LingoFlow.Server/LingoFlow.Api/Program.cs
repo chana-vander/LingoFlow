@@ -166,6 +166,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 // סדר נכון של ה-Middleware
 app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins");
