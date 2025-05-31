@@ -166,7 +166,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/", () => Results.Redirect("/swagger"));
+//app.MapGet("/", () => Results.Redirect("/swagger"));
+app.MapGet("/", () => Results.Ok("Welcome to LingoFlow API!"));
 
 // סדר נכון של ה-Middleware
 app.UseHttpsRedirection();
