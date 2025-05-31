@@ -918,12 +918,12 @@ const MyRecordings = () => {
   return (
     <Box
       sx={{
-        width: "90%",
-        margin: "40px auto",
+        width: "100%",
+        // margin: "40px auto",
         padding: 4,
-        bgcolor: "#f5f9fc",
-        borderRadius: 4,
-        boxShadow: 6,
+        // bgcolor: "#f5f9fc",
+        // borderRadius: 4,
+        // boxShadow: 6,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
