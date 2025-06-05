@@ -242,256 +242,20 @@
 
 // export default observer(Header);
 
-// import { useNavigate } from "react-router-dom";
-// import { useState, useRef } from "react";
-// import {
-//   AppBar,
-//   Toolbar,
-//   // Typography,
-//   Button,
-//   Box,
-//   Alert,
-//   // Avatar,
-//   Popover,
-//   MenuList,
-//   MenuItem,
-// } from "@mui/material";
-// import logoImage from "../images/logo-power2-Photoroom.png";
-// import { observer } from "mobx-react-lite";
-// import userStore from "../stores/userStore";
-
-// const Header = () => {
-//   const navigate = useNavigate();
-//   const [message, setMessage] = useState("");
-
-//   const isLoggedIn = userStore.isLoggedIn;
-//   // const user = toJS(userStore.user);
-
-//   // מצב ל-hover של ה-dropdown
-//   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-//   const avatarRef = useRef<HTMLDivElement | null>(null);
-
-//   const handleProtectedClick = (path: string) => {
-//     if (isLoggedIn) {
-//       navigate(path);
-//     } else {
-//       setMessage("עליך להתחבר כדי לגשת לאזור זה.");
-//       setTimeout(() => setMessage(""), 3000);
-//     }
-//   };
-
-//   // הפתחה וסגירה של הפופובר ב-hover
-//   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-//   const handlePopoverClose = () => {
-//     setAnchorEl(null);
-//   };
-//   const open = Boolean(anchorEl);
-
-//   return (
-//     <>
-//       <AppBar
-//         position="fixed"
-//         sx={{
-//           //   bgcolor: "#e3f2d",
-//           bgcolor: "#c0e0ff",
-//           padding: 1,
-//           //   width:"auto"
-//         borderBottom: "4px solid #c62828",
-
-//         }}
-//       >
-//         <Toolbar sx={{ justifyContent: "center" }}>
-//           <Box
-//             sx={{
-//               width: "100%",
-//               display: "flex",
-//               justifyContent: "space-between",
-//               alignItems: "center",
-//             }}
-//           >
-//             <Box
-//               sx={{
-//                 display: "flex",
-//                 alignItems: "center",
-//                 cursor: "pointer",
-//                 gap: 8, // ללא רווח
-//               }}
-//             >
-//               {/* לוגו לשמאל */}
-//               <Box
-//                 sx={{
-//                   display: "flex",
-//                   alignItems: "center",
-//                   cursor: "pointer",
-//                 }}
-//                 onClick={() => navigate("/")}
-//               >
-//                 <img
-//                   src={logoImage}
-//                   alt="LingoFlow Logo"
-//                   style={{
-//                     height: "100px",
-//                     objectFit: "contain",
-//                     display: "block",
-//                   }}
-//                 />
-//               </Box>
-//               {/* אזור המשתמש עם dropdown ב-hover */}
-//               <Box
-//                 sx={{
-//                   display: "flex",
-//                   alignItems: "center",
-//                   position: "relative",
-//                 }}
-//                 onMouseEnter={handlePopoverOpen}
-//                 onMouseLeave={handlePopoverClose}
-//               >
-//                 {/* {isLoggedIn ? (
-//                   <Avatar
-//                     ref={avatarRef}
-//                     sx={{
-//                       bgcolor: userStore.isAdmin ? "#FFD700" : "#1976d2",
-//                       width: 40,
-//                       height: 40,
-//                       fontSize: "1rem",
-//                       cursor: "pointer",
-//                       border: "2px solid red",
-//                     }}
-//                   >
-//                     {userStore.userName?.charAt(0)?.toUpperCase()}
-//                   </Avatar>
-//                 ) : (
-//                   <Typography variant="body2" sx={{ color: "#0d47a1" }}>
-//                     ❓ לא מחובר
-//                   </Typography>
-//                 )} */}
-
-//                 {/* Dropdown שמופיע ב-hover */}
-//                 <Popover
-//                   open={open}
-//                   anchorEl={anchorEl}
-//                   anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-//                   transformOrigin={{ vertical: "top", horizontal: "right" }}
-//                   disableRestoreFocus
-//                   // sx={{ pointerEvents: "none" }} // מונע סגירה מיידית
-//                   PaperProps={{
-//                     onMouseEnter: () => setAnchorEl(avatarRef.current),
-//                     onMouseLeave: handlePopoverClose,
-//                     sx: { pointerEvents: "auto" },
-//                   }}
-//                 >
-//                   <MenuList>
-//                     {!isLoggedIn ? (
-//                       <>
-//                         <MenuItem
-//                           onClick={() => {
-//                             navigate("/register");
-//                             handlePopoverClose();
-//                           }}
-//                         >
-//                           הרשמה
-//                         </MenuItem>
-//                         <MenuItem
-//                           onClick={() => {
-//                             navigate("/login");
-//                             handlePopoverClose();
-//                           }}
-//                         >
-//                           התחברות
-//                         </MenuItem>
-//                       </>
-//                     ) : (
-//                       <MenuItem
-//                         onClick={() => {
-//                           userStore.logout();
-//                           handlePopoverClose();
-//                         }}
-//                       >
-//                         התנתקות
-//                       </MenuItem>
-//                     )}
-//                   </MenuList>
-//                 </Popover>
-//               </Box>
-//             </Box>
-//             {/* כפתורי התפריט */}
-//             <Box
-//               sx={{
-//                 display: "flex",
-//                 gap: 3,
-//                 padding: "20px",
-//                 marginRight: "20px",
-//               }}
-//             >
-//               {[
-//                 { label: "ההקלטות שלי", path: "/my-recordings" },
-//                 { label: "צפייה במשוב", path: "/feedback" },
-//                 { label: "התחלת הקלטה", path: "/record" },
-//                 { label: "נושאי שיחה", path: "/choose-level" },
-//                 // { label: "הדרך לדיבור שוטף", path: "/about-us" },
-//                 { label: "הצעדים לדיבור בטוח", path: "/about-us" },
-
-//               ].map((item) => (
-//                 <Button
-//                   key={item.path}
-//                   color="inherit"
-//                   onClick={() => handleProtectedClick(item.path)}
-//                   sx={{
-//                     fontSize: "1.1rem",
-//                     fontFamily: '"Fredoka", sans-serif',
-//                     color: "#0d47a1",
-//                   }}
-//                 >
-//                   {item.label}
-//                 </Button>
-//               ))}
-//             </Box>
-//           </Box>
-//         </Toolbar>
-//       </AppBar>
-
-//       {/* רווח מתחת ל־AppBar */}
-//       <Box sx={{ height: "64px" }} />
-
-//       {/* הודעת שגיאה */}
-//       {message && (
-//         <Alert
-//           severity="warning"
-//           sx={{
-//             position: "fixed",
-//             bottom: 20,
-//             left: "50%",
-//             transform: "translateX(-50%)",
-//             zIndex: 1300,
-//           }}
-//         >
-//           {message}
-//         </Alert>
-//       )}
-//     </>
-//   );
-// };
-
-// export default observer(Header);
-
-
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-// useRef
+import { useState, useRef } from "react";
 import {
   AppBar,
   Toolbar,
+  // Typography,
   Button,
   Box,
   Alert,
+  // Avatar,
   Popover,
   MenuList,
   MenuItem,
-  IconButton,
 } from "@mui/material";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline"; // סימן שאלה
 import logoImage from "../images/logo-power2-Photoroom.png";
 import { observer } from "mobx-react-lite";
 import userStore from "../stores/userStore";
@@ -499,9 +263,13 @@ import userStore from "../stores/userStore";
 const Header = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const isLoggedIn = userStore.isLoggedIn;
 
+  const isLoggedIn = userStore.isLoggedIn;
+  // const user = toJS(userStore.user);
+
+  // מצב ל-hover של ה-dropdown
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const avatarRef = useRef<HTMLDivElement | null>(null);
 
   const handleProtectedClick = (path: string) => {
     if (isLoggedIn) {
@@ -512,14 +280,13 @@ const Header = () => {
     }
   };
 
-  const handleClickIcon = (event: React.MouseEvent<HTMLElement>) => {
+  // הפתחה וסגירה של הפופובר ב-hover
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const handleClosePopover = () => {
+  const handlePopoverClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
 
   return (
@@ -527,9 +294,12 @@ const Header = () => {
       <AppBar
         position="fixed"
         sx={{
+          //   bgcolor: "#e3f2d",
           bgcolor: "#c0e0ff",
           padding: 1,
-          borderBottom: "4px solid #c62828",
+          //   width:"auto"
+        borderBottom: "4px solid #c62828",
+
         }}
       >
         <Toolbar sx={{ justifyContent: "center" }}>
@@ -546,12 +316,16 @@ const Header = () => {
                 display: "flex",
                 alignItems: "center",
                 cursor: "pointer",
-                gap: 8,
+                gap: 8, // ללא רווח
               }}
             >
               {/* לוגו לשמאל */}
               <Box
-                sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
                 onClick={() => navigate("/")}
               >
                 <img
@@ -564,53 +338,84 @@ const Header = () => {
                   }}
                 />
               </Box>
-
-              {/* כפתור הסימן שאלה לפתיחת הדרופדאון */}
-              <IconButton onClick={handleClickIcon} sx={{ color: "#0d47a1" }}>
-                <HelpOutlineIcon fontSize="large" />
-              </IconButton>
-
-              <Popover
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClosePopover}
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                transformOrigin={{ vertical: "top", horizontal: "right" }}
+              {/* אזור המשתמש עם dropdown ב-hover */}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  position: "relative",
+                }}
+                onMouseEnter={handlePopoverOpen}
+                onMouseLeave={handlePopoverClose}
               >
-                <MenuList>
-                  {!isLoggedIn ? (
-                    <>
-                      <MenuItem
-                        onClick={() => {
-                          navigate("/register");
-                          handleClosePopover();
-                        }}
-                      >
-                        הרשמה
-                      </MenuItem>
-                      <MenuItem
-                        onClick={() => {
-                          navigate("/login");
-                          handleClosePopover();
-                        }}
-                      >
-                        התחברות
-                      </MenuItem>
-                    </>
-                  ) : (
-                    <MenuItem
-                      onClick={() => {
-                        userStore.logout();
-                        handleClosePopover();
-                      }}
-                    >
-                      התנתקות
-                    </MenuItem>
-                  )}
-                </MenuList>
-              </Popover>
-            </Box>
+                {/* {isLoggedIn ? (
+                  <Avatar
+                    ref={avatarRef}
+                    sx={{
+                      bgcolor: userStore.isAdmin ? "#FFD700" : "#1976d2",
+                      width: 40,
+                      height: 40,
+                      fontSize: "1rem",
+                      cursor: "pointer",
+                      border: "2px solid red",
+                    }}
+                  >
+                    {userStore.userName?.charAt(0)?.toUpperCase()}
+                  </Avatar>
+                ) : (
+                  <Typography variant="body2" sx={{ color: "#0d47a1" }}>
+                    ❓ לא מחובר
+                  </Typography>
+                )} */}
 
+                {/* Dropdown שמופיע ב-hover */}
+                <Popover
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  transformOrigin={{ vertical: "top", horizontal: "right" }}
+                  disableRestoreFocus
+                  // sx={{ pointerEvents: "none" }} // מונע סגירה מיידית
+                  PaperProps={{
+                    onMouseEnter: () => setAnchorEl(avatarRef.current),
+                    onMouseLeave: handlePopoverClose,
+                    sx: { pointerEvents: "auto" },
+                  }}
+                >
+                  <MenuList>
+                    {!isLoggedIn ? (
+                      <>
+                        <MenuItem
+                          onClick={() => {
+                            navigate("/register");
+                            handlePopoverClose();
+                          }}
+                        >
+                          הרשמה
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            navigate("/login");
+                            handlePopoverClose();
+                          }}
+                        >
+                          התחברות
+                        </MenuItem>
+                      </>
+                    ) : (
+                      <MenuItem
+                        onClick={() => {
+                          userStore.logout();
+                          handlePopoverClose();
+                        }}
+                      >
+                        התנתקות
+                      </MenuItem>
+                    )}
+                  </MenuList>
+                </Popover>
+              </Box>
+            </Box>
             {/* כפתורי התפריט */}
             <Box
               sx={{
@@ -625,7 +430,9 @@ const Header = () => {
                 { label: "צפייה במשוב", path: "/feedback" },
                 { label: "התחלת הקלטה", path: "/record" },
                 { label: "נושאי שיחה", path: "/choose-level" },
+                // { label: "הדרך לדיבור שוטף", path: "/about-us" },
                 { label: "הצעדים לדיבור בטוח", path: "/about-us" },
+
               ].map((item) => (
                 <Button
                   key={item.path}
