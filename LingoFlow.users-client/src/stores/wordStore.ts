@@ -1,12 +1,13 @@
+import config from "../config";
+
 //קבלת מילים לפי נושא שיחה
 class TopicWordsStore {
   constructor() {}
+  apiUrl = config.apiUrl;
 
   async getWordsByTopic(topicId: string): Promise<string[]> {
     try {
-      const response = await fetch(
-        `http://localhost:5092/api/Vocabulry/Topic/${topicId}`
-      );
+      const response = await fetch(`${this.apiUrl}/Vocabulry/Topic/${topicId}`);
       if (!response.ok) {
         console.log("if ", response.json);
         throw new Error("Failed to fetch topic words");

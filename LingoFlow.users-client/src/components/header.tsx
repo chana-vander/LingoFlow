@@ -247,11 +247,11 @@ import { useState, useRef } from "react";
 import {
   AppBar,
   Toolbar,
-  Typography,
+  // Typography,
   Button,
   Box,
   Alert,
-  Avatar,
+  // Avatar,
   Popover,
   MenuList,
   MenuItem,
@@ -348,7 +348,7 @@ const Header = () => {
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
               >
-                {isLoggedIn ? (
+                {/* {isLoggedIn ? (
                   <Avatar
                     ref={avatarRef}
                     sx={{
@@ -366,7 +366,7 @@ const Header = () => {
                   <Typography variant="body2" sx={{ color: "#0d47a1" }}>
                     ❓ לא מחובר
                   </Typography>
-                )}
+                )} */}
 
                 {/* Dropdown שמופיע ב-hover */}
                 <Popover
@@ -375,7 +375,7 @@ const Header = () => {
                   anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                   transformOrigin={{ vertical: "top", horizontal: "right" }}
                   disableRestoreFocus
-                  sx={{ pointerEvents: "none" }} // מונע סגירה מיידית
+                  // sx={{ pointerEvents: "none" }} // מונע סגירה מיידית
                   PaperProps={{
                     onMouseEnter: () => setAnchorEl(avatarRef.current),
                     onMouseLeave: handlePopoverClose,

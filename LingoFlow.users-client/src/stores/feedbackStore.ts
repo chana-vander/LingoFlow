@@ -1,103 +1,111 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 import { Feedback } from "../models/feedback";
-
+import config from "../config";
 class FeedbackStore {
-    transcription: string = "";
-    feedback: Feedback | null = null;
-    loading: boolean = false;
-    error: string = "";
+  transcription: string = "";
+  feedback: Feedback | null = null;
+  loading: boolean = false;
+  error: string = "";
+  apiUrl = config.apiUrl;
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    constructor() {
-        makeAutoObservable(this);
+  set Feedback(feedback: Feedback) {
+    this.feedback = feedback;
+  }
+
+  get Feedback() {
+    if (this.feedback === null) {
+      return {
+        /* פרמטרים של אובייקט ברירת מחדל */
+      } as Feedback; // או זרוק שגיאה
     }
+    return this.feedback;
+  }
 
-    set Feedback(feedback: Feedback) {
-        this.feedback = feedback;
+  async getFeedbackByRecordId(recordId: number) {
+    try {
+      const response = await axios.get(
+        `${this.apiUrl}/${recordId}`
+      );
+      return response.data; // מחזיר את הנתונים שהתקבלו
+    } catch (error) {
+      console.error("Error fetching feedback:", error); // טיפול בשגיאה
+      throw error;
     }
+  }
 
-    get Feedback() {
-        if (this.feedback === null) {
-            return { /* פרמטרים של אובייקט ברירת מחדל */ } as Feedback; // או זרוק שגיאה
+  async transcribeFromUrl(fileUrl: string, recordId: number) {
+    console.log("fileUrl: ", fileUrl);
+    console.log("recordId: ", recordId);
+
+    this.loading = true;
+    this.error = "";
+    try {
+      const response = await axios.post(
+        `${this.apiUrl}/transcription`,
+        {
+          fileUrl,
+          recordId,
         }
-        return this.feedback;
-    }
+      );
 
-    async getFeedbackByRecordId(recordId: number) {
-        try {
-            const response = await axios.get(`http://localhost:5092/api/Feedback/record/${recordId}`);
-            return response.data; // מחזיר את הנתונים שהתקבלו
-        } catch (error) {
-            console.error("Error fetching feedback:", error); // טיפול בשגיאה
-            throw error; 
+      runInAction(() => {
+        this.transcription = response.data.transcription;
+        this.loading = false;
+      });
+    } catch (err: any) {
+      runInAction(() => {
+        this.error = err.response?.data || "שגיאה בתמלול";
+        this.loading = false;
+      });
+    }
+  }
+  async analyzeTranscription(
+    transcription: string,
+    topicId: number,
+    recordId: number
+  ) {
+    this.loading = true;
+    this.error = "";
+    try {
+      const response = await axios.post<Feedback>(
+        `${this.apiUrl}/Feedback/analyze`,
+        {
+          transcription,
+          topicId,
+          recordId,
         }
+      );
+      console.log("1");
+
+      runInAction(() => {
+        this.feedback = response.data;
+        this.loading = false;
+        console.log("res ", response.data);
+      });
+      console.log("2");
+    } catch (err: any) {
+      runInAction(() => {
+        this.error = err.response?.data || "שגיאה בניתוח המשוב";
+        this.loading = false;
+        console.log("3");
+      });
     }
+  }
+  // async getTranscriptionByRecordId() {
 
-    async transcribeFromUrl(fileUrl: string, recordId: number) {
-        console.log("fileUrl: ", fileUrl);
-        console.log("recordId: ", recordId);
-
-        this.loading = true;
-        this.error = "";
-        try {
-            const response = await axios.post("http://localhost:5092/api/transcription", {
-                fileUrl,
-                recordId,
-            });
-
-            runInAction(() => {
-                this.transcription = response.data.transcription;
-                this.loading = false;
-            });
-
-        } catch (err: any) {
-            runInAction(() => {
-                this.error = err.response?.data || "שגיאה בתמלול";
-                this.loading = false;
-            });
-        }
-    }
-
-    async analyzeTranscription(transcription: string, topicId: number, recordId: number) {
-        this.loading = true;
-        this.error = "";
-        try {
-            const response = await axios.post<Feedback>("http://localhost:5092/api/Feedback/analyze", {
-                transcription,
-                topicId,
-                recordId,
-            });
-            console.log("1");
-
-            runInAction(() => {
-                this.feedback = response.data;
-                this.loading = false;
-                console.log("res ", response.data);
-            });
-            console.log("2");
-
-        } catch (err: any) {
-            runInAction(() => {
-                this.error = err.response?.data || "שגיאה בניתוח המשוב";
-                this.loading = false;
-                console.log("3");
-
-            });
-        }
-    }
-    // async getTranscriptionByRecordId() {
-
-    // }
-    reset() {
-        this.transcription = "";
-        this.feedback = null;
-        this.error = "";
-    }
+  // }
+  reset() {
+    this.transcription = "";
+    this.feedback = null;
+    this.error = "";
+  }
 }
 
 export const feedbackStore = new FeedbackStore();
-
-
 
 // class FeedbackStore {
 //     constructor() { }
