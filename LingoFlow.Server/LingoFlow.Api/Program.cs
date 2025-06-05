@@ -17,24 +17,27 @@ using Microsoft.OpenApi.Models;
 using Amazon.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using DotEnv;
+using System;
 
 // טוען את משתני הסביבה מקובץ .env
 Env.Load();
 Console.WriteLine("Loaded .env file...");
 Console.WriteLine("Bucket: " + Env.GetString("AWS__BucketName"));
+Console.WriteLine("Bucket: " + Env.GetString("JWT__Sercret"));
+
 //Env.Load("C:\\שנה ב תכנות\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\env.env");
 var builder = WebApplication.CreateBuilder(args);
 //שליפת נתונים מקובץ סביבה
-builder.Configuration["AWS:BucketName"]= Env.GetString("AWS__BucketName");
+builder.Configuration["AWS:BucketName"] = Env.GetString("AWS__BucketName");
 builder.Configuration["AWS:Region"] = Env.GetString("AWS__Region");
 builder.Configuration["AWS:AccessKey"] = Env.GetString("AWS__AccessKey");
 builder.Configuration["AWS:SecretKey"] = Env.GetString("AWS__SecretKey");
 builder.Configuration["OpenAI:ApiKey"] = Env.GetString("OpenAI__ApiKey");
 builder.Configuration["OpenAI:GptKey"] = Env.GetString("OpenAi__GptKey");
 builder.Configuration["Connection:String"] = Env.GetString("Connection__String");
-Console.WriteLine("AI GPT:  "+ Env.GetString("OpenAI__GptKey"));
-Console.WriteLine("bucket name: "+Env.GetString("AWS__BucketName"));
-Console.WriteLine("connection string: "+Env.GetString("Connection__String"));
+Console.WriteLine("AI GPT:  " + Env.GetString("OpenAI__GptKey"));
+Console.WriteLine("bucket name: " + Env.GetString("AWS__BucketName"));
+Console.WriteLine("connection string: " + Env.GetString("Connection__String"));
 // הוספת CORS עם הרשאה לכל המקורות
 builder.Services.AddCors(options =>
 {
@@ -48,6 +51,20 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<DataContext>();
 
 
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowSpecificOrigin",
+//        builder => builder.WithOrigins(
+//                "http://localhost:5173",
+//                "https://my-react-project-6w5y.onrender.com"
+//            )
+//            .AllowAnyMethod()
+//            .AllowAnyHeader()
+//            .AllowCredentials());
+//});
+
+
 // רישום שירותים ל-DI
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IrecordingService, recordingService>();
@@ -56,7 +73,7 @@ builder.Services.AddScoped<ITopicService, TopicService>();
 builder.Services.AddScoped<IVocabularyService, VocabularyService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IFeedbackAnalysisService,FeedbackAnalysisService>();
+builder.Services.AddScoped<IFeedbackAnalysisService, FeedbackAnalysisService>();
 
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -94,6 +111,8 @@ builder.Services.AddAWSService<IAmazonS3>();
 //תמיכה בHTTP
 builder.Services.AddHttpClient();
 
+var connectionString = Env.GetString("Connection__string");
+
 // הוספת קונפיגורציה של RegionEndpoint
 builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
 {
@@ -103,8 +122,7 @@ builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
     var region = Env.GetString("AWS__Region");
     var accessKey = Env.GetString("AWS__AccessKey");
     var secretKey = Env.GetString("AWS__SecretKey");
-    var dbname = Env.GetString("Connection__string");
-    Console.WriteLine(dbname);
+    Console.WriteLine(connectionString);
 
     if (string.IsNullOrEmpty(region) || string.IsNullOrEmpty(accessKey) || string.IsNullOrEmpty(secretKey))
     {
@@ -121,16 +139,21 @@ builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
         {
             RegionEndpoint = RegionEndpoint.GetBySystemName(region)  // הגדרת האזור כאן
         });
-
 });
+//connect to mysql
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 36)))
+);
 
 
 // הגדרת JWT Authentication
 
-var jwtKSecret = Environment.GetEnvironmentVariable("JWT__Secret");
-if (string.IsNullOrEmpty(jwtKSecret))
+//var jwtSecret = Environment.GetEnvironmentVariable("JWT__Sercret");
+var jwtSecret = Env.GetString("JWT__Sercret");
+Console.WriteLine("jwtSecret: "+ jwtSecret);
+if (string.IsNullOrEmpty(jwtSecret))
 {
-    throw new InvalidOperationException("JWT Key is missing from configuration.");
+    throw new InvalidOperationException("JWT secret is missing from configuration.");
 }
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -144,7 +167,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = Environment.GetEnvironmentVariable("JWT__Issuer"),
             ValidAudience = Environment.GetEnvironmentVariable("JWT__Audience"),
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKSecret))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret))
         };
     });
 

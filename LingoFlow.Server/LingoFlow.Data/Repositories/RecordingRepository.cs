@@ -20,11 +20,11 @@ namespace LingoFlow.Data.Repositories
 
         public async Task<IEnumerable<recording>> GetAllrecordingsAsync()
         {
-            return await _context.recordings.ToListAsync();
+            return await _context.Recordings.ToListAsync();
         }
         public async Task<recording?> GetrecordingByIdAsync(int id)
         {
-            return await _context.recordings.FirstOrDefaultAsync(c => c.Id == id);  // מחפש את המשתמש לפי מזהה
+            return await _context.Recordings.FirstOrDefaultAsync(c => c.Id == id);  // מחפש את המשתמש לפי מזהה
         }
         public async Task<recording> AddrecordingAsync(recording recording)
         {
@@ -33,31 +33,31 @@ namespace LingoFlow.Data.Repositories
                 throw new ArgumentNullException(nameof(recording));
             }
 
-            _context.recordings.Add(recording); // מוסיף את השיחה למסד הנתונים
+            _context.Recordings.Add(recording); // מוסיף את השיחה למסד הנתונים
             await _context.SaveChangesAsync(); // שומר את השינויים
 
             return recording;
         }
         public async Task<recording> UpdateAsync(recording recording)
         {
-            _context.recordings.Update(recording);
+            _context.Recordings.Update(recording);
             await _context.SaveChangesAsync();
             return recording;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var recording = await _context.recordings.FindAsync(id);
+            var recording = await _context.Recordings.FindAsync(id);
             if (recording == null)
                 return false;
 
-            _context.recordings.Remove(recording);
+            _context.Recordings.Remove(recording);
             await _context.SaveChangesAsync();
             return true;
         }
         public async Task<List<recording>> GetByUserIdAsync(int userId)
         {
-            return await _context.recordings
+            return await _context.Recordings
                 .Where(r => r.UserId == userId)
                 .ToListAsync();
         }
