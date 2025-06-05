@@ -115,6 +115,7 @@ const Register = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const { apiUrl } = config;
   console.log("apiurl:: ",apiUrl);
+  
   const onSubmit = async (data: RegisterForm) => {
     try {
       const response = await fetch(`${apiUrl}/auth/register`, {

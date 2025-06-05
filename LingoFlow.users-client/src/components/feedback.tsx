@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { feedbackStore } from "../stores/feedbackStore";
 import recordStore from "../stores/recordStore"; // וודא שהייבוא נכון: export const recordStore = new RecordStore();
-// קוד שעובד עם עיצוב 
+// קוד שעובד עם עיצוב
 import {
   Box,
   CircularProgress,
@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 const Feedback: React.FC = observer(() => {
   const navigate = useNavigate(); // השתמש ב-useNavigate מ-React Router
   const recording = recordStore.recording; // recording יכול להיות Record | null
-
+  console.log("rec: ",recording);
   // useEffect לטיפול בלוגיקה אסינכרונית בעת טעינת הקומפוננטה
   useEffect(() => {
     const fetchAndProcessFeedback = async () => {
@@ -46,7 +46,10 @@ const Feedback: React.FC = observer(() => {
         // 1. בצע תמלול והמתן לסיומו
         // transcribeFromUrl מעדכנת את feedbackStore.transcription
         await feedbackStore.transcribeFromUrl(recording.url, recording.id);
-        console.log("Transcription status: ", feedbackStore.transcription ? "Success" : "Failed");
+        console.log(
+          "Transcription status: ",
+          feedbackStore.transcription ? "Success" : "Failed"
+        );
 
         // 2. אם התמלול הצליח, בצע ניתוח משוב
         if (feedbackStore.transcription) {
@@ -57,9 +60,14 @@ const Feedback: React.FC = observer(() => {
             Number(recording.topicId),
             recording.id
           );
-          console.log("Feedback status: ", feedbackStore.feedback ? "Success" : "Failed");
+          console.log(
+            "Feedback status: ",
+            feedbackStore.feedback ? "Success" : "Failed"
+          );
         } else {
-          console.error("Transcription failed or is empty. Cannot analyze feedback.");
+          console.error(
+            "Transcription failed or is empty. Cannot analyze feedback."
+          );
         }
       } catch (error) {
         console.error("Error during feedback process:", error);
@@ -115,14 +123,34 @@ const Feedback: React.FC = observer(() => {
         <Typography variant="h5" color="error" gutterBottom>
           אופס! משהו השתבש...
         </Typography>
-        <Typography variant="body1" color="error" sx={{ textAlign: 'center' }}>
+        <Typography variant="body1" color="error" sx={{ textAlign: "center" }}>
           {error}
         </Typography>
-        <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-          <button onClick={() => window.location.reload()} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#007bff', color: 'white', cursor: 'pointer' }}>
+        <Box sx={{ mt: 3, display: "flex", gap: 2 }}>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "5px",
+              border: "none",
+              backgroundColor: "#007bff",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
             נסה שוב
           </button>
-          <button onClick={() => navigate('/')} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#cc0000', color: 'white', cursor: 'pointer' }}>
+          <button
+            onClick={() => navigate("/")}
+            style={{
+              padding: "10px 20px",
+              borderRadius: "5px",
+              border: "none",
+              backgroundColor: "#cc0000",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
             חזור לדף הבית
           </button>
         </Box>
@@ -143,7 +171,18 @@ const Feedback: React.FC = observer(() => {
         <Typography variant="h6" color="textSecondary">
           אין משוב זמין עבור ההקלטה הזו.
         </Typography>
-        <button onClick={() => navigate('/')} style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#cc0000', color: 'white', cursor: 'pointer', marginTop: '20px' }}>
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            padding: "10px 20px",
+            borderRadius: "5px",
+            border: "none",
+            backgroundColor: "#cc0000",
+            color: "white",
+            cursor: "pointer",
+            marginTop: "20px",
+          }}
+        >
           חזור לדף הראשי
         </button>
       </Box>
@@ -152,8 +191,22 @@ const Feedback: React.FC = observer(() => {
 
   // תצוגת המשוב בפועל
   return (
-    <Box sx={{ maxWidth: 900, margin: "40px auto", p: 3, direction: "rtl", textAlign: "right" }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ color: '#007bff' }}>
+    <Box
+      sx={{
+        maxWidth: 900,
+        margin: "40px auto",
+        p: 3,
+        direction: "rtl",
+        textAlign: "right",
+      }}
+    >
+      <Typography
+        variant="h4"
+        component="h1"
+        gutterBottom
+        align="center"
+        sx={{ color: "#007bff" }}
+      >
         המשוב שלך על ההקלטה
       </Typography>
 
@@ -165,7 +218,9 @@ const Feedback: React.FC = observer(() => {
         mb={4}
         gap={2}
       >
-        <Typography variant="h6" color="textPrimary">ציון כללי:</Typography>
+        <Typography variant="h6" color="textPrimary">
+          ציון כללי:
+        </Typography>
         <Box
           sx={{
             width: 80,
@@ -181,8 +236,8 @@ const Feedback: React.FC = observer(() => {
               feedback.score >= 80
                 ? "#4CAF50" // ירוק
                 : feedback.score >= 60
-                  ? "#FFC107" // כתום
-                  : "#F44336", // אדום
+                ? "#FFC107" // כתום
+                : "#F44336", // אדום
             boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
           }}
         >
@@ -192,12 +247,25 @@ const Feedback: React.FC = observer(() => {
 
       {/* תמלול ההקלטה */}
       {transcription && (
-        <Card sx={{ mb: 4, bgcolor: '#e6f7ff', border: '1px solid #b3e0ff' }}>
+        <Card sx={{ mb: 4, bgcolor: "#e6f7ff", border: "1px solid #b3e0ff" }}>
           <CardContent>
-            <Typography variant="h5" component="h3" gutterBottom align="center" sx={{ color: '#007bff' }}>
+            <Typography
+              variant="h5"
+              component="h3"
+              gutterBottom
+              align="center"
+              sx={{ color: "#007bff" }}
+            >
               התמלול של ההקלטה שלך:
             </Typography>
-            <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', color: '#222' }}>
+            <Typography
+              variant="body1"
+              sx={{
+                whiteSpace: "pre-wrap",
+                wordWrap: "break-word",
+                color: "#222",
+              }}
+            >
               {transcription}
             </Typography>
           </CardContent>
@@ -207,59 +275,117 @@ const Feedback: React.FC = observer(() => {
       <Divider sx={{ my: 4 }} />
 
       {/* פרטי המשוב */}
-      <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))" gap={3}>
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))"
+        gap={3}
+      >
         <Card>
           <CardContent>
-            <Typography variant="h6" sx={{ color: '#cc0000' }}>דקדוק:</Typography>
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.grammarScore}/10</span></Typography>
+            <Typography variant="h6" sx={{ color: "#cc0000" }}>
+              דקדוק:
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+              ציון:{" "}
+              <span style={{ color: "#007bff" }}>
+                {feedback.grammarScore}/10
+              </span>
+            </Typography>
             <Typography variant="body2">{feedback.grammarComment}</Typography>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent>
-            <Typography variant="h6" sx={{ color: '#cc0000' }}>שטף דיבור:</Typography>
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.fluencyScore}/10</span></Typography>
+            <Typography variant="h6" sx={{ color: "#cc0000" }}>
+              שטף דיבור:
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+              ציון:{" "}
+              <span style={{ color: "#007bff" }}>
+                {feedback.fluencyScore}/10
+              </span>
+            </Typography>
             <Typography variant="body2">{feedback.fluencyComment}</Typography>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent>
-            <Typography variant="h6" sx={{ color: '#cc0000' }}>אוצר מילים:</Typography>
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>ציון: <span style={{ color: '#007bff' }}>{feedback.vocabularyScore}/10</span></Typography>
-            <Typography variant="body2">{feedback.vocabularyComment}</Typography>
+            <Typography variant="h6" sx={{ color: "#cc0000" }}>
+              אוצר מילים:
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+              ציון:{" "}
+              <span style={{ color: "#007bff" }}>
+                {feedback.vocabularyScore}/10
+              </span>
+            </Typography>
+            <Typography variant="body2">
+              {feedback.vocabularyComment}
+            </Typography>
           </CardContent>
         </Card>
 
-        <Card sx={{ gridColumn: '1 / -1' }}> {/* תופס את כל הרוחב */}
+        <Card sx={{ gridColumn: "1 / -1" }}>
+          {" "}
+          {/* תופס את כל הרוחב */}
           <CardContent>
-            <Typography variant="h6" sx={{ color: '#cc0000' }}>משוב כללי:</Typography>
+            <Typography variant="h6" sx={{ color: "#cc0000" }}>
+              משוב כללי:
+            </Typography>
             <Typography variant="body2">{feedback.generalFeedback}</Typography>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent>
-            <Typography variant="h6" sx={{ color: '#cc0000' }}>מילים בשימוש:</Typography>
+            <Typography variant="h6" sx={{ color: "#cc0000" }}>
+              מילים בשימוש:
+            </Typography>
             <Typography variant="body1">
-              <span style={{ fontWeight: 'bold', color: '#007bff' }}>{feedback.usedWordsCount}</span> מתוך <span style={{ fontWeight: 'bold', color: '#007bff' }}>{feedback.totalWordsRequired}</span> נדרשות
+              <span style={{ fontWeight: "bold", color: "#007bff" }}>
+                {feedback.usedWordsCount}
+              </span>{" "}
+              מתוך{" "}
+              <span style={{ fontWeight: "bold", color: "#007bff" }}>
+                {feedback.totalWordsRequired}
+              </span>{" "}
+              נדרשות
             </Typography>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent>
-            <Typography variant="h6" sx={{ color: '#cc0000' }}>זמן מתן משוב:</Typography>
-            <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#007bff' }}>
-              {new Date(feedback.givenAt).toLocaleString('he-IL')}
+            <Typography variant="h6" sx={{ color: "#cc0000" }}>
+              זמן מתן משוב:
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontWeight: "bold", color: "#007bff" }}
+            >
+              {new Date(feedback.givenAt).toLocaleString("he-IL")}
             </Typography>
           </CardContent>
         </Card>
       </Box>
 
-      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-        <button onClick={() => navigate('/')} style={{ padding: '12px 25px', borderRadius: '25px', border: 'none', backgroundColor: '#cc0000', color: 'white', fontSize: '1.1em', fontWeight: 'bold', cursor: 'pointer', transition: 'background-color 0.3s ease, transform 0.2s ease' }}>
+      <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            padding: "12px 25px",
+            borderRadius: "25px",
+            border: "none",
+            backgroundColor: "#cc0000",
+            color: "white",
+            fontSize: "1.1em",
+            fontWeight: "bold",
+            cursor: "pointer",
+            transition: "background-color 0.3s ease, transform 0.2s ease",
+          }}
+        >
           חזור לדף הראשי
         </button>
       </Box>
@@ -286,13 +412,10 @@ export default Feedback;
 // });
 // export default Feedback;
 
-
 // import React, { useEffect, useState } from "react";
 // // import { observer } from "mobx-react-lite";
 // // import { feedbackStore } from "../stores/feedbackStore";
 // // import { recordStore } from "../stores/recordStore";
-
-
 
 // const Feedback: React.FC = observer(() => {
 //   const { recording } = recordStore;
@@ -388,8 +511,6 @@ export default Feedback;
 
 // export default Feedback;
 
-
-
 // import React, { useEffect, useState } from "react";
 // import { observer } from "mobx-react-lite";
 // import { feedbackStore } from "../stores/feedbackStore";
@@ -460,8 +581,6 @@ export default Feedback;
 // });
 
 // export default FeedbackPage;
-
-
 
 // "use client"
 
