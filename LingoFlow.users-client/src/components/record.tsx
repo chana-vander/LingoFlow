@@ -205,6 +205,7 @@ import { Mic, Square, X, Play, Pause, Upload, Download, Share2, RefreshCw } from
 import '../style/record.css'
 import { Record } from "../models/record";
 import { feedbackStore } from "../stores/feedbackStore"
+import { toJS } from "mobx"
 // import { transaction } from "mobx"
 
 const AudioRecorder: React.FC = observer(() => {
@@ -513,7 +514,7 @@ const AudioRecorder: React.FC = observer(() => {
     }
     recordStore.setRecording(record);
     recordStore.saveAndStoreRecording(record);
-    console.log(recordStore.recording);
+    console.log(toJS(recordStore.recording));
   }
   //בדיקה האם התמלול עובד-אחכ למחוק מפה
   const r = recordStore.recording;

@@ -12,10 +12,12 @@ import {
   Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { toJS } from "mobx";
 
 const Feedback: React.FC = observer(() => {
   const navigate = useNavigate(); // השתמש ב-useNavigate מ-React Router
-  const recording = recordStore.recording; // recording יכול להיות Record | null
+  // const recording = recordStore.recording; // recording יכול להיות Record | null
+  const recording = toJS(recordStore.recording); 
 
   // useEffect לטיפול בלוגיקה אסינכרונית בעת טעינת הקומפוננטה
   useEffect(() => {
@@ -24,7 +26,7 @@ const Feedback: React.FC = observer(() => {
       // אם אין הקלטה זמינה, או אם חסרים פרטים חיוניים
       if (
         !recording ||
-        recording.id === undefined ||
+        recording.id === undefined ||recording.id==0||
         !recording.url ||
         recording.topicId === undefined
       ) {
