@@ -179,13 +179,11 @@ class RecordStore {
       }
 
       const savedRecord: Record = await response.json();
-      console.log("savedRecord: ", savedRecord);
-      console.log("222");
 
       // שמירה ל-Store בעזרת runInAction
       runInAction(() => {
         this.Recording = savedRecord;
-        console.log("333");
+        console.log("savedRecord: ", this.recording);
       });
 
       return savedRecord;

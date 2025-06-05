@@ -16,9 +16,10 @@ import { useNavigate } from "react-router-dom";
 const Feedback: React.FC = observer(() => {
   const navigate = useNavigate(); // השתמש ב-useNavigate מ-React Router
   const recording = recordStore.recording; // recording יכול להיות Record | null
-  console.log("rec: ",recording);
+
   // useEffect לטיפול בלוגיקה אסינכרונית בעת טעינת הקומפוננטה
   useEffect(() => {
+    console.log("in feedback: ", recording);
     const fetchAndProcessFeedback = async () => {
       // אם אין הקלטה זמינה, או אם חסרים פרטים חיוניים
       if (
