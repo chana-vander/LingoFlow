@@ -226,6 +226,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useTheme } from "@mui/material/styles";
 import "../style/details.css";
 import Word from "../models/word";
+import config from "../config";
 
 // עיצוב הכרטיסים
 const WordCard = styled(Box)(({ theme }) => ({
@@ -291,7 +292,7 @@ const WordNumber = styled(Typography)(({ theme }) => ({
 //       .then((response) => response.json())
 //       .then((data) => {
 //         console.log(data);
-        
+
 //         setWords(data);
 //         setLoading(false);
 //       })
@@ -323,7 +324,7 @@ const WordNumber = styled(Typography)(({ theme }) => ({
 //   // };
 //   const playAudio = (text: string) => {
 //     console.log(text);
-    
+
 //     if (!text || text.trim() === "") {
 //       console.warn("טקסט ריק. אין מה להשמיע.");
 //       return;
@@ -558,21 +559,22 @@ const Details = () => {
   const [paused, setPaused] = useState<boolean>(false);
   const [expandedWordId, setExpandedWordId] = useState<number | null>(null);
   const [voicesLoaded, setVoicesLoaded] = useState<boolean>(false); // New state to track voice loading
-
+  const { apiUrl } = config;
   const theme = useTheme();
 
   // --- Data Fetching UseEffects ---
   useEffect(() => {
     if (!id) return; // Prevent fetch if ID is not available
 
-    fetch(`http://localhost:5092/api/Vocabulary/Topic/${id}`)
+    fetch(`${apiUrl}/Vocabulary/Topic/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
-      .then((data: Word[]) => { // Add type annotation for data
+      .then((data: Word[]) => {
+        // Add type annotation for data
         console.log("Fetched words:", data);
         setWords(data);
         setLoading(false);
@@ -586,7 +588,7 @@ const Details = () => {
   useEffect(() => {
     if (!id) return; // Prevent fetch if ID is not available
 
-    fetch(`http://localhost:5092/api/Topic/${id}`)
+    fetch(`${apiUrl}/Topic/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -637,7 +639,9 @@ const Details = () => {
         // Fallback for browsers that might load voices asynchronously slower
         // or if getVoices() returns empty array initially.
         // This is less common in modern browsers if called after document load.
-        console.warn("No voices found initially. Waiting for 'voiceschanged' event.");
+        console.warn(
+          "No voices found initially. Waiting for 'voiceschanged' event."
+        );
       }
     };
 
@@ -658,90 +662,100 @@ const Details = () => {
   }, []); // Empty dependency array means this runs once on mount and cleans up on unmount
 
   // Main playAudio function (memoized with useCallback)
-  const playAudio = useCallback((text: string) => {
-    console.log("Attempting to play audio for:", text);
+  const playAudio = useCallback(
+    (text: string) => {
+      console.log("Attempting to play audio for:", text);
 
-    if (!text || text.trim() === "") {
-      console.warn("Empty text. Nothing to play.");
-      return;
-    }
+      if (!text || text.trim() === "") {
+        console.warn("Empty text. Nothing to play.");
+        return;
+      }
 
-    if (!("speechSynthesis" in window)) {
-      alert("Your browser does not support text-to-speech.");
-      return;
-    }
+      if (!("speechSynthesis" in window)) {
+        alert("Your browser does not support text-to-speech.");
+        return;
+      }
 
-    // Crucial: Only attempt to play if voices are loaded
-    if (!voicesLoaded) {
-      console.warn("Speech voices are not yet loaded. Please wait a moment.");
-      // You might want to provide visual feedback to the user here.
-      return;
-    }
+      // Crucial: Only attempt to play if voices are loaded
+      if (!voicesLoaded) {
+        console.warn("Speech voices are not yet loaded. Please wait a moment.");
+        // You might want to provide visual feedback to the user here.
+        return;
+      }
 
-    stopAudio(); // Stop any currently speaking audio
+      stopAudio(); // Stop any currently speaking audio
 
-    const utterance = new SpeechSynthesisUtterance(text.trim());
+      const utterance = new SpeechSynthesisUtterance(text.trim());
 
-    const voices = window.speechSynthesis.getVoices();
-    // Prioritize en-US, then any English voice
-    const englishVoice = voices.find(
-      (v) => v.lang === "en-US" || v.lang.startsWith("en")
-    );
+      const voices = window.speechSynthesis.getVoices();
+      // Prioritize en-US, then any English voice
+      const englishVoice = voices.find(
+        (v) => v.lang === "en-US" || v.lang.startsWith("en")
+      );
 
-    if (englishVoice) {
-      utterance.voice = englishVoice;
-      console.log("Selected English voice:", englishVoice.name);
-    } else {
-      console.warn("No specific English voice found. Using default browser voice.");
-      // Even if no specific English voice is found, setting lang helps with pronunciation
-    }
+      if (englishVoice) {
+        utterance.voice = englishVoice;
+        console.log("Selected English voice:", englishVoice.name);
+      } else {
+        console.warn(
+          "No specific English voice found. Using default browser voice."
+        );
+        // Even if no specific English voice is found, setting lang helps with pronunciation
+      }
 
-    utterance.lang = "en-US"; // Set language explicitly for correct pronunciation
-    utterance.rate = 0.9; // Set a slightly slower rate
+      utterance.lang = "en-US"; // Set language explicitly for correct pronunciation
+      utterance.rate = 0.9; // Set a slightly slower rate
 
-    utterance.onstart = () => {
-      console.log("Started playing:", utterance.text);
-    };
+      utterance.onstart = () => {
+        console.log("Started playing:", utterance.text);
+      };
 
-    utterance.onerror = (event: SpeechSynthesisErrorEvent) => { // Add type for event
-      console.error("Speech error:", event.error);
-      // It's common to get 'interrupted' if another speak() is called too quickly
-      // or if browser autoplay policies prevent it.
-      setSpeech(null); // Clear speech state on error
-      setPaused(false);
-    };
+      utterance.onerror = (event: SpeechSynthesisErrorEvent) => {
+        // Add type for event
+        console.error("Speech error:", event.error);
+        // It's common to get 'interrupted' if another speak() is called too quickly
+        // or if browser autoplay policies prevent it.
+        setSpeech(null); // Clear speech state on error
+        setPaused(false);
+      };
 
-    utterance.onend = () => {
-      console.log("Finished playing:", utterance.text);
-      setSpeech(null);
-      setPaused(false);
-    };
+      utterance.onend = () => {
+        console.log("Finished playing:", utterance.text);
+        setSpeech(null);
+        setPaused(false);
+      };
 
-    window.speechSynthesis.speak(utterance);
-    setSpeech(utterance); // Store the utterance in state
-  }, [voicesLoaded, stopAudio]); // Dependencies for useCallback
+      window.speechSynthesis.speak(utterance);
+      setSpeech(utterance); // Store the utterance in state
+    },
+    [voicesLoaded, stopAudio]
+  ); // Dependencies for useCallback
 
   // --- Event Handlers for UI ---
-  const handleCardClick = useCallback((wordId: number|undefined) => {
-    if(wordId!==undefined)
-      setExpandedWordId(expandedWordId === wordId ? null : wordId);
-  }, [expandedWordId]);
+  const handleCardClick = useCallback(
+    (wordId: number | undefined) => {
+      if (wordId !== undefined)
+        setExpandedWordId(expandedWordId === wordId ? null : wordId);
+    },
+    [expandedWordId]
+  );
 
-  const handleWordAudioClick = useCallback((event: React.MouseEvent, wordName: string) => {
-    event.stopPropagation(); // Prevent card expansion
-    playAudio(wordName);
-  }, [playAudio]);
+  const handleWordAudioClick = useCallback(
+    (event: React.MouseEvent, wordName: string) => {
+      event.stopPropagation(); // Prevent card expansion
+      playAudio(wordName);
+    },
+    [playAudio]
+  );
 
-  const handleSentenceAudioClick = useCallback((
-    event: React.MouseEvent,
-    sentence: string,
-    wordId: number|undefined
-  ) => {
-    event.stopPropagation(); // Prevent card expansion
-    playAudio(sentence);
-    if(wordId!==undefined)
-      setExpandedWordId(wordId); // Expand the card if not already
-  }, [playAudio]);
+  const handleSentenceAudioClick = useCallback(
+    (event: React.MouseEvent, sentence: string, wordId: number | undefined) => {
+      event.stopPropagation(); // Prevent card expansion
+      playAudio(sentence);
+      if (wordId !== undefined) setExpandedWordId(wordId); // Expand the card if not already
+    },
+    [playAudio]
+  );
 
   return (
     <Container
@@ -862,7 +876,12 @@ const Details = () => {
           )}
           {/* Optional: Display a loading message for voices */}
           {!voicesLoaded && (
-            <Typography variant="caption" color="textSecondary" align="center" sx={{ mt: 2 }}>
+            <Typography
+              variant="caption"
+              color="textSecondary"
+              align="center"
+              sx={{ mt: 2 }}
+            >
               טוען קולות דיבור...
             </Typography>
           )}

@@ -50,6 +50,7 @@
 // };
 
 // export default TopicsList;
+import config from "../config";
 import { useEffect, useState } from "react";
 import { Button, Card, CardContent, Typography, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom"; // לניהול ניווט בעזרת React Router
@@ -65,9 +66,10 @@ const TopicsList = () => {
   const [topics, setTopics] = useState<Topic[]>([]);
   const navigate = useNavigate();
   const { level } = useParams();
+  const { apiUrl } = config;
 
   useEffect(() => {
-    fetch(`http://localhost:5092/api/Topic/level/${level}`)
+    fetch(`${apiUrl}/Topic/level/${level}`)
       .then((response) => response.json())
       .then((data) => setTopics(data))
       .catch((error) => console.error("Error fetching topics:", error));

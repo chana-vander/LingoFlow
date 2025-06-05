@@ -59,7 +59,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import { styled } from "@mui/system";
-
+import config from "../config";
 // העיצוב
 const StyledContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -89,6 +89,7 @@ const FormWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const Login = () => {
+  const apiurl=config.apiUrl;
   const {
     register,
     handleSubmit,
@@ -99,7 +100,7 @@ const Login = () => {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      const response = await fetch("http://localhost:5092/api/auth/login", {
+      const response = await fetch(`${apiurl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

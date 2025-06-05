@@ -1,5 +1,5 @@
 "use client";
-
+import config from "../config";
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
 import {
@@ -29,6 +29,7 @@ const AIChat = ({ isOpen, onClose }: AIChatProps) => {
       timestamp: new Date(),
     },
   ]);
+  const apiUrl=config.apiUrl;
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +89,7 @@ const AIChat = ({ isOpen, onClose }: AIChatProps) => {
         content: msg.content,
       }));
 
-      const response = await fetch("http://localhost:5092/api/ChatAi", {
+      const response = await fetch(`${apiUrl}/ChatAi`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
