@@ -18,12 +18,13 @@ using Amazon.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using DotEnv;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 // טוען את משתני הסביבה מקובץ .env
 Env.Load();
 Console.WriteLine("Loaded .env file...");
 Console.WriteLine("Bucket: " + Env.GetString("AWS__BucketName"));
-Console.WriteLine("Bucket: " + Env.GetString("JWT__Sercret"));
+Console.WriteLine("Bucket: " + Env.GetString("JWT__Secret"));
 
 //Env.Load("C:\\שנה ב תכנות\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\env.env");
 var builder = WebApplication.CreateBuilder(args);
@@ -82,7 +83,6 @@ builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 builder.Services.AddScoped<ITopicRepository, TopicRepository>();
 builder.Services.AddScoped<IVocabularyRepository, VocabularyRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
-builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IChatService, ChatService>();
 
 // הוספת בקרי API
@@ -199,3 +199,20 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
+
+// === פונקציית Seeding של Roleים ===
+async Task SeedRolesAsync(IServiceProvider serviceProvider)
+{
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    string[] roleNames = { "user", "admin" };
+
+    foreach (var roleName in roleNames)
+    {
+        var roleExists = await roleManager.RoleExistsAsync(roleName);
+        if (!roleExists)
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+}

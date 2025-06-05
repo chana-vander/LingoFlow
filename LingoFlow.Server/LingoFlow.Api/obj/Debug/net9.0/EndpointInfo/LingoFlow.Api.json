@@ -1550,17 +1550,23 @@
         "additionalProperties": false
       },
       "UserRegisterDto": {
+        "required": [
+          "email"
+        ],
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "name": {
             "type": "string"
           },
           "email": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
           },
           "password": {
             "type": "string"

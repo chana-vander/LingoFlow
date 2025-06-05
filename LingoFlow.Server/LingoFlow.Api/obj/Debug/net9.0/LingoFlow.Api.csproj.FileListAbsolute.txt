@@ -765,3 +765,5 @@ C:\שנה ב תכנות\לינגופלו -לוקלית ד סיון\אסרו חג
 C:\שנה ב תכנות\לינגופלו -לוקלית ד סיון\אסרו חג סרבר\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.pdb
 C:\שנה ב תכנות\לינגופלו -לוקלית ד סיון\אסרו חג סרבר\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\LingoFlow.Api.genruntimeconfig.cache
 C:\שנה ב תכנות\לינגופלו -לוקלית ד סיון\אסרו חג סרבר\LingoFlow.Server\LingoFlow.Api\obj\Debug\net9.0\ref\LingoFlow.Api.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\MySqlConnector.dll
+C:\שנה ב תכנות\LingoFlow\LingoFlow.Server\LingoFlow.Api\bin\Debug\net9.0\Pomelo.EntityFrameworkCore.MySql.dll
