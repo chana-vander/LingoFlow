@@ -149,7 +149,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 // הגדרת JWT Authentication
 
 //var jwtSecret = Environment.GetEnvironmentVariable("JWT__Sercret");
-var jwtSecret = Env.GetString("JWT__Sercret");
+var jwtSecret = Env.GetString("JWT__Secret");
 Console.WriteLine("jwtSecret: "+ jwtSecret);
 if (string.IsNullOrEmpty(jwtSecret))
 {
@@ -183,11 +183,11 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 // הפעלת Swagger רק בסביבת פיתוח
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 //app.MapGet("/", () => Results.Redirect("/swagger"));
 app.MapGet("/", () => Results.Ok("Welcome to LingoFlow API!"));
