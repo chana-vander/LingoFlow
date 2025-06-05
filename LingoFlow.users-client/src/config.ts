@@ -1,16 +1,14 @@
-// הגדרת טיפוס עבור משתני הסביבה שנרצה לבדוק
+// הגדרת טיפוס עבור משתני הסביבה
 interface EnvConfig {
   apiUrl: string;
 }
 
-// קריאה למשתני הסביבה מתוך process.env
+// קריאה למשתני הסביבה מתוך import.meta.env (שיטה של Vite)
 const getEnv = (): EnvConfig => {
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   if (!apiUrl) {
-    throw new Error(
-      "REACT_APP_API_URL is not defined in your environment variables."
-    );
+    throw new Error("VITE_API_URL is not defined in your environment variables.");
   }
 
   return {

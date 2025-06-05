@@ -263,7 +263,6 @@ import userStore from "../stores/userStore";
 const Header = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  // console.log(process.env.REACT_APP_API_URL);
   const isLoggedIn = userStore.isLoggedIn;
   // const user = toJS(userStore.user);
 
