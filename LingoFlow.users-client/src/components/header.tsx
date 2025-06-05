@@ -263,6 +263,7 @@ import userStore from "../stores/userStore";
 const Header = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  console.log(process.env.REACT_APP_API_URL);
 
   const isLoggedIn = userStore.isLoggedIn;
   // const user = toJS(userStore.user);
@@ -298,8 +299,7 @@ const Header = () => {
           bgcolor: "#c0e0ff",
           padding: 1,
           //   width:"auto"
-        borderBottom: "4px solid #c62828",
-
+          borderBottom: "4px solid #c62828",
         }}
       >
         <Toolbar sx={{ justifyContent: "center" }}>
@@ -432,7 +432,6 @@ const Header = () => {
                 { label: "נושאי שיחה", path: "/choose-level" },
                 // { label: "הדרך לדיבור שוטף", path: "/about-us" },
                 { label: "הצעדים לדיבור בטוח", path: "/about-us" },
-
               ].map((item) => (
                 <Button
                   key={item.path}
