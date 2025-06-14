@@ -105,7 +105,7 @@ namespace LingoFlow.Service
                     new
                     {
                         role = "system",
-                        content = "אתה מחזיר אך ורק JSON תקני (בלי שום טקסט מסביב, בלי הסברים) עם השדות הבאים: usedWordsCount, totalWordsRequired, grammarScore, grammarComment, fluencyScore, fluencyComment, vocabularyScore, vocabularyComment, generalFeedback, score. אל תשתמש בתגיות ```json או טקסט חיצוני."
+                        content = "אתה מחזיר אך ורק JSON תקני (בלי שום טקסט מסביב, בלי הסברים) עם השדות הבאים: usedWordsCount, totalWordsRequired, grammarScore, grammarComment, fluencyScore, fluencyComment, vocabularyScore, vocabularyComment, generalFeedback, score. אל תשתמש בתגיות ```json או טקסט חיצוני. כל ההערות והמשוב חייבים להיות כתובים בעברית בלבד."
                     },
                     new { role = "user", content = prompt }
                 },
