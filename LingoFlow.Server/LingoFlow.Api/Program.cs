@@ -112,7 +112,7 @@ builder.Services.AddAWSService<IAmazonS3>();
 //תמיכה בHTTP
 builder.Services.AddHttpClient();
 
-var connectionString = Env.GetString("Connection__String");
+var connectionString = Env.GetString("Connection__Stringz");
 
 ////בדיקת חיבור לדטה בייס
 //using var connection = new MySqlConnection(connectionString);

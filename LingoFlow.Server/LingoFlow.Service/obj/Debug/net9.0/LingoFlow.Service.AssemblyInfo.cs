@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LingoFlow.Service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb607a7afd53706c0a72ee08838f820a5f1c0098")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+064ff97b8d1420303b0fad50d039882a20388b22")]
 [assembly: System.Reflection.AssemblyProductAttribute("LingoFlow.Service")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LingoFlow.Service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
