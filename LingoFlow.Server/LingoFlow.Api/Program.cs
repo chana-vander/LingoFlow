@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using DotEnv;
 using System;
 using Microsoft.AspNetCore.Identity;
+using MySqlConnector;
 
 // טוען את משתני הסביבה מקובץ .env
 Env.Load();
@@ -49,7 +50,7 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
-builder.Services.AddDbContext<DataContext>();
+//builder.Services.AddDbContext<DataContext>();
 
 
 
@@ -112,6 +113,12 @@ builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddHttpClient();
 
 var connectionString = Env.GetString("Connection__string");
+
+//בדיקת חיבור לדטה בייס
+using var connection = new MySqlConnection(connectionString);
+connection.Open();
+Console.WriteLine("Connected successfully!");
+
 
 // הוספת קונפיגורציה של RegionEndpoint
 builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>

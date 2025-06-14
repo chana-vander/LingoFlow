@@ -26,6 +26,8 @@ class FeedbackStore {
   }
 
   async getFeedbackByRecordId(recordId: number) {
+    console.log(recordId);
+    
     try {
       const response = await axios.get(
         `${this.apiUrl}/${recordId}`
