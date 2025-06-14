@@ -114,10 +114,10 @@ builder.Services.AddHttpClient();
 
 var connectionString = Env.GetString("Connection__string");
 
-//בדיקת חיבור לדטה בייס
-using var connection = new MySqlConnection(connectionString);
-connection.Open();
-Console.WriteLine("Connected successfully!");
+////בדיקת חיבור לדטה בייס
+//using var connection = new MySqlConnection(connectionString);
+//connection.Open();
+//Console.WriteLine("Connected successfully!");
 
 
 // הוספת קונפיגורציה של RegionEndpoint
