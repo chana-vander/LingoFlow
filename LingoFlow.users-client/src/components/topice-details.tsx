@@ -562,6 +562,8 @@ const Details = () => {
   const { apiUrl } = config;
   const theme = useTheme();
 
+  console.log(topicName);
+  
   // --- Data Fetching UseEffects ---
   useEffect(() => {
     if (!id) return; // Prevent fetch if ID is not available
@@ -756,6 +758,7 @@ const Details = () => {
     },
     [playAudio]
   );
+  console.log("expexted word id: ", expandedWordId);
 
   return (
     <Container
@@ -776,7 +779,7 @@ const Details = () => {
           marginBottom: 3,
         }}
       >
-        {topicName} Vocabulary
+        {/* {topicName} Vocabulary */}
       </Typography>
 
       <Typography
@@ -785,8 +788,9 @@ const Details = () => {
         align="center"
         sx={{ marginBottom: 2 }}
       >
-        לחצו על כרטיסייה כדי לראות את התרגום והמשפט, ועל סמל הרמקול כדי לשמוע את
-        ההגייה.
+        לחצו על כל כרטיס כדי לחשוף את התרגום והמשפט לדוגמה<br/>
+        רוצים לשמוע איך
+        אומרים את זה? לחצו על סמל הרמקול
       </Typography>
 
       {loading ? (
@@ -820,7 +824,7 @@ const Details = () => {
                   </Grid>
                   <Grid item xs={6}>
                     <TranslationText variant="h5" align="right">
-                      {word.wordTanslation}
+                      {word.wordTranslation}
                     </TranslationText>
                   </Grid>
                   <Grid item xs={12}>

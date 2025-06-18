@@ -1606,6 +1606,10 @@
       "VocabularyDto": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "word": {
             "type": "string"
           },

@@ -1,4 +1,4 @@
-using Amazon.Runtime;
+ο»Ώusing Amazon.Runtime;
 using LingoFlow.Core.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
@@ -37,14 +37,14 @@ namespace LingoFlow.Service
         {
             var apiKey = _configuration["OpenAI:ApiKey"];
             if (string.IsNullOrEmpty(apiKey))
-                return "? ηρψ ξτϊη API";
+                return "? Χ—Χ΅Χ¨ ΧΧ¤ΧªΧ— API";
 
             if (chatRequest.Messages == null || chatRequest.Messages.Count == 0)
-                return "? μΰ ρετχε δεγςεϊ";
+                return "? ΧΧ Χ΅Χ•Χ¤Χ§Χ• Χ”Χ•Χ“ΧΆΧ•Χª";
 
             var vocabularyKeywords = new[]
             {
-            "ξιμδ", "ϊψβεν", "ΰικ ΰεξψιν", "τιψεω", "ξωξςεϊ", "example", "meaning", "translate", "vocabulary", "definition"
+            "ΧΧ™ΧΧ”", "ΧªΧ¨Χ’Χ•Χ", "ΧΧ™Χ ΧΧ•ΧΧ¨Χ™Χ", "Χ¤Χ™Χ¨Χ•Χ©", "ΧΧ©ΧΧΆΧ•Χª", "example", "meaning", "translate", "vocabulary", "definition"
         };
 
             bool isRelevant = chatRequest.Messages.Any(m =>
@@ -54,7 +54,7 @@ namespace LingoFlow.Service
             );
 
             if (!isRelevant)
-                return "?? δφ'ΰθ ξιεςγ μμιξεγ ΰπβμιϊ εΰεφψ ξιμιν αμαγ. ωΰμ ωΰμδ αρβπεο 'ξδ δτιψεω ωμ…' ΰε 'ΰικ ΰεξψιν…'";
+                return "?? Χ”Χ¦'ΧΧ ΧΧ™Χ•ΧΆΧ“ ΧΧΧ™ΧΧ•Χ“ ΧΧ Χ’ΧΧ™Χª Χ•ΧΧ•Χ¦Χ¨ ΧΧ™ΧΧ™Χ Χ‘ΧΧ‘Χ“. Χ©ΧΧ Χ©ΧΧΧ” Χ‘Χ΅Χ’Χ Χ•Χ 'ΧΧ” Χ”Χ¤Χ™Χ¨Χ•Χ© Χ©Χβ€¦' ΧΧ• 'ΧΧ™Χ ΧΧ•ΧΧ¨Χ™Χβ€¦'";
 
             var client = _httpClientFactory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
@@ -72,14 +72,14 @@ namespace LingoFlow.Service
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                return $"? ωβιΰδ ξδωψϊ: {error}";
+                return $"? Χ©Χ’Χ™ΧΧ” ΧΧ”Χ©Χ¨Χª: {error}";
             }
             if ((int)response.StatusCode == 418)
             {
-                return "πθτψι μΰ ξψωδ μι μγαψ ΰιϊκ ςμ ζδ";
+                return "Χ ΧΧ¤Χ¨Χ™ ΧΧ ΧΧ¨Χ©Χ” ΧΧ™ ΧΧ“Χ‘Χ¨ ΧΧ™ΧªΧ ΧΆΧ Χ–Χ”";
             }
             var result = await response.Content.ReadFromJsonAsync<OpenAIResponse>();
-            return result?.Choices?.FirstOrDefault()?.Message?.Content?.Trim() ?? "? μΰ δϊχαμδ ϊωεαδ.";
+            return result?.Choices?.FirstOrDefault()?.Message?.Content?.Trim() ?? "? ΧΧ Χ”ΧªΧ§Χ‘ΧΧ” ΧªΧ©Χ•Χ‘Χ”.";
         }
     }
 }
@@ -104,17 +104,17 @@ namespace LingoFlow.Service
 //        private readonly IHttpClientFactory _httpClientFactory;
 //        private readonly IConfiguration _configuration;
 
-//        // ψωιξϊ πεωΰι δωιηδ ωδξςψλϊ ϊεξλϊ αδν
+//        // Χ¨Χ©Χ™ΧΧª Χ Χ•Χ©ΧΧ™ Χ”Χ©Χ™Χ—Χ” Χ©Χ”ΧΧΆΧ¨Χ›Χª ΧªΧ•ΧΧ›Χª Χ‘Χ”Χ
 //        private static readonly List<string> AllowedTopics = new()
 //        {
-//            "ξρςγδ", "θιεμ", "ςαεγδ", "μιξεγιν", "αψιΰεϊ", "ϊηαεψδ", "ξωτηδ", "ϊηαιαιν"
-//            // δερσ λΰο ΰϊ λμ δπεωΰιν δπϊξλιν
+//            "ΧΧ΅ΧΆΧ“Χ”", "ΧΧ™Χ•Χ", "ΧΆΧ‘Χ•Χ“Χ”", "ΧΧ™ΧΧ•Χ“Χ™Χ", "Χ‘Χ¨Χ™ΧΧ•Χª", "ΧªΧ—Χ‘Χ•Χ¨Χ”", "ΧΧ©Χ¤Χ—Χ”", "ΧªΧ—Χ‘Χ™Χ‘Χ™Χ"
+//            // Χ”Χ•Χ΅Χ£ Χ›ΧΧ ΧΧª Χ›Χ Χ”Χ Χ•Χ©ΧΧ™Χ Χ”Χ ΧªΧΧ›Χ™Χ
 //        };
 
-//        // ξιμεϊ ξτϊη μωΰμεϊ ηετωιεϊ ςμ ξιμιν/ϊψβεν
+//        // ΧΧ™ΧΧ•Χª ΧΧ¤ΧªΧ— ΧΧ©ΧΧΧ•Χª Χ—Χ•Χ¤Χ©Χ™Χ•Χª ΧΆΧ ΧΧ™ΧΧ™Χ/ΧªΧ¨Χ’Χ•Χ
 //        private static readonly string[] VocabularyKeywords = new[]
 //        {
-//            "ξιμδ", "ϊψβεν", "ΰικ ΰεξψιν", "τιψεω", "ξωξςεϊ", "example", "meaning", "translate", "vocabulary", "definition"
+//            "ΧΧ™ΧΧ”", "ΧªΧ¨Χ’Χ•Χ", "ΧΧ™Χ ΧΧ•ΧΧ¨Χ™Χ", "Χ¤Χ™Χ¨Χ•Χ©", "ΧΧ©ΧΧΆΧ•Χª", "example", "meaning", "translate", "vocabulary", "definition"
 //        };
 
 //        public ChatService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
@@ -131,40 +131,40 @@ namespace LingoFlow.Service
 //        {
 //            var apiKey = _configuration["OpenAI:ApiKey"];
 //            if (string.IsNullOrEmpty(apiKey))
-//                return "? ηρψ ξτϊη API";
+//                return "? Χ—Χ΅Χ¨ ΧΧ¤ΧªΧ— API";
 
 //            if (chatRequest.Messages == null || chatRequest.Messages.Count == 0)
-//                return "? μΰ ρετχε δεγςεϊ";
+//                return "? ΧΧ Χ΅Χ•Χ¤Χ§Χ• Χ”Χ•Χ“ΧΆΧ•Χª";
 
 //            var lastMessage = chatRequest.Messages.Last().Content?.Trim() ?? "";
 
-//            // αγιχδ ΰν ζε ωΰμδ ηετωιϊ (ξιμιν / ϊψβεν)
+//            // Χ‘Χ“Χ™Χ§Χ” ΧΧ Χ–Χ• Χ©ΧΧΧ” Χ—Χ•Χ¤Χ©Χ™Χª (ΧΧ™ΧΧ™Χ / ΧªΧ¨Χ’Χ•Χ)
 //            bool isVocabularyQuestion = VocabularyKeywords.Any(keyword =>
 //                lastMessage.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
 //            if (!isVocabularyQuestion)
 //            {
-//                // αγιχδ ΰν ξγεαψ ααχωδ μπεωΰ ωιηδ λμμι
-//                if (lastMessage.Contains("πεωΰ ωιηδ") || lastMessage.Contains("ψςιεπεϊ μπεωΰ"))
+//                // Χ‘Χ“Χ™Χ§Χ” ΧΧ ΧΧ“Χ•Χ‘Χ¨ Χ‘Χ‘Χ§Χ©Χ” ΧΧ Χ•Χ©Χ Χ©Χ™Χ—Χ” Χ›ΧΧΧ™
+//                if (lastMessage.Contains("Χ Χ•Χ©Χ Χ©Χ™Χ—Χ”") || lastMessage.Contains("Χ¨ΧΆΧ™Χ•Χ Χ•Χª ΧΧ Χ•Χ©Χ"))
 //                {
-//                    // ηιτεω πεωΰ ρτφιτι αδεγςδ
+//                    // Χ—Χ™Χ¤Χ•Χ© Χ Χ•Χ©Χ Χ΅Χ¤Χ¦Χ™Χ¤Χ™ Χ‘Χ”Χ•Χ“ΧΆΧ”
 //                    bool topicFound = AllowedTopics.Any(topic =>
 //                        lastMessage.Contains(topic, StringComparison.OrdinalIgnoreCase));
 
 //                    if (!topicFound)
 //                    {
 //                        var topicsList = string.Join(", ", AllowedTopics);
-//                        return $"?? πιϊο μαχω πεωΰ ωιηδ ψχ ξϊεκ δψωιξδ: {topicsList}\nμγεβξδ: 'ϊο μι ψςιεο μπεωΰ ωιηδ ςμ ξρςγδ'";
+//                        return $"?? Χ Χ™ΧªΧ ΧΧ‘Χ§Χ© Χ Χ•Χ©Χ Χ©Χ™Χ—Χ” Χ¨Χ§ ΧΧªΧ•Χ Χ”Χ¨Χ©Χ™ΧΧ”: {topicsList}\nΧΧ“Χ•Χ’ΧΧ”: 'ΧªΧ ΧΧ™ Χ¨ΧΆΧ™Χ•Χ ΧΧ Χ•Χ©Χ Χ©Χ™Χ—Χ” ΧΆΧ ΧΧ΅ΧΆΧ“Χ”'";
 //                    }
 //                }
 //                else
 //                {
-//                    // μΰ ξγεαψ μΰ αωΰμδ ξιμεπιϊ εμΰ ααχωϊ πεωΰ
-//                    return "?? δφ'ΰθ ξιεςγ μμιξεγ ΰπβμιϊ εΰεφψ ξιμιν αμαγ. ωΰμ ωΰμδ αρβπεο 'ξδ δτιψεω ωμ…' ΰε 'ϊο μι ξιμιν ςμ πεωΰ λξε…'";
+//                    // ΧΧ ΧΧ“Χ•Χ‘Χ¨ ΧΧ Χ‘Χ©ΧΧΧ” ΧΧ™ΧΧ•Χ Χ™Χª Χ•ΧΧ Χ‘Χ‘Χ§Χ©Χª Χ Χ•Χ©Χ
+//                    return "?? Χ”Χ¦'ΧΧ ΧΧ™Χ•ΧΆΧ“ ΧΧΧ™ΧΧ•Χ“ ΧΧ Χ’ΧΧ™Χª Χ•ΧΧ•Χ¦Χ¨ ΧΧ™ΧΧ™Χ Χ‘ΧΧ‘Χ“. Χ©ΧΧ Χ©ΧΧΧ” Χ‘Χ΅Χ’Χ Χ•Χ 'ΧΧ” Χ”Χ¤Χ™Χ¨Χ•Χ© Χ©Χβ€¦' ΧΧ• 'ΧªΧ ΧΧ™ ΧΧ™ΧΧ™Χ ΧΆΧ Χ Χ•Χ©Χ Χ›ΧΧ•β€¦'";
 //                }
 //            }
 
-//            // ωμιηϊ δαχωδ μ-OpenAI
+//            // Χ©ΧΧ™Χ—Χª Χ”Χ‘Χ§Χ©Χ” Χ-OpenAI
 //            var client = _httpClientFactory.CreateClient();
 //            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
@@ -180,11 +180,11 @@ namespace LingoFlow.Service
 //            if (!response.IsSuccessStatusCode)
 //            {
 //                var error = await response.Content.ReadAsStringAsync();
-//                return $"? ωβιΰδ ξδωψϊ: {error}";
+//                return $"? Χ©Χ’Χ™ΧΧ” ΧΧ”Χ©Χ¨Χª: {error}";
 //            }
 
 //            var result = await response.Content.ReadFromJsonAsync<OpenAIResponse>();
-//            return result?.Choices?.FirstOrDefault()?.Message?.Content?.Trim() ?? "? μΰ δϊχαμδ ϊωεαδ.";
+//            return result?.Choices?.FirstOrDefault()?.Message?.Content?.Trim() ?? "? ΧΧ Χ”ΧªΧ§Χ‘ΧΧ” ΧªΧ©Χ•Χ‘Χ”.";
 //        }
 //    }
 //}

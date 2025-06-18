@@ -512,8 +512,8 @@ const AudioRecorder: React.FC = observer(() => {
       topicId: selectedTopic,
       userId: userId
     }
-    recordStore.setRecording(record);
-    recordStore.saveAndStoreRecording(record);
+    // recordStore.setRecording(record);
+    await recordStore.saveAndStoreRecording(record);
     console.log(toJS(recordStore.recording));
   }
   //בדיקה האם התמלול עובד-אחכ למחוק מפה

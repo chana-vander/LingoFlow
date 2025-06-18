@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+ο»Ώusing Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -21,15 +21,15 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using MySqlConnector;
 
-// θεςο ΰϊ ξωϊπι δραιαδ ξχεαυ .env
+// ΧΧ•ΧΆΧ ΧΧª ΧΧ©ΧªΧ Χ™ Χ”Χ΅Χ‘Χ™Χ‘Χ” ΧΧ§Χ•Χ‘Χ¥ .env
 Env.Load();
 Console.WriteLine("Loaded .env file...");
 Console.WriteLine("Bucket: " + Env.GetString("AWS__BucketName"));
 Console.WriteLine("Bucket: " + Env.GetString("JWT__Secret"));
 
-//Env.Load("C:\\ωπδ α ϊλπεϊ\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\env.env");
+//Env.Load("C:\\Χ©Χ Χ” Χ‘ ΧªΧ›Χ Χ•Χª\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\env.env");
 var builder = WebApplication.CreateBuilder(args);
-//ωμιτϊ πϊεπιν ξχεαυ ραιαδ
+//Χ©ΧΧ™Χ¤Χª Χ ΧªΧ•Χ Χ™Χ ΧΧ§Χ•Χ‘Χ¥ Χ΅Χ‘Χ™Χ‘Χ”
 builder.Configuration["AWS:BucketName"] = Env.GetString("AWS__BucketName");
 builder.Configuration["AWS:Region"] = Env.GetString("AWS__Region");
 builder.Configuration["AWS:AccessKey"] = Env.GetString("AWS__AccessKey");
@@ -40,7 +40,7 @@ builder.Configuration["Connection:String"] = Env.GetString("Connection__String")
 Console.WriteLine("AI GPT:  " + Env.GetString("OpenAI__GptKey"));
 Console.WriteLine("bucket name: " + Env.GetString("AWS__BucketName"));
 Console.WriteLine("connection string: " + Env.GetString("Connection__String"));
-// δερτϊ CORS ςν δψωΰδ μλμ δξχεψεϊ
+// Χ”Χ•Χ΅Χ¤Χª CORS ΧΆΧ Χ”Χ¨Χ©ΧΧ” ΧΧ›Χ Χ”ΧΧ§Χ•Χ¨Χ•Χª
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", policy =>
@@ -67,7 +67,7 @@ builder.Services.AddCors(options =>
 //});
 
 
-// ψιωεν ωιψεϊιν μ-DI
+// Χ¨Χ™Χ©Χ•Χ Χ©Χ™Χ¨Χ•ΧªΧ™Χ Χ-DI
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IrecordingService, recordingService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
@@ -86,7 +86,7 @@ builder.Services.AddScoped<IVocabularyRepository, VocabularyRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IChatService, ChatService>();
 
-// δερτϊ αχψι API
+// Χ”Χ•Χ΅Χ¤Χª Χ‘Χ§Χ¨Χ™ API
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
@@ -94,10 +94,10 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "LingoFlow API", Version = "v1" });
 
-    // ?? ξεριτιν ϊξιλδ αθτριν
+    // ?? ΧΧ•Χ΅Χ™Χ¤Χ™Χ ΧªΧΧ™Χ›Χ” Χ‘ΧΧ¤Χ΅Χ™Χ
     c.SupportNonNullableReferenceTypes();
 
-    // ?? ξεριτιν ΰϊ ζδ λγι ωSwagger ιγς μδϊξεγγ ςν χαφιν
+    // ?? ΧΧ•Χ΅Χ™Χ¤Χ™Χ ΧΧª Χ–Χ” Χ›Χ“Χ™ Χ©Swagger Χ™Χ“ΧΆ ΧΧ”ΧªΧΧ•Χ“Χ“ ΧΆΧ Χ§Χ‘Χ¦Χ™Χ
     c.MapType<IFormFile>(() => new OpenApiSchema
     {
         Type = "string",
@@ -105,22 +105,22 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// δβγψϊ AutoMapper
+// Χ”Χ’Χ“Χ¨Χª AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddAWSService<IAmazonS3>();
-//ϊξιλδ αHTTP
+//ΧªΧΧ™Χ›Χ” Χ‘HTTP
 builder.Services.AddHttpClient();
 
 var connectionString = Env.GetString("Connection__Stringz");
 
-////αγιχϊ ηιαεψ μγθδ αιιρ
+////Χ‘Χ“Χ™Χ§Χª Χ—Χ™Χ‘Χ•Χ¨ ΧΧ“ΧΧ” Χ‘Χ™Χ™Χ΅
 //using var connection = new MySqlConnection(connectionString);
 //connection.Open();
 //Console.WriteLine("Connected successfully!");
 
 
-// δερτϊ χεπτιβεψφιδ ωμ RegionEndpoint
+// Χ”Χ•Χ΅Χ¤Χª Χ§Χ•Χ Χ¤Χ™Χ’Χ•Χ¨Χ¦Χ™Χ” Χ©Χ RegionEndpoint
 builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
 {
     //var region = Environment.GetEnvironmentVariable("AWS__Region");
@@ -144,7 +144,7 @@ builder.Services.AddSingleton<AmazonS3Client>(serviceProvider =>
         new BasicAWSCredentials(accessKey, secretKey),
         new AmazonS3Config
         {
-            RegionEndpoint = RegionEndpoint.GetBySystemName(region)  // δβγψϊ δΰζεψ λΰο
+            RegionEndpoint = RegionEndpoint.GetBySystemName(region)  // Χ”Χ’Χ“Χ¨Χª Χ”ΧΧ–Χ•Χ¨ Χ›ΧΧ
         });
 });
 //connect to mysql
@@ -153,7 +153,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 );
 
 
-// δβγψϊ JWT Authentication
+// Χ”Χ’Χ“Χ¨Χª JWT Authentication
 
 //var jwtSecret = Environment.GetEnvironmentVariable("JWT__Sercret");
 var jwtSecret = Env.GetString("JWT__Secret");
@@ -178,18 +178,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// δψωΰεϊ ξαερρ-ϊτχιγιν
+// Χ”Χ¨Χ©ΧΧ•Χª ΧΧ‘Χ•Χ΅Χ΅-ΧªΧ¤Χ§Χ™Χ“Χ™Χ
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin")); // μξπδμιν αμαγ
-    options.AddPolicy("UserOnly", policy => policy.RequireRole("User")); // μξωϊξωιν αμαγ
-    options.AddPolicy("AdminOrUser", policy => policy.RequireRole("Admin", "User")); // μωπι δϊτχιγιν
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin")); // ΧΧΧ Χ”ΧΧ™Χ Χ‘ΧΧ‘Χ“
+    options.AddPolicy("UserOnly", policy => policy.RequireRole("User")); // ΧΧΧ©ΧªΧΧ©Χ™Χ Χ‘ΧΧ‘Χ“
+    options.AddPolicy("AdminOrUser", policy => policy.RequireRole("Admin", "User")); // ΧΧ©Χ Χ™ Χ”ΧªΧ¤Χ§Χ™Χ“Χ™Χ
 });
 
-// ιφιψϊ ΰτμιχφιδ
+// Χ™Χ¦Χ™Χ¨Χª ΧΧ¤ΧΧ™Χ§Χ¦Χ™Χ”
 var app = builder.Build();
 
-// δτςμϊ Swagger ψχ αραιαϊ τιϊεη
+// Χ”Χ¤ΧΆΧΧª Swagger Χ¨Χ§ Χ‘Χ΅Χ‘Χ™Χ‘Χª Χ¤Χ™ΧªΧ•Χ—
 //if (app.Environment.IsDevelopment())
 //{
     app.UseSwagger();
@@ -199,7 +199,7 @@ var app = builder.Build();
 //app.MapGet("/", () => Results.Redirect("/swagger"));
 app.MapGet("/", () => Results.Ok("Welcome to LingoFlow API!"));
 
-// ργψ πλεο ωμ δ-Middleware
+// Χ΅Χ“Χ¨ Χ Χ›Χ•Χ Χ©Χ Χ”-Middleware
 app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins");
 app.UseAuthentication();
@@ -207,7 +207,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
-// === τεπχφιιϊ Seeding ωμ Roleιν ===
+// === Χ¤Χ•Χ Χ§Χ¦Χ™Χ™Χª Seeding Χ©Χ RoleΧ™Χ ===
 async Task SeedRolesAsync(IServiceProvider serviceProvider)
 {
     var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();

@@ -8,7 +8,7 @@ namespace LingoFlow.Core.Dto
 {
     public class VocabularyDto
     {
-        //public int Id { get; set; }
+        public int Id { get; set; }
         public string Word { get; set; }
         public string WordTranslation { get; set; }
         public int TopicId { get; set; }
