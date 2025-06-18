@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{78078E70-C611-42E2-A395-4ACBC7B0A125}|LingoFlow.Service\\LingoFlow.Service.csproj|solutionrelative:lingoflow.service\\feedbackanalysisservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.api\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.api\\controllers\\feedbackanalysiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\controllers\\feedbackanalysiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -23,20 +31,12 @@
       "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\controllers\\transcriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.api\\controllers\\feedbackanalysiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\controllers\\feedbackanalysiscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.api\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0145421-1CBD-4D5F-844A-64D933CBBE69}|LingoFlow.Api\\LingoFlow.Api.csproj|solutionrelative:lingoflow.api\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32EC87C1-5E31-4C52-9E4D-85695C89FBB8}|LingoFlow.Data\\LingoFlow.Data.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.data\\datacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -197,7 +197,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": ".env",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\.env",
               "RelativeDocumentMoniker": "LingoFlow.Api\\.env",
@@ -214,7 +214,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "TranscriptionController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\TranscriptionController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\TranscriptionController.cs",
@@ -227,12 +227,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "ChatService.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\ChatService.cs",
               "RelativeDocumentMoniker": "LingoFlow.Service\\ChatService.cs",
-              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\ChatService.cs*",
-              "RelativeToolTip": "LingoFlow.Service\\ChatService.cs*",
+              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\ChatService.cs",
+              "RelativeToolTip": "LingoFlow.Service\\ChatService.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAMwEAAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-29T10:02:40.155Z",
@@ -244,21 +244,21 @@
               "Title": "FeedbackAnalysisService.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\FeedbackAnalysisService.cs",
               "RelativeDocumentMoniker": "LingoFlow.Service\\FeedbackAnalysisService.cs",
-              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\FeedbackAnalysisService.cs*",
-              "RelativeToolTip": "LingoFlow.Service\\FeedbackAnalysisService.cs*",
-              "ViewState": "AgIAAFYBAAAAAAAAAAAowG4BAAADAAAAAAAAAA==",
+              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\FeedbackAnalysisService.cs",
+              "RelativeToolTip": "LingoFlow.Service\\FeedbackAnalysisService.cs",
+              "ViewState": "AgIAADEBAAAAAAAAAAAUwEYBAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-27T11:16:08.772Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Program.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Program.cs",
-              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Program.cs*",
-              "RelativeToolTip": "LingoFlow.Api\\Program.cs*",
+              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Program.cs",
+              "RelativeToolTip": "LingoFlow.Api\\Program.cs",
               "ViewState": "AgIAAF8AAAAAAAAAAAAUwHIAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-31T21:35:28.767Z",
@@ -266,7 +266,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "FeedbackAnalysisController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs",
@@ -275,6 +275,19 @@
               "ViewState": "AgIAAP4AAAAAAAAAAAAMwA4BAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-14T21:04:39.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FeedbackController.cs",
+              "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackController.cs",
+              "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\FeedbackController.cs",
+              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackController.cs",
+              "RelativeToolTip": "LingoFlow.Api\\Controllers\\FeedbackController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T22:49:00.175Z",
               "EditorCaption": ""
             },
             {
@@ -291,7 +304,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Properties\\launchSettings.json",
@@ -303,7 +316,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\AuthController.cs",
@@ -337,18 +350,6 @@
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-28T23:22:48.289Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "FeedbackController.cs",
-              "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackController.cs",
-              "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\FeedbackController.cs",
-              "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackController.cs",
-              "RelativeToolTip": "LingoFlow.Api\\Controllers\\FeedbackController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAQwCMAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T22:49:00.175Z"
             },
             {
               "$type": "Document",

@@ -1,4 +1,4 @@
-using LingoFlow.Core.Repositories;
+ο»Ώusing LingoFlow.Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -73,7 +73,7 @@ namespace MagicalMusic.Api.Controllers
             var resultJson = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<JsonElement>(resultJson);
 
-            // --- ωμα ωξιψϊ δϊξμεμ αξργ πϊεπιν ---
+            // --- Χ©ΧΧ‘ Χ©ΧΧ™Χ¨Χª Χ”ΧªΧΧΧ•Χ Χ‘ΧΧ΅Χ“ Χ ΧªΧ•Χ Χ™Χ ---
             var transcriptionText = result.GetProperty("text").GetString();
 
             var recording = await _recordingRepository.GetrecordingByIdAsync(request.recordingId);
@@ -82,7 +82,7 @@ namespace MagicalMusic.Api.Controllers
 
             recording.Transcription = transcriptionText;
 
-            await _recordingRepository.UpdateAsync(recording); // ΰε SaveChangesAsync() μτι δξιξεω
+            await _recordingRepository.UpdateAsync(recording); // ΧΧ• SaveChangesAsync() ΧΧ¤Χ™ Χ”ΧΧ™ΧΧ•Χ©
 
             return Ok(new { transcription = transcriptionText });
         }
@@ -157,7 +157,7 @@ namespace MagicalMusic.Api.Controllers
 
 
 
-//πριεο ςν δςαψιϊ
+//Χ Χ΅Χ™Χ•Χ ΧΆΧ Χ”ΧΆΧ‘Χ¨Χ™Χª
 //using Microsoft.AspNetCore.Mvc;
 //using System.Net.Http.Headers;
 //using System.Text.Json;
@@ -233,20 +233,20 @@ namespace MagicalMusic.Api.Controllers
 
 //            try
 //            {
-//                // ξπρδ μχψεΰ JSON ςν ωγδ text
+//                // ΧΧ Χ΅Χ” ΧΧ§Χ¨Χ•Χ JSON ΧΆΧ Χ©Χ“Χ” text
 //                var result = JsonSerializer.Deserialize<JsonElement>(resultJson);
 //                fullText = result.GetProperty("text").GetString() ?? "";
 //            }
 //            catch
 //            {
-//                // fallback ΰν ζε ξηψεζϊ ψβιμδ (μξωμ: "hello world")
+//                // fallback ΧΧ Χ–Χ• ΧΧ—Χ¨Χ•Χ–Χª Χ¨Χ’Χ™ΧΧ” (ΧΧΧ©Χ: "hello world")
 //                fullText = resultJson.Trim('"');
 //            }
 
-//            // αγιχϊ ςαψιϊ
+//            // Χ‘Χ“Χ™Χ§Χª ΧΆΧ‘Χ¨Χ™Χª
 //            bool containsHebrew = fullText.Any(c => c >= 0x0590 && c <= 0x05FF);
 
-//            // ηιμευ ψχ χθςιν αΰπβμιϊ
+//            // Χ—Χ™ΧΧ•Χ¥ Χ¨Χ§ Χ§ΧΧΆΧ™Χ Χ‘ΧΧ Χ’ΧΧ™Χª
 //            var englishText = ExtractEnglishText(fullText);
 
 //            var responseObject = new
@@ -255,26 +255,26 @@ namespace MagicalMusic.Api.Controllers
 //                englishText,
 //                containsHebrew,
 //                message = containsHebrew
-//                    ? "?? ημχ ξδϊξμεμ λεμμ ςαψιϊ. ψχ δχθςιν αΰπβμιϊ πεϊηε."
-//                    : "? δϊξμεμ λεμε αΰπβμιϊ."
+//                    ? "?? Χ—ΧΧ§ ΧΧ”ΧªΧΧΧ•Χ Χ›Χ•ΧΧ ΧΆΧ‘Χ¨Χ™Χª. Χ¨Χ§ Χ”Χ§ΧΧΆΧ™Χ Χ‘ΧΧ Χ’ΧΧ™Χª Χ Χ•ΧªΧ—Χ•."
+//                    : "? Χ”ΧªΧΧΧ•Χ Χ›Χ•ΧΧ• Χ‘ΧΧ Χ’ΧΧ™Χª."
 //            };
 
 //            return Ok(responseObject);
 //        }
 
 //        /// <summary>
-//        /// ξημυ ψχ ξιμιν αΰπβμιϊ, ξωΰιψ ριξπι τιρεχ τωεθιν.
+//        /// ΧΧ—ΧΧ¥ Χ¨Χ§ ΧΧ™ΧΧ™Χ Χ‘ΧΧ Χ’ΧΧ™Χª, ΧΧ©ΧΧ™Χ¨ Χ΅Χ™ΧΧ Χ™ Χ¤Χ™Χ΅Χ•Χ§ Χ¤Χ©Χ•ΧΧ™Χ.
 //        /// </summary>
 //        private string ExtractEnglishText(string input)
 //        {
 //            if (string.IsNullOrEmpty(input))
 //                return string.Empty;
 
-//            // ωξεψ ψχ ϊεειν ΰπβμιιν, ψεεηιν, εριξπι τιρεχ αριριιν
+//            // Χ©ΧΧ•Χ¨ Χ¨Χ§ ΧªΧ•Χ•Χ™Χ ΧΧ Χ’ΧΧ™Χ™Χ, Χ¨Χ•Χ•Χ—Χ™Χ, Χ•Χ΅Χ™ΧΧ Χ™ Χ¤Χ™Χ΅Χ•Χ§ Χ‘Χ΅Χ™Χ΅Χ™Χ™Χ
 //            var matches = Regex.Matches(input, @"[\w\s,.!?'\-:;()]+", RegexOptions.IgnoreCase);
 //            var englishParts = matches
 //                .Select(m => m.Value)
-//                .Where(s => s.All(c => c <= 127)) // ASCII αμαγ
+//                .Where(s => s.All(c => c <= 127)) // ASCII Χ‘ΧΧ‘Χ“
 //                .ToList();
 
 //            return string.Join(" ", englishParts);
