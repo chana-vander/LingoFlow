@@ -204,7 +204,7 @@ import {  useNavigate } from "react-router-dom"
 import { Mic, Square, X, Play, Pause, Upload, Download, Share2, RefreshCw } from "lucide-react"
 import '../style/record.css'
 import { Record } from "../models/record";
-import { feedbackStore } from "../stores/feedbackStore"
+// import { feedbackStore } from "../stores/feedbackStore"
 import { toJS } from "mobx"
 // import { transaction } from "mobx"
 
