@@ -15,6 +15,7 @@ namespace LingoFlow.Service
     public class FeedbackService : IFeedbackService
     {
         private readonly IFeedbackRepository _feedbackRepository;
+        private readonly IrecordingRepository _recordingRepository;
         private readonly IMapper _mapper;
         private readonly IManagerRepository _managerRepository;
         public FeedbackService(IFeedbackRepository feedbackRepository, IMapper mapper, IManagerRepository managerRepository)
@@ -62,6 +63,11 @@ namespace LingoFlow.Service
             if (feedbackDto == null)
             {
                 throw new ArgumentNullException(nameof(feedbackDto)); // בדיקה אם לא null
+            }
+            var recording = await _recordingRepository.GetrecordingByIdAsync(feedbackDto.recordingId);
+            if (recording == null)
+            {
+                throw new Exception($"Recording with ID {feedbackDto.recordingId} does not exist in DB.");
             }
 
             //if (feedbackDto.Id == null)

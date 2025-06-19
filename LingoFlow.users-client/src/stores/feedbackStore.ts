@@ -107,7 +107,7 @@ class FeedbackStore {
   async analyzeTranscription(
     transcription: string,
     topicId: number,
-    recordId: number
+    recordingId: number
   ) {
     this.loading = true;
     this.error = "";
@@ -117,10 +117,10 @@ class FeedbackStore {
         {
           transcription,
           topicId,
-          recordId,
+          recordingId,
         }
       );
-      console.log("1");
+      console.log("the data to server: ",transcription,topicId,recordingId);
 
       runInAction(() => {
         this.feedback = response.data;
