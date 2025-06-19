@@ -308,8 +308,6 @@ const AudioRecorder: React.FC = observer(() => {
         const audioBlob = new Blob(chunksRef.current, { type: "audio/mp3" })
         setAudioBlob(audioBlob)
         const audioURL = URL.createObjectURL(audioBlob)
-        console.log("audioURL ", audioURL);
-
         setAudioURL(audioURL)
       }
 
@@ -448,7 +446,6 @@ const AudioRecorder: React.FC = observer(() => {
 
     const url = await recordStore.getPresignedUrl(uniqueFileName);
     console.log("url: ", url);
-
     if (!url) {
       return
     }
@@ -489,8 +486,6 @@ const AudioRecorder: React.FC = observer(() => {
       xhr.open("PUT", url)
       xhr.setRequestHeader("Content-Type", "audio/mp3")
       xhr.send(audioBlob)
-      console.log(url);
-
     } catch (error) {
       console.error("Error uploading to S3:", error)
       setIsUploading(false)
@@ -500,7 +495,7 @@ const AudioRecorder: React.FC = observer(() => {
 
   const saveRecordToDatabase = async (DownloadUrl: string) => {
     if (!userId || !selectedTopic || !recordingName) {
-      // showNotification("חסרים פרטים לשמירה במסד הנתונים", "error")
+      showNotification("חסרים פרטים לשמירה במסד הנתונים", "error")
       return
     }
 
@@ -517,19 +512,18 @@ const AudioRecorder: React.FC = observer(() => {
     console.log(toJS(recordStore.recording));
   }
   //בדיקה האם התמלול עובד-אחכ למחוק מפה
-  const r = recordStore.recording;
-  console.log("r ", r);
-  if (r?.id !== undefined) {
-    console.log("r.id ", r.id);
-    const transcription = feedbackStore.transcribeFromUrl(r.url, r.id);
-    console.log(transcription);
-    if (selectedTopic) {
-      const feed = feedbackStore.analyzeTranscription(r.url, selectedTopic, r.id);
-      console.log("feed: ", feed);
-
-    }
-    //בדיקה האם המשוב עובד-אחכ למחוק מפה
-  }
+  // const r = recordStore.recording;
+  // // console.log("r ", r);
+  // if (r?.id !== undefined) {
+  //   console.log("r.id is undefined", r.id);
+  //   const transcription = feedbackStore.transcribeFromUrl(r.url, r.id);
+  //   console.log(transcription);
+  //   if (selectedTopic) {
+  //     const feed = feedbackStore.analyzeTranscription(r.url, selectedTopic, r.id);
+  //     console.log("feed: ", feed);
+  //   }
+  //   //בדיקה האם המשוב עובד-אחכ למחוק מפה
+  // }
 
   // Save record to database
   // const saveRecordToDatabase = async (DownloadUrl: string) => {

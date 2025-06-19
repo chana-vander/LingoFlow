@@ -17,78 +17,120 @@ import { toJS } from "mobx";
 const Feedback: React.FC = observer(() => {
   const navigate = useNavigate(); // השתמש ב-useNavigate מ-React Router
   // const recording = recordStore.recording; // recording יכול להיות Record | null
-  const recording = toJS(recordStore.recording); 
+  const recording = toJS(recordStore.recording);
 
-  // useEffect לטיפול בלוגיקה אסינכרונית בעת טעינת הקומפוננטה
+  // // useEffect לטיפול בלוגיקה אסינכרונית בעת טעינת הקומפוננטה
+  // useEffect(() => {
+  //   console.log("in feedback: ", recording);
+  //   const fetchAndProcessFeedback = async () => {
+  //     // אם אין הקלטה זמינה, או אם חסרים פרטים חיוניים
+  //     if (
+  //       !recording ||
+  //       recording.id === undefined ||recording.id==0||
+  //       !recording.url ||
+  //       recording.topicId === undefined
+  //     ) {
+  //       console.warn(
+  //         "Missing recording data (ID, URL, or Topic ID). Cannot process feedback."
+  //       );
+  //       // לדוגמה, הפנה חזרה לדף הבית אם אין נתונים
+  //       navigate("/");
+  //       return;
+  //     }
+
+  //     // אם כבר יש משוב בסטור, אל תבצע קריאות שוב
+  //     if (feedbackStore.feedback) {
+  //       console.log("Feedback already loaded from store.");
+  //       // feedback=feedbackStore.feedback;
+  //       return;
+  //     }
+
+  //     try {
+  //       // 1. בצע תמלול והמתן לסיומו
+  //       // transcribeFromUrl מעדכנת את feedbackStore.transcription
+  //       await feedbackStore.transcribeFromUrl(recording.url, recording.id);
+  //       console.log(
+  //         "Transcription status: ",
+  //         feedbackStore.transcription ? "Success" : "Failed"
+  //       );
+
+  //       // 2. אם התמלול הצליח, בצע ניתוח משוב
+  //       if (feedbackStore.transcription) {
+  //         // analyzeTranscription מעדכנת את feedbackStore.feedback
+  //         await feedbackStore.analyzeTranscription(
+  //           feedbackStore.transcription,
+  //           // וודא ש-recording.topicId הוא מספר. אם הוא string, המר אותו:
+  //           Number(recording.topicId),
+  //           recording.id
+  //         );
+  //         console.log(
+  //           "Feedback status: ",
+  //           feedbackStore.feedback ? "Success" : "Failed"
+  //         );
+  //       } else {
+  //         console.error(
+  //           "Transcription failed or is empty. Cannot analyze feedback."
+  //         );
+  //       }
+  //     } catch (error) {
+  //       console.error("Error during feedback process:", error);
+  //       // הגדר הודעת שגיאה בסטור אם לא טופלה כבר ב-feedbackStore
+  //       if (!feedbackStore.error) {
+  //         feedbackStore.error = "אירעה שגיאה בטעינת המשוב.";
+  //       }
+  //     }
+  //   };
+
+  //   fetchAndProcessFeedback(); // קרא לפונקציה האסינכרונית
+  //   console.log(feedbackStore.feedback);
+
+  //   // // פונקציית ניקוי: מאפסת את הסטור כשיוצאים מהקומפוננטה
+  //   // return () => {
+  //   //   feedbackStore.reset();
+  //   // };
+  // }, [recording, navigate]); // תלויות: הפעל מחדש כשההקלטה או הניווט משתנים
+
   useEffect(() => {
-    console.log("in feedback: ", recording);
     const fetchAndProcessFeedback = async () => {
-      // אם אין הקלטה זמינה, או אם חסרים פרטים חיוניים
+      console.log("▶️ התחלת תהליך המשוב");
+
       if (
         !recording ||
-        recording.id === undefined ||recording.id==0||
+        recording.id === undefined ||
+        recording.id === 0 ||
         !recording.url ||
         recording.topicId === undefined
       ) {
-        console.warn(
-          "Missing recording data (ID, URL, or Topic ID). Cannot process feedback."
-        );
-        // לדוגמה, הפנה חזרה לדף הבית אם אין נתונים
+        console.warn("❌ נתוני הקלטה חסרים");
         navigate("/");
         return;
       }
 
-      // אם כבר יש משוב בסטור, אל תבצע קריאות שוב
       if (feedbackStore.feedback) {
-        console.log("Feedback already loaded from store.");
-        // feedback=feedbackStore.feedback;
+        console.log("✔️ כבר קיים משוב - אין צורך לעבד שוב");
         return;
       }
 
-      try {
-        // 1. בצע תמלול והמתן לסיומו
-        // transcribeFromUrl מעדכנת את feedbackStore.transcription
+      if (!feedbackStore.transcription) {
         await feedbackStore.transcribeFromUrl(recording.url, recording.id);
-        console.log(
-          "Transcription status: ",
-          feedbackStore.transcription ? "Success" : "Failed"
-        );
+      }
 
-        // 2. אם התמלול הצליח, בצע ניתוח משוב
-        if (feedbackStore.transcription) {
-          // analyzeTranscription מעדכנת את feedbackStore.feedback
-          await feedbackStore.analyzeTranscription(
-            feedbackStore.transcription,
-            // וודא ש-recording.topicId הוא מספר. אם הוא string, המר אותו:
-            Number(recording.topicId),
-            recording.id
-          );
-          console.log(
-            "Feedback status: ",
-            feedbackStore.feedback ? "Success" : "Failed"
-          );
-        } else {
-          console.error(
-            "Transcription failed or is empty. Cannot analyze feedback."
-          );
-        }
-      } catch (error) {
-        console.error("Error during feedback process:", error);
-        // הגדר הודעת שגיאה בסטור אם לא טופלה כבר ב-feedbackStore
-        if (!feedbackStore.error) {
-          feedbackStore.error = "אירעה שגיאה בטעינת המשוב.";
-        }
+      if (feedbackStore.transcription && !feedbackStore.feedback) {
+        console.log("📄 תמלול שהתקבל מהשרת:", feedbackStore.transcription);
+        await feedbackStore.analyzeTranscription(
+          feedbackStore.transcription,
+          Number(recording.topicId),
+          recording.id
+        );
       }
     };
 
-    fetchAndProcessFeedback(); // קרא לפונקציה האסינכרונית
-    console.log(feedbackStore.feedback);
+    fetchAndProcessFeedback();
 
-    // // פונקציית ניקוי: מאפסת את הסטור כשיוצאים מהקומפוננטה
-    // return () => {
-    //   feedbackStore.reset();
-    // };
-  }, [recording, navigate]); // תלויות: הפעל מחדש כשההקלטה או הניווט משתנים
+    return () => {
+      feedbackStore.reset(); // מאפס בין יציאות
+    };
+  }, [recording?.id]);
 
   // הצגת מצב טעינה, שגיאה או משוב
   const { loading, error, transcription, feedback } = feedbackStore;

@@ -27,10 +27,10 @@ class FeedbackStore {
 
   async getFeedbackByRecordId(recordId: number) {
     console.log(recordId);
-    
+
     try {
       const response = await axios.get(
-        `${this.apiUrl}/${recordId}`
+        `${this.apiUrl}/Feedback/record/${recordId}`
       );
       return response.data; // מחזיר את הנתונים שהתקבלו
     } catch (error) {
@@ -39,32 +39,71 @@ class FeedbackStore {
     }
   }
 
-  async transcribeFromUrl(fileUrl: string, recordId: number) {
-    console.log("fileUrl: ", fileUrl);
-    console.log("recordId: ", recordId);
+  // async transcribeFromUrl(fileUrl: string, recordId: number) {
+  //   console.log("fileUrl: ", fileUrl);
+  //   console.log("recordId: ", recordId);
+
+  //   this.loading = true;
+  //   this.error = "";
+  //   try {
+  //     const response = await axios.post(`${this.apiUrl}/transcription`, {
+  //       fileUrl,
+  //       recordId,
+  //     });
+  //     console.log("in transcription store");
+
+  //     runInAction(() => {
+  //       this.transcription = response.data.transcription;
+  //       this.loading = false;
+  //     });
+  //   } catch (err: any) {
+  //     runInAction(() => {
+  //       this.error = err.response?.data || "שגיאה בתמלול";
+  //       this.loading = false;
+  //     });
+  //   }
+  // }
+  async transcribeFromUrl(fileUrl: string, recordingId: number) {
+    console.log("📤 שליחת בקשה לתמלול:");
+    console.log("✅ fileUrl:", fileUrl);
+    console.log("✅ recordingId:", recordingId);
+    console.log("✅ apiUrl:", this.apiUrl + "/transcription");
 
     this.loading = true;
     this.error = "";
+
     try {
       const response = await axios.post(
         `${this.apiUrl}/transcription`,
         {
           fileUrl,
-          recordId,
+          recordingId, // שים לב! זה חייב להתאים לשם שמצופה בשרת בדיוק (recordingId ולא recordId)
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
+
+      console.log("✅ תגובה מהשרת:", response);
+      console.log("📝 transcription:", response.data.transcription);
 
       runInAction(() => {
         this.transcription = response.data.transcription;
         this.loading = false;
       });
     } catch (err: any) {
+      console.error("❌ שגיאה בבקשת תמלול:", err);
+      console.error("📛 תגובת שגיאה מהשרת:", err.response?.data);
+
       runInAction(() => {
         this.error = err.response?.data || "שגיאה בתמלול";
         this.loading = false;
       });
     }
   }
+
   async analyzeTranscription(
     transcription: string,
     topicId: number,

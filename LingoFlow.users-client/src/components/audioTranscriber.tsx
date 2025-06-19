@@ -16,7 +16,7 @@ const AudioTranscriber: React.FC<TranscriberProps> = ({ fileUrl }) => {
     setError(null)
 
     try {
-      const response = await axios.post("/api/transcription", { fileUrl })
+      const response = await axios.post("/transcription", { fileUrl })
       setTranscription(response.data.text ?? JSON.stringify(response.data))
     } catch (err: any) {
       setError("שגיאה בתמלול: " + (err.response?.data || err.message))

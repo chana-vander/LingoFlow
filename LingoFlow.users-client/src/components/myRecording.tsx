@@ -804,6 +804,8 @@ const MyRecordings = () => {
   };
 
   const handleDownload = async (record: Record) => {
+    console.log("record.url ",record.url);
+    
     const response = await fetch(record.url);
     const blob = await response.blob();
     const link = document.createElement("a");

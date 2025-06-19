@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Data\\Migrations\\20250618174700_addIDForVocDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:LingoFlow.Data\\Migrations\\20250618174700_addIDForVocDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{667EE80D-B409-4F9E-AD51-67AA7F686637}|LingoFlow.Core\\LingoFlow.Core.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.core\\dto\\vocabularydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{667EE80D-B409-4F9E-AD51-67AA7F686637}|LingoFlow.Core\\LingoFlow.Core.csproj|solutionrelative:lingoflow.core\\dto\\vocabularydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -192,6 +188,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{667EE80D-B409-4F9E-AD51-67AA7F686637}|LingoFlow.Core\\LingoFlow.Core.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.core\\repositories\\irolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{667EE80D-B409-4F9E-AD51-67AA7F686637}|LingoFlow.Core\\LingoFlow.Core.csproj|solutionrelative:lingoflow.core\\repositories\\irolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32EC87C1-5E31-4C52-9E4D-85695C89FBB8}|LingoFlow.Data\\LingoFlow.Data.csproj|c:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\lingoflow\\lingoflow.server\\lingoflow.data\\migrations\\20250618174700_addidforvocdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32EC87C1-5E31-4C52-9E4D-85695C89FBB8}|LingoFlow.Data\\LingoFlow.Data.csproj|solutionrelative:lingoflow.data\\migrations\\20250618174700_addidforvocdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -209,7 +209,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "ChatService.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\ChatService.cs",
               "RelativeDocumentMoniker": "LingoFlow.Service\\ChatService.cs",
@@ -217,12 +217,11 @@
               "RelativeToolTip": "LingoFlow.Service\\ChatService.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAMwEAAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T10:02:40.155Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T10:02:40.155Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "FeedbackAnalysisService.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\FeedbackAnalysisService.cs",
               "RelativeDocumentMoniker": "LingoFlow.Service\\FeedbackAnalysisService.cs",
@@ -230,12 +229,11 @@
               "RelativeToolTip": "LingoFlow.Service\\FeedbackAnalysisService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAF8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T11:16:08.772Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T11:16:08.772Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Program.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Program.cs",
@@ -243,12 +241,11 @@
               "RelativeToolTip": "LingoFlow.Api\\Program.cs",
               "ViewState": "AgIAAF8AAAAAAAAAAAAUwHIAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T21:35:28.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T21:35:28.767Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "FeedbackAnalysisController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs",
@@ -256,12 +253,11 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\FeedbackAnalysisController.cs",
               "ViewState": "AgIAAP4AAAAAAAAAAAAMwA4BAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-14T21:04:39.474Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-14T21:04:39.474Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "DataContext.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Data\\DataContext.cs",
               "RelativeDocumentMoniker": "LingoFlow.Data\\DataContext.cs",
@@ -269,12 +265,11 @@
               "RelativeToolTip": "LingoFlow.Data\\DataContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-27T08:59:28.249Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T08:59:28.249Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "VocabularyController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\VocabularyController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\VocabularyController.cs",
@@ -282,25 +277,24 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\VocabularyController.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T13:42:38.909Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T13:42:38.909Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "VocabularyDto.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Dto\\VocabularyDto.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Dto\\VocabularyDto.cs",
               "ToolTip": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Dto\\VocabularyDto.cs",
               "RelativeToolTip": "LingoFlow.Core\\Dto\\VocabularyDto.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-29T13:43:15.853Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "TranscriptionController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\TranscriptionController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\TranscriptionController.cs",
@@ -308,12 +302,11 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\TranscriptionController.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAYwMoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T20:57:59.519Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-05T20:57:59.519Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": ".gitattributes",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\.gitattributes",
               "RelativeDocumentMoniker": "LingoFlow.Api\\.gitattributes",
@@ -321,12 +314,11 @@
               "RelativeToolTip": "LingoFlow.Api\\.gitattributes",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-15T13:41:23.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-15T13:41:23.861Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": ".env",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\.env",
               "RelativeDocumentMoniker": "LingoFlow.Api\\.env",
@@ -338,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "FeedbackController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\FeedbackController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\FeedbackController.cs",
@@ -346,12 +338,11 @@
               "RelativeToolTip": "LingoFlow.Api\\Controllers\\FeedbackController.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAwwBIAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-29T22:49:00.175Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T22:49:00.175Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Properties\\launchSettings.json",
@@ -363,7 +354,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\AuthController.cs",
@@ -375,7 +366,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "UserRegisterDto.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Dto\\UserRegisterDto.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Dto\\UserRegisterDto.cs",
@@ -387,7 +378,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "UserLoginDto.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Dto\\UserLoginDto.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Dto\\UserLoginDto.cs",
@@ -399,7 +390,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 22,
               "Title": "dbo.Topics.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.Topics.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.Topics.sql",
@@ -408,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\appsettings.json",
               "RelativeDocumentMoniker": "LingoFlow.Api\\appsettings.json",
@@ -420,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 21,
               "Title": "dbo.Words.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.Words.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.Words.sql",
@@ -429,7 +420,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 17,
               "Title": "LingoFlow.Api.csproj.nuget.dgspec.json",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\obj\\LingoFlow.Api.csproj.nuget.dgspec.json",
               "RelativeDocumentMoniker": "LingoFlow.Api\\obj\\LingoFlow.Api.csproj.nuget.dgspec.json",
@@ -441,7 +432,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "RecordingRepository.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Data\\Repositories\\RecordingRepository.cs",
               "RelativeDocumentMoniker": "LingoFlow.Data\\Repositories\\RecordingRepository.cs",
@@ -453,7 +444,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 18,
               "Title": "RecordingController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\RecordingController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\RecordingController.cs",
@@ -465,7 +456,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 20,
               "Title": "ChatAiController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\ChatAiController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\ChatAiController.cs",
@@ -477,7 +468,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 19,
               "Title": "dbo.recordings.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.recordings.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.recordings.sql",
@@ -486,7 +477,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 23,
               "Title": "dbo.Roles.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.Roles.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/LingoFlow_bsd/True/SqlTable/dbo.Roles.sql",
@@ -495,7 +486,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 26,
               "Title": "Mapping.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Mapping.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Mapping.cs",
@@ -507,7 +498,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 25,
               "Title": "Feedback.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Models\\Feedback.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Models\\Feedback.cs",
@@ -519,7 +510,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 27,
               "Title": "VocabularyService.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\VocabularyService.cs",
               "RelativeDocumentMoniker": "LingoFlow.Service\\VocabularyService.cs",
@@ -531,7 +522,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 30,
               "Title": "Vocabulary.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Models\\Vocabulary.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Models\\Vocabulary.cs",
@@ -543,7 +534,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 24,
               "Title": "Recording.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Models\\Recording.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Models\\Recording.cs",
@@ -555,7 +546,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 29,
               "Title": "IVocabularyRepository.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Repositories\\IVocabularyRepository.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Repositories\\IVocabularyRepository.cs",
@@ -567,7 +558,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 28,
               "Title": "VocabularyRepository.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Data\\Repositories\\VocabularyRepository.cs",
               "RelativeDocumentMoniker": "LingoFlow.Data\\Repositories\\VocabularyRepository.cs",
@@ -579,7 +570,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 32,
               "Title": "Topic.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Models\\Topic.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Models\\Topic.cs",
@@ -591,7 +582,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 33,
               "Title": "TopicPostModel.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Models\\TopicPostModel.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Models\\TopicPostModel.cs",
@@ -603,7 +594,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 34,
               "Title": "TopicDto.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Dto\\TopicDto.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Dto\\TopicDto.cs",
@@ -615,7 +606,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 31,
               "Title": "VocabularyPostModel.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Models\\VocabularyPostModel.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Models\\VocabularyPostModel.cs",
@@ -627,7 +618,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 35,
               "Title": "IChatService.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Services\\IChatService.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Services\\IChatService.cs",
@@ -639,7 +630,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 37,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Service\\UserService.cs",
               "RelativeDocumentMoniker": "LingoFlow.Service\\UserService.cs",
@@ -651,7 +642,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 36,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Controllers\\UserController.cs",
@@ -663,7 +654,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 39,
               "Title": "dbo.Conversations.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_bsdDB/True/SqlTable/dbo.Conversations.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_bsdDB/True/SqlTable/dbo.Conversations.sql",
@@ -672,7 +663,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 38,
               "Title": "dbo.Feedbacks.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_bsdDB/True/SqlTable/dbo.Feedbacks.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_bsdDB/True/SqlTable/dbo.Feedbacks.sql",
@@ -681,7 +672,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 40,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\MappingProfile.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\MappingProfile.cs",
@@ -693,7 +684,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 41,
               "Title": "ManagerRepository.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Data\\Repositories\\ManagerRepository.cs",
               "RelativeDocumentMoniker": "LingoFlow.Data\\Repositories\\ManagerRepository.cs",
@@ -705,7 +696,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 42,
               "Title": "REfreshToken.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Models\\REfreshToken.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Models\\REfreshToken.cs",
@@ -717,7 +708,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 43,
               "Title": "Permision.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Models\\Permision.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Models\\Permision.cs",
@@ -729,7 +720,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 44,
               "Title": "FeedbackPostModel.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Api\\Models\\FeedbackPostModel.cs",
               "RelativeDocumentMoniker": "LingoFlow.Api\\Models\\FeedbackPostModel.cs",
@@ -741,7 +732,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 45,
               "Title": "dbo.UserRoles.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_db/True/SqlTable/dbo.UserRoles.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_db/True/SqlTable/dbo.UserRoles.sql",
@@ -750,7 +741,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 46,
               "Title": "dbo.Roles.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_db/True/SqlTable/dbo.Roles.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_db/True/SqlTable/dbo.Roles.sql",
@@ -759,7 +750,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 47,
               "Title": "dbo.Users.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_db/True/SqlTable/dbo.Users.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__mssqllocaldb/lingoFlow_db/True/SqlTable/dbo.Users.sql",
@@ -768,7 +759,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 48,
               "Title": "IRoleRepository.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Core\\Repositories\\IRoleRepository.cs",
               "RelativeDocumentMoniker": "LingoFlow.Core\\Repositories\\IRoleRepository.cs",
@@ -782,11 +773,15 @@
         },
         {
           "DockedHeight": 310,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 49,
               "Title": "20250618174700_addIDForVocDto.cs",
               "DocumentMoniker": "C:\\\u05E9\u05E0\u05D4 \u05D1 \u05EA\u05DB\u05E0\u05D5\u05EA\\LingoFlow\\LingoFlow.Server\\LingoFlow.Data\\Migrations\\20250618174700_addIDForVocDto.cs",
               "RelativeDocumentMoniker": "LingoFlow.Data\\Migrations\\20250618174700_addIDForVocDto.cs",
@@ -796,10 +791,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-18T17:47:00.164Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             }
           ]
         }
