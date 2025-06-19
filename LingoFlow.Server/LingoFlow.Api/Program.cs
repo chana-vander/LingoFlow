@@ -41,16 +41,26 @@ Console.WriteLine("AI GPT:  " + Env.GetString("OpenAI__GptKey"));
 Console.WriteLine("bucket name: " + Env.GetString("AWS__BucketName"));
 Console.WriteLine("connection string: " + Env.GetString("Connection__String"));
 // הוספת CORS עם הרשאה לכל המקורות
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAllOrigins", policy =>
+//    {
+//        policy.AllowAnyOrigin()
+//              .AllowAnyMethod()
+//              .AllowAnyHeader();
+//    });
+//});
+//builder.Services.AddDbContext<DataContext>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins", policy =>
+    options.AddPolicy("AllowClient", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("https://lingoflow.onrender.com")
               .AllowAnyMethod()
               .AllowAnyHeader();
+        //.AllowCredentials(); // אם את משתמשת ב-Credentials (כמו Cookies או JWT ב-Header)
     });
 });
-//builder.Services.AddDbContext<DataContext>();
 
 
 
@@ -201,7 +211,8 @@ app.MapGet("/", () => Results.Ok("Welcome to LingoFlow API!"));
 
 // סדר נכון של ה-Middleware
 app.UseHttpsRedirection();
-app.UseCors("AllowAllOrigins");
+//app.UseCors("AllowAllOrigins");
+app.UseCors("AllowClient");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
