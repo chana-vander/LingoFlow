@@ -31,7 +31,7 @@ namespace LingoFlow.Data.Repositories
             {
                 throw new ArgumentNullException(nameof(feedback));
             }
-
+            if(feedback.recordingId
             _context.Feedbacks.Add(feedback); // מוסיף את המשוב למסד הנתונים
             Console.WriteLine("hi");
             await _context.SaveChangesAsync(); // שומר את השינויים

@@ -28,7 +28,7 @@ namespace LingoFlow.Core.Models
         public DateTime GivenAt { get; set; }
         //one to one:
         public int recordingId { get; set; }
-        public recording recording { get; set; }
+        public Recording recording { get; set; }
 
     }
 }

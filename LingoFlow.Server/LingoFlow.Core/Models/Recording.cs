@@ -2,7 +2,7 @@ using System;
 
 namespace LingoFlow.Core.Models
 {
-    public class recording
+    public class Recording
     {
         public int Id { get; set; }
 
