@@ -40,17 +40,17 @@ namespace LingoFlow.Service
             _s3Client = s3Client;
         }
 
-        public async Task<IEnumerable<recording>> GetAllrecordingsAsync()
+        public async Task<IEnumerable<Recording>> GetAllrecordingsAsync()
         {
             return await _recordingRepository.GetAllrecordingsAsync();
         }
 
-        public async Task<recording?> GetrecordingByIdAsync(int id)
+        public async Task<Recording?> GetrecordingByIdAsync(int id)
         {
             return await _recordingRepository.GetrecordingByIdAsync(id);
         }
 
-        public async Task<recording> AddrecordingAsync(recordingDto recording)
+        public async Task<Recording> AddrecordingAsync(recordingDto recording)
         {
             if (recording == null)
             {
@@ -62,14 +62,14 @@ namespace LingoFlow.Service
                 throw new ArgumentException("UserId and TopicId must not be null.");
             }
             Console.WriteLine(recording);
-            var con = _mapper.Map<recording>(recording);
+            var con = _mapper.Map<Recording>(recording);
             var addedrecording = await _recordingRepository.AddrecordingAsync(con);
             await _managerRepository.SaveChangesAsync();
 
             return addedrecording;
         }
 
-        public async Task<List<recording>> GetRecordingsByUserIdAsync(int userId)
+        public async Task<List<Recording>> GetRecordingsByUserIdAsync(int userId)
         {
             return await _recordingRepository.GetByUserIdAsync(userId);
         }

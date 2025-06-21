@@ -9,12 +9,12 @@ namespace LingoFlow.Core.Repositories
 {
     public interface IrecordingRepository
     {
-        Task<IEnumerable<recording>> GetAllrecordingsAsync();
-        Task<recording?> GetrecordingByIdAsync(int id);
-        Task<recording> AddrecordingAsync(recording recording); // הוספת שיחה
+        Task<IEnumerable<Recording>> GetAllrecordingsAsync();
+        Task<Recording?> GetrecordingByIdAsync(int id);
+        Task<Recording> AddrecordingAsync(Recording recording); // הוספת שיחה
         Task<bool> DeleteAsync(int id);
-        Task<recording> UpdateAsync(recording recording);
-        Task<List<recording>> GetByUserIdAsync(int userId);
+        Task<Recording> UpdateAsync(Recording recording);
+        Task<List<Recording>> GetByUserIdAsync(int userId);
         //Task<recording> StartrecordingAsync(int userId, int TopicId);//התחלת הקלטה
     }
 }

@@ -11,7 +11,7 @@ namespace LingoFlow.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<recording> Recordings { get; set; }
+        public DbSet<Recording> Recordings { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Vocabulary> Words { get; set; }

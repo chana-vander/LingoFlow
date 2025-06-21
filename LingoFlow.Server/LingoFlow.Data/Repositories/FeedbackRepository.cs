@@ -28,16 +28,39 @@ namespace LingoFlow.Data.Repositories
         public async Task<Feedback> AddAsync(Feedback feedback)
         {
             if (feedback == null)
-            {
                 throw new ArgumentNullException(nameof(feedback));
-            }
-            if(feedback.recordingId
-            _context.Feedbacks.Add(feedback); // מוסיף את המשוב למסד הנתונים
+
+            // בדיקה שה-Recording אכן קיים במסד הנתונים
+            var recordingExists = await _context.Recordings.AnyAsync(r => r.Id == feedback.recordingId);
+            if (!recordingExists)
+                throw new Exception($"Recording with ID {feedback.recordingId} does not exist.");
+
+            // ודא שלא מוסיפים יישות Recording חדשה בטעות:
+            feedback.recording = null;
+
+            _context.Feedbacks.Add(feedback);
             Console.WriteLine("hi");
-            await _context.SaveChangesAsync(); // שומר את השינויים
+
+            await _context.SaveChangesAsync();
+
             Console.WriteLine("hi2");
+
             return feedback;
         }
+
+        //public async Task<Feedback> AddAsync(Feedback feedback)
+        //{
+        //    if (feedback == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(feedback));
+        //    }
+        //    if(feedback.recordingId
+        //    _context.Feedbacks.Add(feedback); // מוסיף את המשוב למסד הנתונים
+        //    Console.WriteLine("hi");
+        //    await _context.SaveChangesAsync(); // שומר את השינויים
+        //    Console.WriteLine("hi2");
+        //    return feedback;
+        //}
         public async Task<IEnumerable<Feedback>> GetAllFeedbacksAsync()
         {
             return await _context.Feedbacks.ToListAsync();

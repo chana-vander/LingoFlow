@@ -14,7 +14,7 @@ namespace LingoFlow.Core
 
             CreateMap<User, UserLoginDto>().ReverseMap();
             //CreateMap<UserRegisterPostModel, UserRegisterDto>();
-            CreateMap<recording, recordingDto>().ReverseMap();
+            CreateMap<Recording, recordingDto>().ReverseMap();
             CreateMap<Feedback, FeedbackDto>().ReverseMap();
             CreateMap<Topic, TopicDto>().ReverseMap();
             CreateMap<Vocabulary, VocabularyDto>().ReverseMap();

@@ -18,15 +18,15 @@ namespace LingoFlow.Data.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<recording>> GetAllrecordingsAsync()
+        public async Task<IEnumerable<Recording>> GetAllrecordingsAsync()
         {
             return await _context.Recordings.ToListAsync();
         }
-        public async Task<recording?> GetrecordingByIdAsync(int id)
+        public async Task<Recording?> GetrecordingByIdAsync(int id)
         {
             return await _context.Recordings.FirstOrDefaultAsync(c => c.Id == id);  // מחפש את המשתמש לפי מזהה
         }
-        public async Task<recording> AddrecordingAsync(recording recording)
+        public async Task<Recording> AddrecordingAsync(Recording recording)
         {
             if (recording == null)
             {
@@ -38,7 +38,7 @@ namespace LingoFlow.Data.Repositories
 
             return recording;
         }
-        public async Task<recording> UpdateAsync(recording recording)
+        public async Task<Recording> UpdateAsync(Recording recording)
         {
             _context.Recordings.Update(recording);
             await _context.SaveChangesAsync();
@@ -55,7 +55,7 @@ namespace LingoFlow.Data.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
-        public async Task<List<recording>> GetByUserIdAsync(int userId)
+        public async Task<List<Recording>> GetByUserIdAsync(int userId)
         {
             return await _context.Recordings
                 .Where(r => r.UserId == userId)

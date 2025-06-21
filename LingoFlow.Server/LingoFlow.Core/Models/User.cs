@@ -17,7 +17,7 @@ namespace LingoFlow.Core.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public int RoleId { get; set; }
         public Role Role { get; set; }
-        public List<recording> recordings { get; set; } = new();
+        public List<Recording> recordings { get; set; } = new();
 
     }
 }

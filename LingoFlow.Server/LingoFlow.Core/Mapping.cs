@@ -16,7 +16,7 @@ namespace LingoFlow.Core
         {
             return new UserLoginDto { Email = user.Email, Password = user.Password };
         }
-        public static recordingDto MapTorecordingDto(recording recording)
+        public static recordingDto MapTorecordingDto(Recording recording)
         {
             return new recordingDto
             {
