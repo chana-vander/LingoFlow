@@ -55,7 +55,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowClient", policy =>
     {
-        policy.WithOrigins("https://lingoflow.onrender.com/")
+        policy.WithOrigins("https://lingoflow.onrender.com")
               .AllowAnyMethod()
               .AllowAnyHeader();
         //.AllowCredentials(); // אם את משתמשת ב-Credentials (כמו Cookies או JWT ב-Header)
