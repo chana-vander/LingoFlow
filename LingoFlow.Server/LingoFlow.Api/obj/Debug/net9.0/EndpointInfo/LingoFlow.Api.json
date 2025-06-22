@@ -1365,7 +1365,7 @@
             "format": "int32"
           },
           "recording": {
-            "$ref": "#/components/schemas/recording"
+            "$ref": "#/components/schemas/Recording"
           }
         },
         "additionalProperties": false
@@ -1420,6 +1420,51 @@
           "givenAt": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Recording": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "topicId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "topic": {
+            "$ref": "#/components/schemas/Topic"
+          },
+          "url": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "length": {
+            "type": "string",
+            "format": "date-span"
+          },
+          "transcription": {
+            "type": "string",
+            "nullable": true
+          },
+          "feedback": {
+            "$ref": "#/components/schemas/Feedback"
           }
         },
         "additionalProperties": false
@@ -1522,7 +1567,7 @@
           "recordings": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/recording"
+              "$ref": "#/components/schemas/Recording"
             }
           }
         },
@@ -1625,51 +1670,6 @@
           },
           "sentenceTranslate": {
             "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "recording": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
-          "topicId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "topic": {
-            "$ref": "#/components/schemas/Topic"
-          },
-          "url": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "length": {
-            "type": "string",
-            "format": "date-span"
-          },
-          "transcription": {
-            "type": "string",
-            "nullable": true
-          },
-          "feedback": {
-            "$ref": "#/components/schemas/Feedback"
           }
         },
         "additionalProperties": false

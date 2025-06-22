@@ -18,7 +18,7 @@ namespace LingoFlow.Service
         private readonly IrecordingRepository _recordingRepository;
         private readonly IMapper _mapper;
         private readonly IManagerRepository _managerRepository;
-        public FeedbackService(IFeedbackRepository feedbackRepository, IMapper mapper, IManagerRepository managerRepository,IrecordingRepository recordingRepository)
+        public FeedbackService(IFeedbackRepository feedbackRepository, IMapper mapper, IManagerRepository managerRepository, IrecordingRepository recordingRepository)
         {
             _feedbackRepository = feedbackRepository;
             _mapper = mapper;
@@ -61,6 +61,11 @@ namespace LingoFlow.Service
         //}
         public async Task<Feedback> AddFeedbackAsync(FeedbackDto feedbackDto)
         {
+            var existing = await _feedbackRepository.GetByRecordIdAsync(feedbackDto.recordingId);
+            if (existing != null)
+            {
+                throw new InvalidOperationException($"Feedback already exists for recordingId {feedbackDto.recordingId}");
+            }
             if (feedbackDto == null)
             {
                 throw new ArgumentNullException(nameof(feedbackDto)); // בדיקה אם לא null
