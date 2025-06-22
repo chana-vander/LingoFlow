@@ -120,7 +120,7 @@ class FeedbackStore {
   //         topicId,
   //         recordingId,
   //       }
-  //     );    
+  //     );
   //     console.log("feedStore- response: ",response);
 
   //     runInAction(() => {
@@ -144,10 +144,15 @@ class FeedbackStore {
   ) {
     this.loading = true;
     this.error = "";
-  
+
     try {
-      console.log("the data sent to server is:", transcription, topicId, recordingId);
-  
+      console.log(
+        "the data sent to server is:",
+        transcription,
+        topicId,
+        recordingId
+      );
+
       const response = await axios.post<Feedback>(
         `${this.apiUrl}/Feedback/analyze`,
         {
@@ -157,14 +162,15 @@ class FeedbackStore {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             // אפשר להוסיף headers נוספים במידת הצורך
-          }
+          },
+          withCredentials: true,
         }
       );
-  
+
       console.log("feedStore - response:", response);
-  
+
       runInAction(() => {
         this.feedback = response.data;
         this.loading = false;
@@ -182,7 +188,7 @@ class FeedbackStore {
       });
     }
   }
-  
+
   // async getTranscriptionByRecordId() {
 
   // }

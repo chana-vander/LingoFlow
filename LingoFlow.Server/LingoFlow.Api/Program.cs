@@ -57,8 +57,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("https://lingoflow.onrender.com")
               .AllowAnyMethod()
-              .AllowAnyHeader();
-        //.AllowCredentials(); // אם את משתמשת ב-Credentials (כמו Cookies או JWT ב-Header)
+              .AllowAnyHeader()
+        .AllowCredentials(); // אם את משתמשת ב-Credentials (כמו Cookies או JWT ב-Header)
     });
 });
 
@@ -167,7 +167,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 //var jwtSecret = Environment.GetEnvironmentVariable("JWT__Sercret");
 var jwtSecret = Env.GetString("JWT__Secret");
-Console.WriteLine("jwtSecret: "+ jwtSecret);
+Console.WriteLine("jwtSecret: " + jwtSecret);
 if (string.IsNullOrEmpty(jwtSecret))
 {
     throw new InvalidOperationException("JWT secret is missing from configuration.");
@@ -202,8 +202,8 @@ var app = builder.Build();
 // הפעלת Swagger רק בסביבת פיתוח
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
 //app.MapGet("/", () => Results.Redirect("/swagger"));
