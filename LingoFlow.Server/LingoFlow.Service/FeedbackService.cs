@@ -18,11 +18,12 @@ namespace LingoFlow.Service
         private readonly IrecordingRepository _recordingRepository;
         private readonly IMapper _mapper;
         private readonly IManagerRepository _managerRepository;
-        public FeedbackService(IFeedbackRepository feedbackRepository, IMapper mapper, IManagerRepository managerRepository)
+        public FeedbackService(IFeedbackRepository feedbackRepository, IMapper mapper, IManagerRepository managerRepository,IrecordingRepository recordingRepository)
         {
             _feedbackRepository = feedbackRepository;
             _mapper = mapper;
             _managerRepository = managerRepository;
+            _recordingRepository = recordingRepository;
         }
 
         public async Task<IEnumerable<Feedback>> GetAllFeedbacksAsync()
@@ -70,11 +71,12 @@ namespace LingoFlow.Service
                 throw new Exception($"Recording with ID {feedbackDto.recordingId} does not exist in DB.");
             }
 
-            //if (feedbackDto.Id == null)
-            //{
-            //    throw new ArgumentException("UserId and TopicId must not be null.");
-            //}
-            //Console.WriteLine(feedbackDto);
+            if (feedbackDto.Id == null)
+            {
+                throw new ArgumentException("UserId and TopicId must not be null.");
+            }
+
+            Console.WriteLine(feedbackDto);
             var feed = _mapper.Map<Feedback>(feedbackDto);
             var addedFeedback = await _feedbackRepository.AddAsync(feed);
             Console.WriteLine(addedFeedback.Id);

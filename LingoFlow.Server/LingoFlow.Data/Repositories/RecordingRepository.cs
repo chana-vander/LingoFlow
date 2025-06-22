@@ -33,7 +33,7 @@ namespace LingoFlow.Data.Repositories
                 throw new ArgumentNullException(nameof(recording));
             }
 
-            _context.Recordings.Add(recording); // מוסיף את השיחה למסד הנתונים
+            _context.Recordings.Add(recording); // מוסיף את ההקלטה למסד הנתונים
             await _context.SaveChangesAsync(); // שומר את השינויים
 
             return recording;
