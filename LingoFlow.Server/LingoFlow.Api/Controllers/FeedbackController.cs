@@ -31,6 +31,7 @@ namespace LingoFlow.Api.Controllers
             if (string.IsNullOrWhiteSpace(request.Transcription))
                 return BadRequest("Transcription is required.");
 
+            Console.WriteLine("on feedback controller1");
             Feedback feedback = await _feedbackAnalysis.AnalyzeAsync(request.Transcription, request.TopicId, request.recordingId);
             FeedbackDto feedbackDto = _mapper.Map<FeedbackDto>(feedback);
             var addedFeedback = await _feedbackService.AddFeedbackAsync(feedbackDto);

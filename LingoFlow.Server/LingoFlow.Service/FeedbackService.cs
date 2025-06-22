@@ -61,11 +61,11 @@ namespace LingoFlow.Service
         //}
         public async Task<Feedback> AddFeedbackAsync(FeedbackDto feedbackDto)
         {
-            var existing = await _feedbackRepository.GetByRecordIdAsync(feedbackDto.recordingId);
-            if (existing != null)
+            if (await _feedbackRepository.ExistsByRecordingIdAsync(feedbackDto.recordingId))
             {
                 throw new InvalidOperationException($"Feedback already exists for recordingId {feedbackDto.recordingId}");
             }
+
             if (feedbackDto == null)
             {
                 throw new ArgumentNullException(nameof(feedbackDto)); // בדיקה אם לא null

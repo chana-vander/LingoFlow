@@ -38,7 +38,9 @@ namespace LingoFlow.Service
 
         public async Task<Feedback> AnalyzeAsync(string transcription, int topicId, int recordingId)
         {
+            Console.WriteLine("feedback analyze service");
             var words = await _vocabularyRepo.GetVocabularyByTopicIdAsync(topicId);
+            
             var wordList = string.Join(", ", words.Select(w => w.Word));
 
             var prompt = BuildPrompt(transcription, wordList);
