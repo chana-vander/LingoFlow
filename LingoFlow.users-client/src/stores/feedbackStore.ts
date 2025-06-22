@@ -104,6 +104,39 @@ class FeedbackStore {
     }
   }
 
+  // async analyzeTranscription(
+  //   transcription: string,
+  //   topicId: number,
+  //   recordingId: number
+  // ) {
+  //   this.loading = true;
+  //   this.error = "";
+  //   try {
+  //     console.log("the data send to server is: ",transcription,topicId,recordingId);
+  //     const response = await axios.post<Feedback>(
+  //       `${this.apiUrl}/Feedback/analyze`,
+  //       {
+  //         transcription,
+  //         topicId,
+  //         recordingId,
+  //       }
+  //     );    
+  //     console.log("feedStore- response: ",response);
+
+  //     runInAction(() => {
+  //       this.feedback = response.data;
+  //       this.loading = false;
+  //       console.log("res ", response.data);
+  //     });
+  //     console.log("2");
+  //   } catch (err: any) {
+  //     runInAction(() => {
+  //       this.error = err.response?.data || "שגיאה בניתוח המשוב";
+  //       this.loading = false;
+  //       console.log(err);
+  //     });
+  //   }
+  // }
   async analyzeTranscription(
     transcription: string,
     topicId: number,
@@ -111,32 +144,45 @@ class FeedbackStore {
   ) {
     this.loading = true;
     this.error = "";
+  
     try {
-      console.log("the data send to server is: ",transcription,topicId,recordingId);
+      console.log("the data sent to server is:", transcription, topicId, recordingId);
+  
       const response = await axios.post<Feedback>(
         `${this.apiUrl}/Feedback/analyze`,
         {
           transcription,
           topicId,
           recordingId,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            // אפשר להוסיף headers נוספים במידת הצורך
+          }
         }
-      );    
-      console.log("feedStore- response: ",response);
-
+      );
+  
+      console.log("feedStore - response:", response);
+  
       runInAction(() => {
         this.feedback = response.data;
         this.loading = false;
-        console.log("res ", response.data);
+        console.log("response data:", response.data);
       });
-      console.log("2");
-    } catch (err: any) {
+    } catch (err: unknown) {
       runInAction(() => {
-        this.error = err.response?.data || "שגיאה בניתוח המשוב";
+        if (axios.isAxiosError(err)) {
+          this.error = err.response?.data || "שגיאה בניתוח המשוב";
+        } else {
+          this.error = "שגיאה לא ידועה";
+        }
         this.loading = false;
-        console.log(err);
+        console.error(err);
       });
     }
   }
+  
   // async getTranscriptionByRecordId() {
 
   // }
