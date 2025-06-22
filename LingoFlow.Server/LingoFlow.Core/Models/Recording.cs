@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace LingoFlow.Core.Models
 {
@@ -29,6 +30,7 @@ namespace LingoFlow.Core.Models
         // התמלול של השיחה
         public string? Transcription { get; set; } // ? שדה חדש לתמלול
         //one to one:
+        [JsonIgnore] //  זה מה שימנע את הרקורסיה
         public Feedback Feedback { get; set; }
     }
 }
