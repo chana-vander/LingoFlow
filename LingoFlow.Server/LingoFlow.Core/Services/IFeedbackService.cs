@@ -15,7 +15,8 @@ namespace LingoFlow.Core.Services
         Task<Feedback> AddFeedbackAsync(FeedbackDto feedback);
         Task<FeedbackDto> UpdateFeedbackAsync(int id, FeedbackDto feedbackDto);
         Task<bool> DeleteFeedbackAsync(int id);
-        Task<List<Feedback>> GetFeedbackByRecordIdAsync(int recordId);
+        //Task<List<Feedback>> GetFeedbackByRecordIdAsync(int recordId);
+        Task<Feedback?> GetFeedbackByRecordIdAsync(int recordId);
     }
 
 }

@@ -837,13 +837,28 @@ const MyRecordings = () => {
     }
   };
 
+  // const displayFeedback = async (recordId: number) => {
+  //   try {
+  //     const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
+  //     console.log("Feedback Data:", feedbackData);
+  //     setFeedback(feedbackData[0]);
+  //   } catch (error) {
+  //     console.error("Error getting feedback:", error);
+  //   }
+  // };
   const displayFeedback = async (recordId: number) => {
     try {
       const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
       console.log("Feedback Data:", feedbackData);
-      setFeedback(feedbackData[0]);
+  
+      if (feedbackData) {
+        setFeedback(feedbackData); // אובייקט בודד
+      } else {
+        setFeedback(null); // משוב לא קיים
+        console.warn("לא שלחת את ההקלטה הזו למשוב");
+      }
     } catch (error) {
-      console.error("Error getting feedback:", error);
+      console.error("אירעה שגיאה בעת קבלת המשוב:", error);
     }
   };
 
@@ -1373,11 +1388,32 @@ const MyRecordings = () => {
                 >
                   אוצר מילים: {feedback.vocabularyScore}/10
                 </Typography>
+                
                 <Typography variant="body2" sx={{ mt: 1 }}>
                   {feedback.vocabularyComment}
                 </Typography>
               </Paper>
-
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  bgcolor: "#fff3e0",
+                  borderRadius: 2,
+                  borderRight: "4px solid #e65100",
+                }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", color: "red" }}
+                >
+                  ציון כולל: {feedback.score}/10
+                </Typography>
+                
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                  {feedback.generalFeedback}
+                </Typography>
+              </Paper>
               <Typography
                 variant="caption"
                 sx={{

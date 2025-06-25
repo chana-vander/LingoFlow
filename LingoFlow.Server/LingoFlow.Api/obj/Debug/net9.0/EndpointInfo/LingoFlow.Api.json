@@ -1462,9 +1462,6 @@
           "transcription": {
             "type": "string",
             "nullable": true
-          },
-          "feedback": {
-            "$ref": "#/components/schemas/Feedback"
           }
         },
         "additionalProperties": false

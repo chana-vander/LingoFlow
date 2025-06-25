@@ -134,9 +134,14 @@ namespace LingoFlow.Service
 
             return deleted;
         }
-        public async Task<List<Feedback>> GetFeedbackByRecordIdAsync(int recordId)
+        //public async Task<List<Feedback>> GetFeedbackByRecordIdAsync(int recordId)
+        //{
+        //    return await _feedbackRepository.GetByRecordIdAsync(recordId);
+        //}
+        public async Task<Feedback?> GetFeedbackByRecordIdAsync(int recordId)
         {
-            return await _feedbackRepository.GetByRecordIdAsync(recordId);
+            return await _feedbackRepository.GetByRecordIdAsync(recordId); 
         }
+
     }
 }

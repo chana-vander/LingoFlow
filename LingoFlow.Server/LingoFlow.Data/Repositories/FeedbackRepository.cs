@@ -1,4 +1,4 @@
-using LingoFlow.Core.Models;
+ο»Ώusing LingoFlow.Core.Models;
 using LingoFlow.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
@@ -30,12 +30,12 @@ namespace LingoFlow.Data.Repositories
             if (feedback == null)
                 throw new ArgumentNullException(nameof(feedback));
 
-            // αγιχδ ωδ-Recording ΰλο χιιν αξργ δπϊεπιν
+            // Χ‘Χ“Χ™Χ§Χ” Χ©Χ”-Recording ΧΧ›Χ Χ§Χ™Χ™Χ Χ‘ΧΧ΅Χ“ Χ”Χ ΧªΧ•Χ Χ™Χ
             var recordingExists = await _context.Recordings.AnyAsync(r => r.Id == feedback.recordingId);
             if (!recordingExists)
                 throw new Exception($"Recording with ID {feedback.recordingId} does not exist.");
 
-            // εγΰ ωμΰ ξεριτιν ιιωεϊ Recording ηγωδ αθςεϊ:
+            // Χ•Χ“Χ Χ©ΧΧ ΧΧ•Χ΅Χ™Χ¤Χ™Χ Χ™Χ™Χ©Χ•Χª Recording Χ—Χ“Χ©Χ” Χ‘ΧΧΆΧ•Χª:
             feedback.recording = null;
 
             _context.Feedbacks.Add(feedback);
@@ -55,9 +55,9 @@ namespace LingoFlow.Data.Repositories
         //        throw new ArgumentNullException(nameof(feedback));
         //    }
         //    if(feedback.recordingId
-        //    _context.Feedbacks.Add(feedback); // ξερισ ΰϊ δξωεα μξργ δπϊεπιν
+        //    _context.Feedbacks.Add(feedback); // ΧΧ•Χ΅Χ™Χ£ ΧΧª Χ”ΧΧ©Χ•Χ‘ ΧΧΧ΅Χ“ Χ”Χ ΧªΧ•Χ Χ™Χ
         //    Console.WriteLine("hi");
-        //    await _context.SaveChangesAsync(); // ωεξψ ΰϊ δωιπειιν
+        //    await _context.SaveChangesAsync(); // Χ©Χ•ΧΧ¨ ΧΧª Χ”Χ©Χ™Χ Χ•Χ™Χ™Χ
         //    Console.WriteLine("hi2");
         //    return feedback;
         //}
@@ -67,7 +67,7 @@ namespace LingoFlow.Data.Repositories
         }
         public async Task<Feedback?> GetFeedbackByIdAsync(int id)
         {
-            return await _context.Feedbacks.FirstOrDefaultAsync(c => c.Id == id);  // ξητω ΰϊ δξωϊξω μτι ξζδδ
+            return await _context.Feedbacks.FirstOrDefaultAsync(c => c.Id == id);  // ΧΧ—Χ¤Χ© ΧΧª Χ”ΧΧ©ΧªΧΧ© ΧΧ¤Χ™ ΧΧ–Χ”Χ”
         }
         public async Task<Feedback> UpdateAsync(Feedback feedback)
         {
@@ -86,13 +86,19 @@ namespace LingoFlow.Data.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
-        //ξιεϊψ?
-        public async Task<List<Feedback>> GetByRecordIdAsync(int recordId)
+
+        //public async Task<List<Feedback>> GetByRecordIdAsync(int recordId)
+        //{
+        //    return await _context.Feedbacks
+        //        .Where(f => f.recordingId == recordId)
+        //        .ToListAsync();
+        //}
+        public async Task<Feedback?> GetByRecordIdAsync(int recordId)
         {
             return await _context.Feedbacks
-                .Where(f => f.recordingId == recordId)
-                .ToListAsync();
+                .FirstOrDefaultAsync(f => f.recordingId == recordId); // β¬… ΧΧ—Χ–Χ™Χ¨ ΧΧ—Χ“ Χ‘ΧΧ‘Χ“ ΧΧ• null
         }
+
         public async Task<bool> ExistsByRecordingIdAsync(int recordId)
         {
             return await _context.Feedbacks.AnyAsync(f => f.recordingId == recordId);
