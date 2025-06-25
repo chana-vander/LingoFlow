@@ -850,17 +850,17 @@ const MyRecordings = () => {
     try {
       const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
       console.log("Feedback Data:", feedbackData);
-  
-      if (feedbackData) {
-        setFeedback(feedbackData); // אובייקט בודד
+      setFeedback(feedbackData); // רק אם הצליח
+    } catch (error: any) {
+      // אם השרת מחזיר 404 – נציג הודעה ריקה למשתמש
+      if (error.response && error.response.status === 404) {
+        console.warn("No feedback available for this recording.");
+        setFeedback(null); // כך יוצג המסר "אין משוב..."
       } else {
-        setFeedback(null); // משוב לא קיים
-        console.warn("לא שלחת את ההקלטה הזו למשוב");
+        console.error("Error getting feedback:", error);
       }
-    } catch (error) {
-      console.error("אירעה שגיאה בעת קבלת המשוב:", error);
     }
-  };
+  };  
 
   useEffect(() => {
     if (typeof userId !== "number") return;
@@ -1407,7 +1407,7 @@ const MyRecordings = () => {
                   variant="subtitle1"
                   sx={{ fontWeight: "bold", color: "red" }}
                 >
-                  ציון כולל: {feedback.score}/10
+                  ציון כולל: {feedback.score}
                 </Typography>
                 
                 <Typography variant="body2" sx={{ mt: 1 }}>
@@ -1423,7 +1423,7 @@ const MyRecordings = () => {
                   color: "text.secondary",
                 }}
               >
-                תאריך: {new Date(feedback.givenAt).toLocaleDateString()}
+                 ניתן בתאריך: {new Date(feedback.givenAt).toLocaleDateString()}
               </Typography>
             </Box>
           ) : (
