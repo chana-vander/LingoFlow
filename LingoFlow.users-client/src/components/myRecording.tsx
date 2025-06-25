@@ -851,11 +851,15 @@ const MyRecordings = () => {
       const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
       console.log("Feedback Data:", feedbackData);
       setFeedback(feedbackData); // רק אם הצליח
-    } catch (error: any) {
+      console.log(feedback);
+    } 
+    catch (error: any) {
       // אם השרת מחזיר 404 – נציג הודעה ריקה למשתמש
       if (error.response && error.response.status === 404) {
         console.warn("No feedback available for this recording.");
         setFeedback(null); // כך יוצג המסר "אין משוב..."
+        console.log(feedback);
+        
       } else {
         console.error("Error getting feedback:", error);
       }
