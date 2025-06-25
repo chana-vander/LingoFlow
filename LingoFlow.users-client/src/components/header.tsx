@@ -658,7 +658,7 @@ const Header = () => {
             >
               {[
                 { label: "ההקלטות שלי", path: "/my-recordings" },
-                { label: "צפייה במשוב", path: "/feedback" },
+                // { label: "צפייה במשוב", path: "/feedback" },
                 { label: "התחלת הקלטה", path: "/record" },
                 { label: "נושאי שיחה", path: "/choose-level" },
                 { label: "הצעדים לדיבור בטוח", path: "/about-us" },

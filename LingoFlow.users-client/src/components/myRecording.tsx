@@ -637,6 +637,7 @@ import type { Feedback } from "../models/feedback";
 import "../style/myRecording.css";
 import circle from "../images/circle.png";
 import bgImg from "../images/background.png";
+import { useNavigate } from "react-router-dom";
 // Circle Animation Component
 // const CircleAnimation = () => (
 //   <Box
@@ -673,6 +674,7 @@ import bgImg from "../images/background.png";
 
 const MyRecordings = () => {
   const [records, setRecords] = useState<Record[]>([]);
+  const [selectedRecord, setSelectedRecord] = useState<Record | null>(null);
   const [playingRecordId, setPlayingRecordId] = useState<number | null>(null);
   const userId = userStore.user?.id;
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -681,6 +683,7 @@ const MyRecordings = () => {
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   const [recordDurations, setRecordDurations] = useState<{
     [key: number]: number;
   }>({});
@@ -804,8 +807,8 @@ const MyRecordings = () => {
   };
 
   const handleDownload = async (record: Record) => {
-    console.log("record.url ",record.url);
-    
+    console.log("record.url ", record.url);
+
     const response = await fetch(record.url);
     const blob = await response.blob();
     const link = document.createElement("a");
@@ -846,28 +849,30 @@ const MyRecordings = () => {
   //     console.error("Error getting feedback:", error);
   //   }
   // };
-  const displayFeedback = async (recordId: number) => {
+  const displayFeedback = async (record: Record) => {
     try {
-      const feedbackData = await feedbackStore.getFeedbackByRecordId(recordId);
-      console.log("Feedback Data:", feedbackData);
-      setFeedback(feedbackData); // רק אם הצליח
-      console.log(feedback);
-    } 
-    catch (error: any) {
-      // אם השרת מחזיר 404 – נציג הודעה ריקה למשתמש
+      if (record.id !== undefined) {
+        const feedbackData = await feedbackStore.getFeedbackByRecordId(
+          record.id
+        );
+        console.log("Feedback Data:", feedbackData);
+        setFeedback(feedbackData); // רק אם הצליח
+        console.log(feedback);
+      }
+    } catch (error: any) {
+      // אם השרת מחזיר 404 – נציג הודעה למשתמש
       if (error.response && error.response.status === 404) {
         console.warn("No feedback available for this recording.");
         setFeedback(null); // כך יוצג המסר "אין משוב..."
+        setSelectedRecord(record); // שומר את ההקלטה הנוכחית
         console.log(feedback);
-
       } else {
         console.error("Error getting feedback:", error);
       }
-    }
-    finally {
+    } finally {
       setOpenDialog(true); // פותח את הדיאלוג תמיד, אחרי שהסטייט עודכן
     }
-  };  
+  };
 
   useEffect(() => {
     if (typeof userId !== "number") return;
@@ -921,12 +926,6 @@ const MyRecordings = () => {
     }
   }, [audioRef.current]);
 
-  // useEffect(() => {
-  //   if (feedback) {
-  //     setOpenDialog(true);
-  //   }
-  // }, [feedback]);
-
   const formatTime = (time: number) => {
     if (isNaN(time) || time === 0) return "0:00";
     const minutes = Math.floor(time / 60);
@@ -938,6 +937,13 @@ const MyRecordings = () => {
     if (recordId === undefined) return 0;
     return recordDurations[recordId] || 0;
   };
+
+  const getFeedback = () => {
+    if (selectedRecord) {
+      recordStore.setRecording(selectedRecord); // כאן את שולחת את כל ההקלטה
+      navigate("/feedback");
+    }
+  };  
 
   return (
     <Box
@@ -1079,7 +1085,7 @@ const MyRecordings = () => {
                             },
                           }}
                         />
-                        <Typography
+                        {/* <Typography
                           sx={{
                             position: "absolute",
                             top: "50%",
@@ -1093,7 +1099,7 @@ const MyRecordings = () => {
                           }}
                         >
                           {record.name.substring(0, 2).toUpperCase()}
-                        </Typography>
+                        </Typography> */}
                       </Box>
 
                       <CardContent
@@ -1213,7 +1219,7 @@ const MyRecordings = () => {
                             size="small"
                             onClick={() => {
                               if (record.id !== undefined) {
-                                displayFeedback(record.id);
+                                displayFeedback(record);
                               }
                             }}
                             sx={{
@@ -1332,7 +1338,7 @@ const MyRecordings = () => {
             fontWeight: "bold",
           }}
         >
-          משוב להקלטה
+          המשוב שלך⬅️
         </DialogTitle>
         <DialogContent sx={{ p: 3, mt: 2 }}>
           {feedback ? (
@@ -1395,7 +1401,7 @@ const MyRecordings = () => {
                 >
                   אוצר מילים: {feedback.vocabularyScore}/10
                 </Typography>
-                
+
                 <Typography variant="body2" sx={{ mt: 1 }}>
                   {feedback.vocabularyComment}
                 </Typography>
@@ -1416,7 +1422,7 @@ const MyRecordings = () => {
                 >
                   ציון כולל: {feedback.score}
                 </Typography>
-                
+
                 <Typography variant="body2" sx={{ mt: 1 }}>
                   {feedback.generalFeedback}
                 </Typography>
@@ -1430,13 +1436,24 @@ const MyRecordings = () => {
                   color: "text.secondary",
                 }}
               >
-                 ניתן בתאריך: {new Date(feedback.givenAt).toLocaleDateString()}
+                ניתן בתאריך: {new Date(feedback.givenAt).toLocaleDateString()}
               </Typography>
             </Box>
           ) : (
-            <Typography sx={{ textAlign: "center", py: 3 }}>
-              אין משוב זמין להקלטה זו.
-            </Typography>
+            <>
+              <Typography sx={{ textAlign: "center", py: 3 }}>
+                אין משוב זמין להקלטה זו.
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={getFeedback}
+                >
+                  שלח למשוב
+                </Button>
+              </Box>
+            </>
           )}
         </DialogContent>
         <DialogActions sx={{ p: 2, justifyContent: "center" }}>
