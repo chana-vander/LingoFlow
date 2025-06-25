@@ -859,10 +859,13 @@ const MyRecordings = () => {
         console.warn("No feedback available for this recording.");
         setFeedback(null); // כך יוצג המסר "אין משוב..."
         console.log(feedback);
-        
+
       } else {
         console.error("Error getting feedback:", error);
       }
+    }
+    finally {
+      setOpenDialog(true); // פותח את הדיאלוג תמיד, אחרי שהסטייט עודכן
     }
   };  
 
@@ -918,11 +921,11 @@ const MyRecordings = () => {
     }
   }, [audioRef.current]);
 
-  useEffect(() => {
-    if (feedback) {
-      setOpenDialog(true);
-    }
-  }, [feedback]);
+  // useEffect(() => {
+  //   if (feedback) {
+  //     setOpenDialog(true);
+  //   }
+  // }, [feedback]);
 
   const formatTime = (time: number) => {
     if (isNaN(time) || time === 0) return "0:00";
