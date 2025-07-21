@@ -319,7 +319,7 @@ const Levels = () => {
                 >
                   <Avatar
                     sx={{
-                      bgcolor: "red",
+                      bgcolor: "#FA2D3A",
                       color: "white",
                       width: 56,
                       height: 56,

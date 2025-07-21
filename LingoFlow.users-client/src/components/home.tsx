@@ -120,7 +120,6 @@ const Home = () => {
             ולשמוע.
           </p>
         </Box>
-        <button onClick ={() =>handleProtectedClick("ff")}>לחץ</button>
         {message && (
           <Alert
             severity="warning"
@@ -135,6 +134,7 @@ const Home = () => {
           </Alert>
         )}
       </Box>
+       <button onClick ={() =>handleProtectedClick("ff")}>לחץ</button>
       <StepsSection />
     </>
   );

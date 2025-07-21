@@ -788,7 +788,7 @@ const AudioRecorder: React.FC = observer(() => {
                   title="העלה את ההקלטה"
                 >
                   <Upload size={20} />
-                  <span>העלה הקלטה</span>
+                  <span>שמור הקלטה</span>
                 </button>
 
                 <button
