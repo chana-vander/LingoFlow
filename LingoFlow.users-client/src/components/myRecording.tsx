@@ -636,7 +636,7 @@ import { feedbackStore } from "../stores/feedbackStore";
 import type { Feedback } from "../models/feedback";
 import "../style/myRecording.css";
 import circle from "../images/circle.png";
-import bgImg from "../images/bg-record2.png"
+import bgImg from "../images/bg2.png"
 import { useNavigate } from "react-router-dom";
 // Circle Animation Component
 // const CircleAnimation = () => (
