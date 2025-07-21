@@ -98,7 +98,7 @@ const TopicsList = () => {
           <Card
             key={topic.id}
             sx={{
-              backgroundColor: "#c6dff8ff",
+              backgroundColor: "#c0e0ff",
               borderRadius: "12px",
               transition: "transform 0.3s ease-in-out",
               "&:hover": { transform: "scale(1.02)" },
@@ -118,13 +118,13 @@ const TopicsList = () => {
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: "bold", color: "#3f42f7ff" }}
+                  sx={{ fontWeight: "bold", color: "#50f777ff" }}
                 >
                   {topic.translation}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "#58C972", fontStyle: "italic" }}
+                  sx={{fontWeight: "bold", color: "#50f777ff", fontStyle: "italic" }}
                 >
                   {topic.name}
                 </Typography>
@@ -138,7 +138,7 @@ const TopicsList = () => {
                     padding: "8px 16px",
                     fontWeight: "bold",
                     textTransform: "none",
-                    backgroundColor: "#FA5560",
+                    // backgroundColor: "#FA5560",
                     "&:hover": {
                       backgroundColor: "#f43b3b",
                     },
