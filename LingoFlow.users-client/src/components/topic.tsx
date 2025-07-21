@@ -88,9 +88,9 @@ const TopicsList = () => {
         variant="h6"
         color="textSecondary"
         gutterBottom
-        sx={{ marginBottom: "30px" }}
+        sx={{ marginBottom: "50px" }}
       >
-      נושאי השיחה ל{label}
+      נושאי שיחה ל{label}
       </Typography>
 
       <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
@@ -98,7 +98,7 @@ const TopicsList = () => {
           <Card
             key={topic.id}
             sx={{
-              backgroundColor: "#c0e0ff",
+              backgroundColor: "#c6dff8ff",
               borderRadius: "12px",
               transition: "transform 0.3s ease-in-out",
               "&:hover": { transform: "scale(1.02)" },
@@ -118,15 +118,15 @@ const TopicsList = () => {
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: "bold", color: "blue" }}
+                  sx={{ fontWeight: "bold", color: "#3f42f7ff" }}
                 >
-                  {topic.name}
+                  {topic.translation}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: "darkblue", fontStyle: "italic" }}
+                  sx={{ color: "#58C972", fontStyle: "italic" }}
                 >
-                  {topic.translation}
+                  {topic.name}
                 </Typography>
               </Box>
 
