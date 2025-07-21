@@ -70,11 +70,11 @@ const TopicsList = () => {
       .catch((error) => console.error("Error fetching topics:", error));
   }, [level]);
 
-  const levelLabels: Record<string, string> = {
-    "1": "מתחילים",
-    "2": "בינוניים",
-    "3": "מתקדמים",
-  };
+  // const levelLabels: Record<string, string> = {
+  //   "1": "מתחילים",
+  //   "2": "בינוניים",
+  //   "3": "מתקדמים",
+  // };
 
   // const label = levelLabels[level ?? ""] || "לא מוגדר";
 
