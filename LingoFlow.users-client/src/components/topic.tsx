@@ -84,21 +84,20 @@ const TopicsList = () => {
 
   return (
     <Box sx={{ padding: "20px", textAlign: "center" }}>
-      {/* <Typography
+      <Typography
         variant="h6"
         color="textSecondary"
         gutterBottom
         sx={{ marginBottom: "50px" }}
       >
-      נושאי שיחה ל{label}
-      </Typography> */}
+      </Typography>
 
       <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
         {topics.map((topic) => (
           <Card
             key={topic.id}
             sx={{
-              backgroundColor: "#cbe4fdff",
+              backgroundColor: "#d3e5f7ff",
               borderRadius: "12px",
               transition: "transform 0.3s ease-in-out",
               "&:hover": { transform: "scale(1.02)" },
@@ -118,13 +117,13 @@ const TopicsList = () => {
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: "bold", color: "#50f777ff" }}
+                  sx={{ fontWeight: "bold", color: "#e33e49ff",fontStyle: "italic" }}
                 >
                   {topic.translation}
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{fontWeight: "bold", color: "#129230ff", fontStyle: "italic" }}
+                  sx={{fontWeight: "bold", color: "#e33e49ff", fontStyle: "italic" }}
                 >
                   {topic.name}
                 </Typography>
