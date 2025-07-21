@@ -89,8 +89,7 @@ const TopicsList = () => {
         color="textSecondary"
         gutterBottom
         sx={{ marginBottom: "50px" }}
-      >
-      </Typography>
+      ></Typography>
 
       <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
         {topics.map((topic) => (
@@ -106,7 +105,7 @@ const TopicsList = () => {
             }}
           >
             <CardContent>
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -114,16 +113,35 @@ const TopicsList = () => {
                   flexDirection: "row-reverse",
                   mb: 2,
                 }}
+              > */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row-reverse",
+                  mb: 2,
+                  flexWrap: "wrap", // תאפשר שבירה של טקסטים במקרה הצורך
+                  overflow: "hidden", // תמנע חריגה החוצה
+                }}
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: "bold", color: "#e33e49ff",fontStyle: "italic" }}
+                  sx={{
+                    fontWeight: "bold",
+                    color: "#e33e49ff",
+                    fontStyle: "italic",
+                  }}
                 >
                   {topic.translation}
                 </Typography>
                 <Typography
                   variant="h6"
-                  sx={{ fontWeight: "bold", color: "#e33e49ff",fontStyle: "italic" }}
+                  sx={{
+                    fontWeight: "bold",
+                    color: "#e33e49ff",
+                    fontStyle: "italic",
+                  }}
                 >
                   {topic.name}
                 </Typography>
