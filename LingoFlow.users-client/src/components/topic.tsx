@@ -122,8 +122,8 @@ const TopicsList = () => {
                   {topic.translation}
                 </Typography>
                 <Typography
-                  variant="body1"
-                  sx={{fontWeight: "bold", color: "#e33e49ff", fontStyle: "italic" }}
+                  variant="h6"
+                  sx={{ fontWeight: "bold", color: "#e33e49ff",fontStyle: "italic" }}
                 >
                   {topic.name}
                 </Typography>
