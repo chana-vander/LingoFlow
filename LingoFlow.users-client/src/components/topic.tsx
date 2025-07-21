@@ -76,7 +76,7 @@ const TopicsList = () => {
     "3": "מתקדמים",
   };
 
-  const label = levelLabels[level ?? ""] || "לא מוגדר";
+  // const label = levelLabels[level ?? ""] || "לא מוגדר";
 
   const handleNavigateToTopic = (topicId: number) => {
     navigate(`/topics/${topicId}`);
@@ -84,21 +84,21 @@ const TopicsList = () => {
 
   return (
     <Box sx={{ padding: "20px", textAlign: "center" }}>
-      <Typography
+      {/* <Typography
         variant="h6"
         color="textSecondary"
         gutterBottom
         sx={{ marginBottom: "50px" }}
       >
       נושאי שיחה ל{label}
-      </Typography>
+      </Typography> */}
 
       <Box display="flex" flexDirection="column" alignItems="center" gap={3}>
         {topics.map((topic) => (
           <Card
             key={topic.id}
             sx={{
-              backgroundColor: "#c0e0ff",
+              backgroundColor: "#cbe4fdff",
               borderRadius: "12px",
               transition: "transform 0.3s ease-in-out",
               "&:hover": { transform: "scale(1.02)" },
@@ -124,7 +124,7 @@ const TopicsList = () => {
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{fontWeight: "bold", color: "#50f777ff", fontStyle: "italic" }}
+                  sx={{fontWeight: "bold", color: "#129230ff", fontStyle: "italic" }}
                 >
                   {topic.name}
                 </Typography>
@@ -140,7 +140,7 @@ const TopicsList = () => {
                     textTransform: "none",
                     // backgroundColor: "#FA5560",
                     "&:hover": {
-                      backgroundColor: "#f43b3b",
+                      backgroundColor: "#2116f0ff",
                     },
                   }}
                 >
