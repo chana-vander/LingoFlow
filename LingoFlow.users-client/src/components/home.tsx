@@ -111,7 +111,7 @@
 //עד לפה!
 
 
-import React from "react";
+
 import { Box, Typography, Card, CardContent, Avatar, Rating } from "@mui/material";
 import { motion } from "framer-motion";
 import {  Mic, TrendingUp, Users, Quote } from "lucide-react";
