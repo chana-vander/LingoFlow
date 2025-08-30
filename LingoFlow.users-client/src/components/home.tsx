@@ -121,7 +121,7 @@ import st1 from "../images/student1.png";
 import st2 from "../images/student2.png";
 import st3 from "../images/student3.png";
 import homeImage from "../images/home.jpg";
-import colors from "./colors";
+import { colors } from "./colors";
 
 const Home = () => {
   const whyLingoFlowFeatures = [
@@ -244,7 +244,7 @@ const Home = () => {
             dir="rtl"
             sx={{
               textAlign: "center",
-              color:"colors.gray",
+              color:colors.gray,
               fontWeight: "bold",
               mb: 6,
               textShadow: "0 4px 8px rgba(0,0,0,0.3)",
@@ -353,7 +353,7 @@ const Home = () => {
             variant="h3"
             sx={{
               textAlign: "center",
-              color: "colors.blue",
+              color: colors.blue,
               fontWeight: "bold",
               mb: 2,
               textShadow: "0 4px 8px rgba(0,0,0,0.3)",
