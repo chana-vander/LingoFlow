@@ -313,11 +313,11 @@ const Home = () => {
            textAlign: "right",
          }}
        >
-         <p style={{ color: "#292525ff", fontSize: "25px" }}>
+         <p style={{ color: "#292525ff", fontSize: "25px",fontWeight:"bold" }}>
            רוצים לדבר אנגלית בביטחון? LingoFlow מציעה דרך חדשנית ללמוד אנגלית
            באמצעות הקלטות ומשוב חכם...
          </p>
-         <p style={{ color: "#292525ff", fontSize: "15px" }}>
+         <p style={{ color: "#292525ff", fontSize: "22px" }}>
            הקליטו את עצמכם, קבלו משוב מיידי מבוסס AI, ושפרו את הדיבור שלכם בקצב
            אישי - בלי מורים, בלי לחץ, רק התקדמות אמיתית שאתם יכולים לראות
            ולשמוע.
@@ -356,26 +356,15 @@ const Home = () => {
           </Typography>
 
           <Box
-            // sx={{
-            //   display: "grid",
-            //   gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
-            //   gap: 4,
-            //   maxWidth: "1200px",
-            //   mx: "auto"
-            // }}
             sx={{
+              display: "grid",
               backgroundColor: "#FFC0CB", // ורוד
-              borderRadius: "50%", // עיגול מושלם
-              width: 100,
-              height: 100,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "1.5rem",
-              color: "white",
-              fontWeight: "bold",
-              mx: "auto",
+              gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+              gap: 4,
+              maxWidth: "1200px",
+              mx: "auto"
             }}
+            
           >
             {whyLingoFlowFeatures.map((feature, index) => (
               <motion.div
@@ -480,7 +469,7 @@ const Home = () => {
             variant="h6"
             sx={{
               textAlign: "center",
-              color: "rgba(255, 255, 255, 0.9)",
+              color: "rgba(53, 51, 51, 0.9)",
               mb: 6,
               fontStyle: "italic",
             }}
@@ -509,7 +498,7 @@ const Home = () => {
                 <Card
                   sx={{
                     height: "100%",
-                    background: "rgba(135, 190, 234, 0.95)",
+                    background: "rgba(182, 217, 245, 0.95)",
                     borderRadius: "20px",
                     position: "relative",
                     overflow: "visible",
@@ -547,7 +536,7 @@ const Home = () => {
                         >
                           {testimonial.name}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: "#7f8c8d" }}>
+                        <Typography variant="body2" sx={{ color: "#e0e7e8ff" }}>
                           {testimonial.role}
                         </Typography>
                       </Box>
