@@ -110,8 +110,6 @@
 
 //עד לפה!
 
-
-
 import { Box, Typography, Card, CardContent, Avatar } from "@mui/material";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
@@ -119,10 +117,10 @@ import { FaMicrophoneAlt } from "react-icons/fa";
 import { MdPsychology } from "react-icons/md";
 import { BarChart3 } from "lucide-react";
 
-import st1 from "../images/student1.png"
-import st2 from "../images/student2.png"
-import st3 from "../images/student3.png"
-import homeImage from "../images/home.jpg"
+import st1 from "../images/student1.png";
+import st2 from "../images/student2.png";
+import st3 from "../images/student3.png";
+import homeImage from "../images/home.jpg";
 // import st4 from "../images/student4.png"
 // Mock image - replace with your actual image
 
@@ -131,18 +129,20 @@ const Home = () => {
     {
       icon: <FaMicrophoneAlt className="w-8 h-8" />,
       title: "לדבר כמו במציאות",
-      description: "תרגול שיחות אמיתיות שמרגיש טבעי ונוח."
+      description: "תרגול שיחות אמיתיות שמרגיש טבעי ונוח.",
     },
     {
       icon: <MdPsychology className="w-8 h-8" />,
       title: "משוב חכם ומיידי",
-      description: "האפליקציה מנתחת את הדיבור שלך ונותנת הערות לשיפור תוך כדי תרגול."
+      description:
+        "האפליקציה מנתחת את הדיבור שלך ונותנת הערות לשיפור תוך כדי תרגול.",
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
       title: "מעקב שמראה  תוצאות",
-      description: "תוכלי לראות בכל רגע איך השתפרת דרך ההקלטות והמשובים האישיים מהתרגולים הקודמים."
-    }
+      description:
+        "תוכלי לראות בכל רגע איך השתפרת דרך ההקלטות והמשובים האישיים מהתרגולים הקודמים.",
+    },
   ];
 
   const testimonials = [
@@ -151,28 +151,29 @@ const Home = () => {
       role: "מנהלת שיווק",
       rating: 5,
       text: "LingoFlow שינה לי את החיים! תוך שלושה חודשים הצלחתי להקליט פרזנטציות באנגלית בביטחון מלא.",
-      avator:st2
+      avator: st2,
     },
     {
       name: "דן לוי",
       role: "מפתח תוכנה",
       rating: 5,
       text: "המשוב המיידי והמדויק עזר לי לשפר את ההגייה שלי בצורה משמעותית. ממליץ בחום!",
-      avatar:st3
-     },
+      avatar: st3,
+    },
     {
       name: "מיכל רוזן",
       role: "יועצת עסקית",
       rating: 5,
       text: "הדרך הכי נוחה וחכמה ללמוד אנגלית! אני מרגישה הרבה יותר בטוחה בפגישות עבודה.",
-      avator:st1    }
+      avator: st1,
+    },
   ];
 
   return (
     <>
       {/* Hero Section */}
-      // כל התוכן העליון כולל תמונה וכיתוב מימין
-      <Box
+      {/* // כל התוכן העליון כולל תמונה וכיתוב מימין */}
+      {/* <Box
         className="home-container"
         sx={{
           display: "flex",
@@ -193,13 +194,14 @@ const Home = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            background: "linear-gradient(135deg, rgba(211, 47, 47, 0.1) 0%, rgba(63, 81, 181, 0.1) 100%)",
+            background:
+              "linear-gradient(135deg, rgba(211, 47, 47, 0.1) 0%, rgba(63, 81, 181, 0.1) 100%)",
             zIndex: 1,
-          }
+          },
         }}
-      >
+      > */}
         {/* תמונה משמאל */}
-        <Box sx={{ width: "60%", height: "100%", position: "relative" }}>
+        {/* <Box sx={{ width: "60%", height: "100%", position: "relative" }}>
           <motion.img
             src={homeImage}
             alt="LingoFlow Home"
@@ -213,25 +215,34 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1.05 }}
             transition={{ duration: 1.5 }}
           />
-          <Box
-            sx={{
+          <Box */}
+            {/* sx={{
               position: "absolute",
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              background: "linear-gradient(45deg, rgba(0,0,0,0.3), rgba(211, 47, 47, 0.2))",
+              background:
+                "linear-gradient(45deg, rgba(0,0,0,0.3), rgba(211, 47, 47, 0.2))",
             }}
           />
-        </Box>
+        </Box> */}
 
         {/* טקסט מימין */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          style={{ width: "40%", padding: "2rem", margin: "2rem", direction: "rtl", textAlign: "right", zIndex: 2, position: "relative" }}
-        > 
+          style={{
+            width: "40%",
+            padding: "2rem",
+            margin: "2rem",
+            direction: "rtl",
+            textAlign: "right",
+            zIndex: 2,
+            position: "relative",
+          }}
+        >
           <Typography
             sx={{
               color: "#2c3e50",
@@ -239,20 +250,20 @@ const Home = () => {
               lineHeight: 1.6,
               mb: 3,
               fontWeight: "500",
-              textShadow: "0 2px 4px rgba(0,0,0,0.1)"
+              textShadow: "0 2px 4px rgba(0,0,0,0.1)",
             }}
           >
             רוצים לדבר אנגלית בביטחון? LingoFlow מציעה דרך חדשנית ללמוד אנגלית
             באמצעות הקלטות ומשוב חכם מבוסס AI.
           </Typography>
-          
+
           <Typography
             sx={{
               color: "#34495e",
               fontSize: { xs: "1.1rem", md: "1.3rem" },
               lineHeight: 1.6,
               fontWeight: "400",
-              textShadow: "0 1px 3px rgba(0,0,0,0.1)"
+              textShadow: "0 1px 3px rgba(0,0,0,0.1)",
             }}
           >
             הקליטו את עצמכם, קבלו משוב מיידי מבוסס AI, ושפרו את הדיבור שלכם בקצב
@@ -260,7 +271,59 @@ const Home = () => {
             ולשמוע.
           </Typography>
         </motion.div>
-      </Box>
+      </Box> */}
+      <Box
+        className="home-container"
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          color: "white",
+          overflow: "hidden",
+          height: "100vh",
+          width: "100vw",
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        {/* תמונה משמאל */}
+        <Box sx={{ width: "60%", height: "100%" }}>
+          <motion.img
+            src={homeImage}
+            alt="LingoFlow Home"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1.05 }}
+            transition={{ duration: 1 }}
+          />
+        </Box>
+        {/* טקסט מימין */}
+        <Box
+         sx={{
+           width: "40%",
+           padding: 4,
+           margin: 4,
+           direction: "rtl",
+           textAlign: "right",
+         }}
+       >
+         <p style={{ color: "#292525ff", fontSize: "25px" }}>
+           רוצים לדבר אנגלית בביטחון? LingoFlow מציעה דרך חדשנית ללמוד אנגלית
+           באמצעות הקלטות ומשוב חכם...
+         </p>
+         <p style={{ color: "#292525ff", fontSize: "15px" }}>
+           הקליטו את עצמכם, קבלו משוב מיידי מבוסס AI, ושפרו את הדיבור שלכם בקצב
+           אישי - בלי מורים, בלי לחץ, רק התקדמות אמיתית שאתם יכולים לראות
+           ולשמוע.
+         </p>
+       </Box>
+     </Box>
 
       {/* Why LingoFlow Section */}
       <Box
@@ -268,38 +331,50 @@ const Home = () => {
           py: 8,
           px: 4,
           // background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          direction: "rtl"
+          direction: "rtl",
         }}
       >
-        //אנימציה של הכטיסים
+        {/* //אנימציה של הכטיסים */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          
         >
           <Typography
-            variant="h3"  dir="rtl"
+            variant="h3"
+            dir="rtl"
             sx={{
               textAlign: "center",
-              color: "white",
+              color:"#4d4c4cff",
               fontWeight: "bold",
               mb: 6,
               textShadow: "0 4px 8px rgba(0,0,0,0.3)",
-              background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
             }}
           >
             למה דווקא LingoFlow?
           </Typography>
-          
+
           <Box
+            // sx={{
+            //   display: "grid",
+            //   gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+            //   gap: 4,
+            //   maxWidth: "1200px",
+            //   mx: "auto"
+            // }}
             sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
-              gap: 4,
-              maxWidth: "1200px",
-              mx: "auto"
+              backgroundColor: "#FFC0CB", // ורוד
+              borderRadius: "50%", // עיגול מושלם
+              width: 100,
+              height: 100,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "1.5rem",
+              color: "white",
+              fontWeight: "bold",
+              mx: "auto",
             }}
           >
             {whyLingoFlowFeatures.map((feature, index) => (
@@ -314,7 +389,9 @@ const Home = () => {
                 <Card
                   sx={{
                     height: "100%",
-                    background: "rgba(255, 255, 255, 0.1)",
+                    // background: "rgba(255, 255, 255, 0.1)",
+                    background:
+                      "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
                     backdropFilter: "blur(10px)",
                     border: "1px solid rgba(255, 255, 255, 0.2)",
                     borderRadius: "20px",
@@ -322,8 +399,8 @@ const Home = () => {
                     "&:hover": {
                       background: "rgba(255, 255, 255, 0.2)",
                       transform: "translateY(-10px)",
-                      boxShadow: "0 20px 40px rgba(0,0,0,0.2)"
-                    }
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                    },
                   }}
                 >
                   <CardContent sx={{ textAlign: "center", p: 4 }}>
@@ -338,7 +415,7 @@ const Home = () => {
                         width: "80px",
                         height: "80px",
                         alignItems: "center",
-                        mx: "auto"
+                        mx: "auto",
                       }}
                     >
                       {feature.icon}
@@ -349,7 +426,7 @@ const Home = () => {
                         color: "white",
                         fontWeight: "bold",
                         mb: 2,
-                        textShadow: "0 2px 4px rgba(0,0,0,0.3)"
+                        textShadow: "0 2px 4px rgba(0,0,0,0.3)",
                       }}
                     >
                       {feature.title}
@@ -358,7 +435,7 @@ const Home = () => {
                       sx={{
                         color: "rgba(255, 255, 255, 0.9)",
                         lineHeight: 1.6,
-                        fontSize: "1.1rem"
+                        fontSize: "1.1rem",
                       }}
                     >
                       {feature.description}
@@ -377,7 +454,7 @@ const Home = () => {
           py: 8,
           px: 4,
           // background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-          direction: "rtl"
+          direction: "rtl",
         }}
       >
         <motion.div
@@ -393,31 +470,31 @@ const Home = () => {
               color: "white",
               fontWeight: "bold",
               mb: 2,
-              textShadow: "0 4px 8px rgba(0,0,0,0.3)"
+              textShadow: "0 4px 8px rgba(0,0,0,0.3)",
             }}
           >
             מנוסות ממליצות...
           </Typography>
-          
+
           <Typography
             variant="h6"
             sx={{
               textAlign: "center",
               color: "rgba(255, 255, 255, 0.9)",
               mb: 6,
-              fontStyle: "italic"
+              fontStyle: "italic",
             }}
           >
             מה לומדים אחרים אומרים על LingoFlow
           </Typography>
-          
+
           <Box
             sx={{
               display: "grid",
               gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
               gap: 4,
               maxWidth: "1200px",
-              mx: "auto"
+              mx: "auto",
             }}
           >
             {testimonials.map((testimonial, index) => (
@@ -432,15 +509,15 @@ const Home = () => {
                 <Card
                   sx={{
                     height: "100%",
-                    background: "rgba(106, 178, 236, 0.95)",
+                    background: "rgba(135, 190, 234, 0.95)",
                     borderRadius: "20px",
                     position: "relative",
                     overflow: "visible",
                     transition: "all 0.3s ease",
                     "&:hover": {
                       transform: "translateY(-10px)",
-                      boxShadow: "0 20px 40px rgba(0,0,0,0.2)"
-                    }
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                    },
                   }}
                 >
                   <Box
@@ -451,12 +528,12 @@ const Home = () => {
                       background: "linear-gradient(45deg, #f093fb, #f5576c)",
                       borderRadius: "50%",
                       p: 2,
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     <Quote className="w-6 h-6" />
                   </Box>
-                  
+
                   <CardContent sx={{ p: 4, pt: 5 }}>
                     <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                       <Avatar
@@ -470,10 +547,7 @@ const Home = () => {
                         >
                           {testimonial.name}
                         </Typography>
-                        <Typography
-                          variant="body2"
-                          sx={{ color: "#7f8c8d" }}
-                        >
+                        <Typography variant="body2" sx={{ color: "#7f8c8d" }}>
                           {testimonial.role}
                         </Typography>
                       </Box>
@@ -489,13 +563,13 @@ const Home = () => {
                         // }
                       }}
                     /> */}
-                    
+
                     <Typography
                       sx={{
                         color: "#34495e",
                         lineHeight: 1.6,
                         fontStyle: "italic",
-                        fontSize: "1.1rem"
+                        fontSize: "1.1rem",
                       }}
                     >
                       "{testimonial.text}"
