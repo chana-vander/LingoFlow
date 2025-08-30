@@ -112,32 +112,36 @@
 
 
 
-import { Box, Typography, Card, CardContent, Avatar, Rating } from "@mui/material";
+import { Box, Typography, Card, CardContent, Avatar } from "@mui/material";
 import { motion } from "framer-motion";
-import {  Mic, TrendingUp, Users, Quote } from "lucide-react";
+import { Quote } from "lucide-react";
+import { FaMicrophoneAlt } from "react-icons/fa";
+import { MdPsychology } from "react-icons/md";
+import { BarChart3 } from "lucide-react";
+
 import st1 from "../images/student1.png"
 import st2 from "../images/student2.png"
 import st3 from "../images/student3.png"
+import homeImage from "../images/home.jpg"
 // import st4 from "../images/student4.png"
 // Mock image - replace with your actual image
-const homeImage = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
 
 const Home = () => {
   const whyLingoFlowFeatures = [
     {
-      icon: <Mic className="w-8 h-8" />,
-      title: "טכנולוגיית AI מתקדמת",
-      description: "משוב מיידי ומדויק על הגייה, דקדוק ורהיטות בדיבור"
+      icon: <FaMicrophoneAlt className="w-8 h-8" />,
+      title: "לדבר כמו במציאות",
+      description: "תרגול שיחות אמיתיות שמרגיש טבעי ונוח."
     },
     {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: "התקדמות מדידה",
-      description: "מעקב אחר השיפור שלכם עם מדדים ברורים וגרפים מפורטים"
+      icon: <MdPsychology className="w-8 h-8" />,
+      title: "משוב חכם ומיידי",
+      description: "האפליקציה מנתחת את הדיבור שלך ונותנת הערות לשיפור תוך כדי תרגול."
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: "למידה אישית",
-      description: "התאמה אישית לקצב שלכם ולרמת האנגלית שלכם"
+      icon: <BarChart3 className="w-8 h-8" />,
+      title: "מעקב שמראה  תוצאות",
+      description: "תוכלי לראות בכל רגע איך השתפרת דרך ההקלטות והמשובים האישיים מהתרגולים הקודמים."
     }
   ];
 
@@ -167,6 +171,7 @@ const Home = () => {
   return (
     <>
       {/* Hero Section */}
+      // כל התוכן העליון כולל תמונה וכיתוב מימין
       <Box
         className="home-container"
         sx={{
@@ -226,22 +231,7 @@ const Home = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
           style={{ width: "40%", padding: "2rem", margin: "2rem", direction: "rtl", textAlign: "right", zIndex: 2, position: "relative" }}
-        >
-          <Typography
-            variant="h2"
-            sx={{
-              background: "linear-gradient(45deg, #d32f2f, #3f51b5)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-              fontWeight: "bold",
-              mb: 3,
-              fontSize: { xs: "2rem", md: "3rem" }
-            }}
-          >
-            LingoFlow
-          </Typography>
-          
+        > 
           <Typography
             sx={{
               color: "#2c3e50",
@@ -277,24 +267,27 @@ const Home = () => {
         sx={{
           py: 8,
           px: 4,
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          // background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           direction: "rtl"
         }}
       >
+        //אנימציה של הכטיסים
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
+          
         >
           <Typography
-            variant="h3"
+            variant="h3"  dir="rtl"
             sx={{
               textAlign: "center",
               color: "white",
               fontWeight: "bold",
               mb: 6,
-              textShadow: "0 4px 8px rgba(0,0,0,0.3)"
+              textShadow: "0 4px 8px rgba(0,0,0,0.3)",
+              background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
             }}
           >
             למה דווקא LingoFlow?
@@ -383,7 +376,7 @@ const Home = () => {
         sx={{
           py: 8,
           px: 4,
-          background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+          // background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
           direction: "rtl"
         }}
       >
@@ -403,7 +396,7 @@ const Home = () => {
               textShadow: "0 4px 8px rgba(0,0,0,0.3)"
             }}
           >
-            מנוסות ממליצות
+            מנוסות ממליצות...
           </Typography>
           
           <Typography
@@ -439,7 +432,7 @@ const Home = () => {
                 <Card
                   sx={{
                     height: "100%",
-                    background: "rgba(255, 255, 255, 0.95)",
+                    background: "rgba(106, 178, 236, 0.95)",
                     borderRadius: "20px",
                     position: "relative",
                     overflow: "visible",
@@ -485,17 +478,17 @@ const Home = () => {
                         </Typography>
                       </Box>
                     </Box>
-                    
+                    {/* //הכוכבים
                     <Rating
                       value={testimonial.rating}
                       readOnly
                       sx={{
                         mb: 2,
-                        "& .MuiRating-iconFilled": {
-                          color: "#ffd700"
-                        }
+                        // "& .MuiRating-iconFilled": {
+                        //   color: "#ffd700"
+                        // }
                       }}
-                    />
+                    /> */}
                     
                     <Typography
                       sx={{
