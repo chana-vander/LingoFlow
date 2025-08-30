@@ -242,12 +242,13 @@ const Home = () => {
           <Typography
             variant="h3"
             dir="rtl"
+            padding="20px"
             sx={{
               textAlign: "center",
               color:colors.gray,
               fontWeight: "bold",
               mb: 6,
-              textShadow: "0 4px 8px rgba(0,0,0,0.3)",
+              textShadow: colors.blue,
             }}
           >
             למה דווקא LingoFlow?
@@ -256,6 +257,7 @@ const Home = () => {
           <Box
             sx={{
               display: "grid",
+              direction: "rtl",
               gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
               gap: 4,
               maxWidth: "1200px",
@@ -274,18 +276,23 @@ const Home = () => {
               >
                 <Card
                   sx={{
-                    height: "100%",
+                    aspectRatio: "1 / 1", // גורם לכרטיס להיות ריבועי תמיד
+                    // height: "100%",
+                    width: "30%",
+                    direction: "rtl",
                     // background: "rgba(255, 255, 255, 0.1)",
                     background:
                       "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
                     backdropFilter: "blur(10px)",
                     border: "1px solid rgba(255, 255, 255, 0.2)",
-                    borderRadius: "20px",
+                    borderRadius: "50%",//
                     transition: "all 0.3s ease",
                     "&:hover": {
-                      background: "rgba(255, 255, 255, 0.2)",
+                      // background: "rgba(255, 255, 255, 0.2)",
                       transform: "translateY(-10px)",
                       boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                      // אפשר להוסיף lightening effect מבלי לשנות את הצבע
+                      filter: "brightness(1.1)",
                     },
                   }}
                 >
@@ -295,11 +302,11 @@ const Home = () => {
                         display: "flex",
                         justifyContent: "center",
                         mb: 3,
-                        color: "#ffd700",
-                        background: "rgba(255, 215, 0, 0.1)",
+                        // color: "#ffd700",
+                        // background: "rgba(255, 215, 0, 0.1)",
                         borderRadius: "50%",
-                        width: "80px",
-                        height: "80px",
+                        width: "120px",
+                        height: "120px",
                         alignItems: "center",
                         mx: "auto",
                       }}
@@ -414,7 +421,7 @@ const Home = () => {
                       background: "linear-gradient(45deg, #f093fb, #f5576c)",
                       borderRadius: "50%",
                       p: 2,
-                      color: "white",
+                      // color: "white",
                     }}
                   >
                     <Quote className="w-6 h-6" />
