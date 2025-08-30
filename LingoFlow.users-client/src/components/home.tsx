@@ -42,30 +42,30 @@
 
 // export default Home;
 
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Box, Alert } from "@mui/material";
+// import { useNavigate } from "react-router-dom";
+// import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
 import { motion } from "framer-motion";
 import homeImage from "../images/home.jpg";
 import StepsSection from "./step";
 const Home = () => {
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [message, setMessage] = useState("");
+  // const navigate = useNavigate();
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    setIsLoggedIn(!!user);
-  }, []);
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user");
+  //   setIsLoggedIn(!!user);
+  // }, []);
 
-  const handleProtectedClick = (path: string) => {
-    if (isLoggedIn) {
-      navigate(path);
-    } else {
-      setMessage("עליך להתחבר כדי לגשת לאזור זה.");
-      setTimeout(() => setMessage(""), 3000);
-    }
-  };
+  // const handleProtectedClick = (path: string) => {
+  //   if (isLoggedIn) {
+  //     navigate(path);
+  //   } else {
+  //     setMessage("עליך להתחבר כדי לגשת לאזור זה.");
+  //     setTimeout(() => setMessage(""), 3000);
+  //   }
+  // };
 
   return (
     <>
@@ -120,7 +120,7 @@ const Home = () => {
             ולשמוע.
           </p>
         </Box>
-        {message && (
+        {/* {message && (
           <Alert
             severity="warning"
             sx={{
@@ -132,9 +132,9 @@ const Home = () => {
           >
             {message}
           </Alert>
-        )}
+        )} */}
       </Box>
-       <button onClick ={() =>handleProtectedClick("ff")}>לחץ</button>
+       {/* <button onClick ={() =>handleProtectedClick("ff")}>לחץ</button> */}
       <StepsSection />
     </>
   );

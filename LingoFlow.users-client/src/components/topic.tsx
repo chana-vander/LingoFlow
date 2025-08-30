@@ -1,55 +1,5 @@
-// import { useEffect, useState } from 'react';
-// import { Button, Card, CardContent, Typography } from '@mui/material';
-// import { useNavigate, useParams } from 'react-router-dom'; // לניהול ניווט בעזרת React Router
+//topic.tsx 
 
-// type Topic = {
-//   id: number;
-//   name: string;
-// };
-
-// const TopicsList = () => {
-
-//   const [topics, setTopics] = useState<Topic[]>([]);
-//   const navigate = useNavigate(); // מאפשר לנו לנווט בין המסכים
-//   const { level } = useParams(); // 👈 שליפת מהנתיב
-
-//   useEffect(() => {
-//     // דמוי קריאה ל-API כדי להוריד את נושאי השיחה
-//     fetch(`http://localhost:5092/api/Topic/level/${level}`) // כתובת ה-API שמחזירה את נושאי השיחה
-//       .then(response => response.json())
-//       .then(data => setTopics(data))
-//       .catch(error => console.error('Error fetching topics:', error));
-//   }, []);
-
-//   const handleNavigateToTopic = (topicId: number) => {
-//     // ניווט לעמוד של נושא השיחה
-//     navigate(`/topics/${topicId}`);
-//   };
-
-//   return (
-//     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-//       {topics.map(topic => (
-//         <Card key={topic.id} sx={{ maxWidth: 345 }}>
-//           <CardContent>
-//             <Typography variant="h6" gutterBottom>
-//               {topic.name}
-//             </Typography>
-//             <Button
-//               variant="contained"
-//               color="primary"
-//               onClick={() => handleNavigateToTopic(topic.id)}
-//             >
-//               עמוד נושא
-//             </Button>
-//           </CardContent>
-//         </Card>
-//       ))}
-
-//     </div>
-//   );
-// };
-
-// export default TopicsList;
 import config from "../config";
 import { useEffect, useState } from "react";
 import { Button, Card, CardContent, Typography, Box } from "@mui/material";

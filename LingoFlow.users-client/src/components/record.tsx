@@ -191,8 +191,7 @@
 
 // export default UploadRecording;
 
-"use client"
-
+//AudioRecorder.tsx
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { observer } from "mobx-react-lite"
@@ -204,9 +203,7 @@ import {  useNavigate } from "react-router-dom"
 import { Mic, Square, X, Play, Pause, Upload, Download, Share2, RefreshCw } from "lucide-react"
 import '../style/record.css'
 import { Record } from "../models/record";
-// import { feedbackStore } from "../stores/feedbackStore"
 import { toJS } from "mobx"
-// import { transaction } from "mobx"
 
 const AudioRecorder: React.FC = observer(() => {
   // User ID from store
@@ -268,24 +265,6 @@ const AudioRecorder: React.FC = observer(() => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
 
-  // Fetch topics from API
-  // const fetchTopics = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:5092/api/Topic")
-  //     if (response.ok) {
-  //       const data = await response.json()
-  //       setTopics(data)
-  //       if (data.length > 0) {
-  //         setSelectedTopic(data[0].id)
-  //       }
-  //     } else {
-  //       console.error("Failed to fetch topics")
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching topics:", error)
-  //   }
-  // }
-  // const fetchTopics = topicStore.fetchTopics;
   // Start recording
   const startRecording = async () => {
     if (!userId) {
@@ -402,40 +381,8 @@ const AudioRecorder: React.FC = observer(() => {
     setUploadProgress(0)
     showNotification("מוכן להקלטה חדשה", "info")
   }
+
   const uniqueFileName = `${userId}/${recordingName}-${new Date().toISOString()}.mp3`
-  // const DownloadUrl =recordStore.getDownloadUrl(recordingName);
-  // Get presigned URL for S3 upload
-  // const getPresignedUrl = async () => {
-  //   if (!userId || !recordingName || !selectedTopic) {
-  //     showNotification("חסרים פרטים: שם הקלטה או נושא", "error")
-  //     return
-  //   }
-
-  //   // const uniqueFileName = `${userId}/${recordingName}-${new Date().toISOString()}.mp3`
-
-  //   try {
-  //     const response = await fetch(`http://localhost:5092/api/upload/presigned-url?fileName=${uniqueFileName}`)
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to fetch presigned URL")
-  //     }
-
-  //     const data = await response.json()
-  //     console.log("data.url: ", data.url);
-
-  //     if (data.url) {
-  //       setPresignedUrl(data.url)
-  //       showNotification("מוכן להעלאה", "success")
-  //       return data.url
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching presigned URL:", error)
-  //     showNotification("שגיאה בהבאת ה-URL המוסמך", "error")
-  //   }
-
-  //   return null
-  // }
-
 
   // Upload file to S3
   const uploadFileToS3 = async () => {
@@ -511,57 +458,7 @@ const AudioRecorder: React.FC = observer(() => {
     await recordStore.saveAndStoreRecording(record);
     console.log(toJS(recordStore.recording));
   }
-  //בדיקה האם התמלול עובד-אחכ למחוק מפה
-  // const r = recordStore.recording;
-  // // console.log("r ", r);
-  // if (r?.id !== undefined) {
-  //   console.log("r.id is undefined", r.id);
-  //   const transcription = feedbackStore.transcribeFromUrl(r.url, r.id);
-  //   console.log(transcription);
-  //   if (selectedTopic) {
-  //     const feed = feedbackStore.analyzeTranscription(r.url, selectedTopic, r.id);
-  //     console.log("feed: ", feed);
-  //   }
-  //   //בדיקה האם המשוב עובד-אחכ למחוק מפה
-  // }
-
-  // Save record to database
-  // const saveRecordToDatabase = async (DownloadUrl: string) => {
-  //   if (!userId || !selectedTopic || !recordingName) {
-  //     // showNotification("חסרים פרטים לשמירה במסד הנתונים", "error")
-  //     return
-  //   }
-
-  //   const record: Record = {
-  //     userId: userId,
-  //     topicId: selectedTopic,
-  //     name: recordingName,
-  //     length: formatTime(duration),
-  //     // url: url,
-  //     url: DownloadUrl,
-  //     // url: uniqueFileName,
-  //     date: new Date(),
-  //   }
-
-  //   try {
-  //     const response = await fetch("http://localhost:5092/api/Conversation", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(record),
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to save record to database")
-  //     }
-
-  //     showNotification("פרטי ההקלטה נשמרו במסד הנתונים", "success")
-  //   } catch (error) {
-  //     console.error("Error saving record to database:", error)
-  //     showNotification("שגיאה בשמירת פרטי ההקלטה", "error")
-  //   }
-  // }
+  
   // Download recording
   const downloadRecording = () => {
     if (!audioURL) return
@@ -652,26 +549,7 @@ const AudioRecorder: React.FC = observer(() => {
               />
             </div>
 
-            {/* <div className="form-group">
-            <label htmlFor="topic-select">נושא ההקלטה:</label>
-            <select
-              id="topic-select"
-              value={selectedTopic || ""}
-              // onChange={(e) => setSelectedTopic(Number(e.target.value))}
-              onChange={(e) => topics(Number(e.target.value))}
-              disabled={isRecording}
-              className="select-field"
-            >
-              <option value="" disabled>
-                בחר נושא
-              </option>
-              {topics.map((topic:any) => (
-                <option key={topic.id} value={topic.id}>
-                  {topic.name}
-                </option>
-              ))}
-            </select>
-          </div> */}
+           // בחירת נושא להקלטה
             <div className="form-group">
               <label htmlFor="topic-select">נושא ההקלטה:</label>
               <select
@@ -818,8 +696,6 @@ const AudioRecorder: React.FC = observer(() => {
         {audioBlob && audioURL && (
           <AudioTranscriber fileUrl={audioURL} />
         )}
-
-
       </div>
     </>
   )

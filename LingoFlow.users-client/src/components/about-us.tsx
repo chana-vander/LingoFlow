@@ -61,12 +61,6 @@ const StepNumber = styled(Box)`
   font-weight: bold;
 `;
 
-// const StepTitle = styled(Typography)`
-//   font-weight: bold;
-//   color: #1976d2;
-//   margin-bottom: 0.5rem;
-// `;
-
 const StepDescription = styled(Typography)`
   color: #444;
   line-height: 1.6;
