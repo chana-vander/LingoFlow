@@ -121,8 +121,7 @@ import st1 from "../images/student1.png";
 import st2 from "../images/student2.png";
 import st3 from "../images/student3.png";
 import homeImage from "../images/home.jpg";
-// import st4 from "../images/student4.png"
-// Mock image - replace with your actual image
+import colors from "./colors";
 
 const Home = () => {
   const whyLingoFlowFeatures = [
@@ -171,107 +170,7 @@ const Home = () => {
 
   return (
     <>
-      {/* Hero Section */}
       {/* // כל התוכן העליון כולל תמונה וכיתוב מימין */}
-      {/* <Box
-        className="home-container"
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          color: "white",
-          overflow: "hidden",
-          height: "100vh",
-          width: "100vw",
-          padding: 0,
-          margin: 0,
-          position: "relative",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background:
-              "linear-gradient(135deg, rgba(211, 47, 47, 0.1) 0%, rgba(63, 81, 181, 0.1) 100%)",
-            zIndex: 1,
-          },
-        }}
-      > */}
-        {/* תמונה משמאל */}
-        {/* <Box sx={{ width: "60%", height: "100%", position: "relative" }}>
-          <motion.img
-            src={homeImage}
-            alt="LingoFlow Home"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-            initial={{ opacity: 0, scale: 1 }}
-            animate={{ opacity: 1, scale: 1.05 }}
-            transition={{ duration: 1.5 }}
-          />
-          <Box */}
-            {/* sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background:
-                "linear-gradient(45deg, rgba(0,0,0,0.3), rgba(211, 47, 47, 0.2))",
-            }}
-          />
-        </Box> */}
-
-        {/* טקסט מימין */}
-        {/* <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          style={{
-            width: "40%",
-            padding: "2rem",
-            margin: "2rem",
-            direction: "rtl",
-            textAlign: "right",
-            zIndex: 2,
-            position: "relative",
-          }}
-        >
-          <Typography
-            sx={{
-              color: "#2c3e50",
-              fontSize: { xs: "1.2rem", md: "1.5rem" },
-              lineHeight: 1.6,
-              mb: 3,
-              fontWeight: "500",
-              textShadow: "0 2px 4px rgba(0,0,0,0.1)",
-            }}
-          >
-            רוצים לדבר אנגלית בביטחון? LingoFlow מציעה דרך חדשנית ללמוד אנגלית
-            באמצעות הקלטות ומשוב חכם מבוסס AI.
-          </Typography>
-
-          <Typography
-            sx={{
-              color: "#34495e",
-              fontSize: { xs: "1.1rem", md: "1.3rem" },
-              lineHeight: 1.6,
-              fontWeight: "400",
-              textShadow: "0 1px 3px rgba(0,0,0,0.1)",
-            }}
-          >
-            הקליטו את עצמכם, קבלו משוב מיידי מבוסס AI, ושפרו את הדיבור שלכם בקצב
-            אישי - בלי מורים, בלי לחץ, רק התקדמות אמיתית שאתם יכולים לראות
-            ולשמוע.
-          </Typography>
-        </motion.div>
-      </Box> */}
       <Box
         className="home-container"
         sx={{
@@ -330,7 +229,6 @@ const Home = () => {
         sx={{
           py: 8,
           px: 4,
-          // background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           direction: "rtl",
         }}
       >
@@ -346,7 +244,7 @@ const Home = () => {
             dir="rtl"
             sx={{
               textAlign: "center",
-              color:"#4d4c4cff",
+              color:"colors.gray",
               fontWeight: "bold",
               mb: 6,
               textShadow: "0 4px 8px rgba(0,0,0,0.3)",
@@ -358,7 +256,6 @@ const Home = () => {
           <Box
             sx={{
               display: "grid",
-              backgroundColor: "#FFC0CB", // ורוד
               gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
               gap: 4,
               maxWidth: "1200px",
@@ -456,20 +353,20 @@ const Home = () => {
             variant="h3"
             sx={{
               textAlign: "center",
-              color: "white",
+              color: "colors.blue",
               fontWeight: "bold",
               mb: 2,
               textShadow: "0 4px 8px rgba(0,0,0,0.3)",
             }}
           >
-            מנוסות ממליצות...
+           מנוסות ממליצות...
           </Typography>
 
           <Typography
             variant="h6"
             sx={{
               textAlign: "center",
-              color: "rgba(53, 51, 51, 0.9)",
+              color: "rgba(30, 12, 91, 0.9)",
               mb: 6,
               fontStyle: "italic",
             }}
