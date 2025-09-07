@@ -265,46 +265,113 @@ const AudioRecorder: React.FC = observer(() => {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
 
+  // // Start recording
+  // const startRecording = async () => {
+  //   if (!userId) {
+  //     showNotification("לא נמצא מזהה משתמש!", "error")
+  //     return
+  //   }
+
+  //   try {
+  //     chunksRef.current = []
+
+  //     const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+  //     streamRef.current = stream
+  //     mediaRecorderRef.current = new MediaRecorder(stream)
+
+  //     mediaRecorderRef.current.ondataavailable = (e) => {
+  //       chunksRef.current.push(e.data)
+  //     }
+
+  //     mediaRecorderRef.current.onstop = () => {
+  //       const audioBlob = new Blob(chunksRef.current, { type: "audio/mp3" })
+  //       setAudioBlob(audioBlob)
+  //       const audioURL = URL.createObjectURL(audioBlob)
+  //       setAudioURL(audioURL)
+  //     }
+
+  //     mediaRecorderRef.current.start()
+  //     setIsRecording(true)
+  //     setIsPaused(false)
+  //     setDuration(0)
+
+  //     timerRef.current = setInterval(() => {
+  //       setDuration((prev) => prev + 1)
+  //     }, 1000)
+
+  //     showNotification("ההקלטה התחילה", "success")
+  //   } catch (error) {
+  //     console.error("Error starting recording:", error)
+  //     showNotification("שגיאה בהתחלת ההקלטה", "error")
+  //   }
+  // }
   // Start recording
   const startRecording = async () => {
-    if (!userId) {
-      showNotification("לא נמצא מזהה משתמש!", "error")
-      return
+  try {
+    // בקשה לקבלת מיקרופון
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    console.log("✅ Got media stream:", stream)
+    console.log("Tracks:", stream.getTracks())
+
+    // יצירת MediaRecorder עם פורמט נתמך
+    const options = { mimeType: "audio/webm" }
+    const mediaRecorder = new MediaRecorder(stream, options)
+    mediaRecorderRef.current = mediaRecorder
+
+    // איסוף הנתונים בזמן אמת
+    chunksRef.current = []
+    mediaRecorder.ondataavailable = (e) => {
+      console.log("🟢 Data available:", e.data.size, "bytes")
+      if (e.data.size > 0) chunksRef.current.push(e.data)
     }
 
-    try {
-      chunksRef.current = []
+    // אירועים נוספים למעקב
+    mediaRecorder.onstart = () => console.log("🎬 Recording started")
+    mediaRecorder.onstop = () => console.log("⏹ Recording stopped")
+    mediaRecorder.onerror = (e) => console.error("❌ MediaRecorder error:", e)
 
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      streamRef.current = stream
-      mediaRecorderRef.current = new MediaRecorder(stream)
+    // התחלת הקלטה
+    mediaRecorder.start()
+    console.log("🔴 MediaRecorder state:", mediaRecorder.state)
 
-      mediaRecorderRef.current.ondataavailable = (e) => {
-        chunksRef.current.push(e.data)
-      }
-
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(chunksRef.current, { type: "audio/mp3" })
-        setAudioBlob(audioBlob)
-        const audioURL = URL.createObjectURL(audioBlob)
-        setAudioURL(audioURL)
-      }
-
-      mediaRecorderRef.current.start()
-      setIsRecording(true)
-      setIsPaused(false)
-      setDuration(0)
-
-      timerRef.current = setInterval(() => {
-        setDuration((prev) => prev + 1)
-      }, 1000)
-
-      showNotification("ההקלטה התחילה", "success")
-    } catch (error) {
-      console.error("Error starting recording:", error)
-      showNotification("שגיאה בהתחלת ההקלטה", "error")
-    }
+    // אופציונלי: בדיקה של מכשירים זמינים
+    const devices = await navigator.mediaDevices.enumerateDevices()
+    console.log("Available devices:", devices)
+  } catch (err) {
+    console.error("⚠️ Error accessing microphone:", err)
   }
+}
+
+// פונקציה לעצירת ההקלטה והמרתה ל-Blob
+const stopRecording = () => {
+  const mediaRecorder = mediaRecorderRef.current
+  if (!mediaRecorder) return
+
+  mediaRecorder.stop()
+  const audioBlob = new Blob(chunksRef.current, { type: "audio/webm" })
+  console.log("🎵 Audio Blob created:", audioBlob)
+
+  // אפשר לשים את ה-Blob ב-URL כדי לבדוק
+  const audioURL = URL.createObjectURL(audioBlob)
+  console.log("🔗 Audio URL:", audioURL)
+  return audioURL
+}
+
+// כאן
+const testStream = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    console.log("Stream tracks:", stream.getTracks());
+    // בדיקה אם כל track פעיל
+    stream.getTracks().forEach(track => {
+      console.log(track.kind, track.enabled, track.readyState);
+    });
+    stream.getTracks().forEach(t => t.stop());
+  } catch (err) {
+    console.error("Error accessing mic:", err);
+  }
+}
+testStream();
 
   // Pause recording
   const pauseRecording = () => {
@@ -330,24 +397,24 @@ const AudioRecorder: React.FC = observer(() => {
     }
   }
 
-  // Stop recording
-  const stopRecording = () => {
-    if (
-      mediaRecorderRef.current &&
-      (mediaRecorderRef.current.state === "recording" || mediaRecorderRef.current.state === "paused")
-    ) {
-      mediaRecorderRef.current.stop()
-      if (timerRef.current) {
-        clearInterval(timerRef.current)
-      }
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop())
-      }
-      setIsRecording(false)
-      setIsPaused(false)
-      showNotification("ההקלטה הסתיימה", "success")
-    }
-  }
+  // // Stop recording
+  // const stopRecording = () => {
+  //   if (
+  //     mediaRecorderRef.current &&
+  //     (mediaRecorderRef.current.state === "recording" || mediaRecorderRef.current.state === "paused")
+  //   ) {
+  //     mediaRecorderRef.current.stop()
+  //     if (timerRef.current) {
+  //       clearInterval(timerRef.current)
+  //     }
+  //     if (streamRef.current) {
+  //       streamRef.current.getTracks().forEach((track) => track.stop())
+  //     }
+  //     setIsRecording(false)
+  //     setIsPaused(false)
+  //     showNotification("ההקלטה הסתיימה", "success")
+  //   }
+  // }
 
   // Cancel recording
   const cancelRecording = () => {
@@ -549,7 +616,7 @@ const AudioRecorder: React.FC = observer(() => {
               />
             </div>
 
-           // בחירת נושא להקלטה
+           {/* // בחירת נושא להקלטה */}
             <div className="form-group">
               <label htmlFor="topic-select">נושא ההקלטה:</label>
               <select

@@ -119,7 +119,7 @@ import { BarChart3 } from "lucide-react";
 
 import st1 from "../images/student1.png";
 import st2 from "../images/student2.png";
-import st3 from "../images/student3.png";
+import st3 from "../images/student2.png";
 import homeImage from "../images/home.jpg";
 import { colors } from "./colors";
 
@@ -225,15 +225,15 @@ const Home = () => {
      </Box>
 
       {/* Why LingoFlow Section */}
-      <Box
+      {/* <Box
         sx={{
           py: 8,
           px: 4,
           direction: "rtl",
         }}
-      >
+      > */}
         {/* //אנימציה של הכטיסים */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -339,7 +339,116 @@ const Home = () => {
             ))}
           </Box>
         </motion.div>
-      </Box>
+      </Box> */}
+{/* Why LingoFlow Section */}
+<Box
+  sx={{
+    py: 8,
+    px: 4,
+    direction: "rtl",
+  }}
+>
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    viewport={{ once: true }}
+  >
+    <Typography
+      variant="h3"
+      dir="rtl"
+      padding="20px"
+      sx={{
+        textAlign: "center",
+        color: colors.gray,
+        fontWeight: "bold",
+        mb: 6,
+        textShadow: colors.blue,
+      }}
+    >
+      למה דווקא LingoFlow?
+    </Typography>
+
+    <Box
+      sx={{
+        display: "grid",
+        direction: "rtl",
+        gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+        gap: 4,
+        maxWidth: "1200px",
+        mx: "auto",
+      }}
+    >
+      {whyLingoFlowFeatures.map((feature, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: index * 0.2 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.05 }}
+        >
+          <Card
+            sx={{
+              width: { xs: "70vw", sm: "45vw", md: "250px" }, // ריספונסיבי
+              aspectRatio: "1 / 1",
+              direction: "rtl",
+              background:
+                "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              borderRadius: "50%",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "translateY(-10px)",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                filter: "brightness(1.1)",
+              },
+              mx: "auto",
+            }}
+          >
+            <CardContent sx={{ textAlign: "center", p: 4 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 3,
+                  borderRadius: "50%",
+                  width: { xs: "50%", md: "60%" }, // אחוז מתוך הכרטיס
+                  height: { xs: "50%", md: "60%" },
+                  alignItems: "center",
+                  mx: "auto",
+                }}
+              >
+                {feature.icon}
+              </Box>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  mb: 2,
+                  textShadow: "0 2px 4px rgba(0,0,0,0.3)",
+                }}
+              >
+                {feature.title}
+              </Typography>
+              <Typography
+                sx={{
+                  color: "rgba(255, 255, 255, 0.9)",
+                  lineHeight: 1.6,
+                  fontSize: "1.1rem",
+                }}
+              >
+                {feature.description}
+              </Typography>
+            </CardContent>
+          </Card>
+        </motion.div>
+      ))}
+    </Box>
+  </motion.div>
+</Box>
 
       {/* Testimonials Section */}
       <Box
